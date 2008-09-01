@@ -1,8 +1,26 @@
 {
 	"Core":{
 		"Mif.Menu":{
-			"deps": ["Mif.Menu"],
+			"deps": ["Mif.Menu.Utils"],
 			"desc": "Mif.Menu control"
+		},
+		"Mif.Menu.List":{
+			"deps": [],
+			"desc": "menu list Class"
+		},
+		"Mif.Menu.Item":{
+			"deps": [],
+			"desc": "menu item Class"
+		},
+		"Mif.Menu.Utils":{
+			"deps": [],
+			"desc": "util functionality for menu"
+		}
+	},
+	"Plugins":{
+		"Mif.Menu.KeyNav":{
+			"deps": ["Mif.Menu"],
+			"desc": "KeyNav implementation"
 		}
 	}
 }
