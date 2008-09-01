@@ -1,0 +1,21 @@
+{
+	"Tree":{
+		"ContextMenu":{
+			"title": "Context menu demo"
+		},
+		"ContextMenuART":{
+			"title": "ART style context menu"
+		},
+		"Menu":{
+			"title": "Menu example"
+		},
+		"MenuART":{
+			"title": "ART style menu example"
+		}
+	},
+	"Plugins":{
+		"MenuKeyNav":{
+			"title": "KeyNav implementation demo"
+		}
+	}
+}
