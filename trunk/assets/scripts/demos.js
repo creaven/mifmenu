@@ -59,7 +59,7 @@ var Demos = {
 
 		fixes.each(function(fix) {
 			var type = (fix.get('src')) ? 'src' : 'href';
-			
+			if(fix.get(type).substring(0,7)=='http://') return;
 			if (Browser.Engine.trident && type == 'src') {
 				var split = window.location.pathname.split('/').slice(0, -1).join('/') + '/';
 				dir = fix.get(type).replace(split, split + folder +  '/');
