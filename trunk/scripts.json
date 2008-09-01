@@ -1,0 +1,8 @@
+{
+	"Core":{
+		"Mif.Menu":{
+			"deps": ["Mif.Menu"],
+			"desc": "Mif.Menu control"
+		}
+	}
+}
