@@ -132,5 +132,25 @@
 				}
 			]
 		}
+	}, {
+		container: ART.Container,
+		options: {
+			className: 'mif-menu', 
+			offsets:{x:-2, y:-5},
+			theme: new ART.Theme({
+				normal: {
+					
+					radius: 8,
+
+					overlayColor: '#fcf4cd',
+					overlayOpacity: 0.8,
+					border:1,
+					borderOpacity: 0.7,
+					borderColor: '#d0c140',
+					shadow:8
+					
+				}
+			})
+		}
 	});
 });

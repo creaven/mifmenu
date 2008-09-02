@@ -1,41 +1,25 @@
-ART.Themes.MetalMenu = new ART.Theme({
-	normal: {
-		
-		radius: 4,
-		reflection: 0,
-
-		overlayColor: '#fff',
-		overlayOpacity: 0.9,
-		borderOpacity: 0.2,
-		shadow:8
-		
-	}
-});
-
-
-Mif.Menu.List=function(container){
-
-	if(!arguments.callee.containers) {
-		arguments.callee.containers=[];
-		arguments.callee.lists=[];
-	}
-	var index=arguments.callee.containers.indexOf(container);
-	if(index!=-1) return arguments.callee.lists[index];
-
+Mif.Menu.List=function(type){
+	var types=arguments.callee.types;
+	var lists=arguments.callee.lists;
+	if(!types) {
+		types=[]; 
+		lists=[];
+	};
+	var index=types.indexOf(type);
+	if(index!=-1) return lists[index];
+	
 	var List=new Class({
 
 		Implements: [Events, Options],
 		
-		Extends: container.container,
+		Extends: type.container,
 		
 		options: $merge({
-			theme: ART.Themes.MetalMenu,
-			/*offsets: {x: -8, y:-8},*/
 			styles: {
 				'z-index': 1,
 				position: 'absolute'
 			}
-		}, container.options),
+		}, type.options),
 
 		initialize: function(options, structure){
 			this.setOptions(options);
@@ -225,8 +209,8 @@ Mif.Menu.List=function(container){
 
 	});
 	
-	arguments.callee.containers.push(container);
-	arguments.callee.lists.push(List);
+	types.push(type);
+	lists.push(List);
 
 	return  List;
 }

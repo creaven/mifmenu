@@ -5,28 +5,47 @@ Mif.Menu=new Class({
 	Implements: [Events, Options],
 	
 	options: {
-		//type: null
+		type: 'default'
 		//target
 	},
 
-	initialize: function(options, container){
+	initialize: function(options, type){
 		this.setOptions(options);
 		this.target=this.options.target ? $(this.options.target) : document;
 		this.showed=[];
 		this.visible=[];
 		this.hidden=true;
-		container=container||{};
-		container={
-			container: container.container||ART.Container,
-			options: container.options||{
-				offsets:{x:-2,y:-3},
-				className: 'mif-menu'
-			}
+		if(!type){
+			switch(this.options.type){
+				case 'ART':
+				case 'art': type={
+					container: ART.Container, 
+					options: {
+						className: 'mif-menu', 
+						offsets:{x:-2, y:-3},
+						theme: new ART.Theme({
+							normal: {
+								
+								radius: 4,
+								reflection: 0,
+
+								overlayColor: '#fff',
+								overlayOpacity: 0.9,
+								borderOpacity: 0.2,
+								shadow:8
+								
+							}
+						})
+					}
+				}; break;
+				case 'default': 
+				default: type={container: Mif.Container, options: {className: 'mif-menu', offsets:{x:-2, y:0}}};
+			};
 		};
-		if(Browser.Engine.trident){
-			//container.options.morph={duration:0};
-		}
-		this.List=new Mif.Menu.List(container);
+		if(Browser.Engine.trident && type.container==ART.Container){
+			type.options.morph={duration:0};//because vml opacity with filter opacity bug
+		};
+		this.List=Mif.Menu.List(type);
 		this.list=new this.List(this.options.list, {menu: this});
 		
 		
@@ -50,9 +69,9 @@ Mif.Menu=new Class({
 		var list=this.list;
 		document.addEvent('click',function(event){
 			if(event.rightClick) return;
-			if(list.visible) list.hide(true);
-		});
-		if(this.options.type=='contextmenu'){
+			if(list.visible) this.hide();
+		}.bind(this));
+		if(this.options.contextmenu){
 			this.target.addEvent('contextmenu', function(event){
 				if(!this.hidden){
 					this.showed.each(function(list, i){
