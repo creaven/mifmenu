@@ -9,6 +9,9 @@
 		"ContextMenuARTCustomStyle":{
 			"title": "another ART style context menu"
 		},
+		"ContextMenuCustomStyle":{
+			"title": "another style context menu"
+		},
 		"Menu":{
 			"title": "Menu example"
 		},

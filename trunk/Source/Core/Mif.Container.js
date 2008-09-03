@@ -23,6 +23,7 @@ Mif.Container=new Class({
 			b: 5,
 			l: -5
 		},
+		opacity: 1,
 		styles:{
 			position: 'relative'
 		}
@@ -42,12 +43,12 @@ Mif.Container=new Class({
 		this.shadow=new Element('div', {'class': 'mif-shadow'});
 		if(Browser.Engine.trident){
 			this.shadow.addClass('mif-shadow-ie');
-			this.shadow.style.filter="progid:DXImageTransform.Microsoft.alpha(opacity=50) progid:DXImageTransform.Microsoft.Blur(pixelradius=3)";
+			this.shadow.style.filter="progid:DXImageTransform.Microsoft.alpha(opacity="+this.options.opacity*100+") progid:DXImageTransform.Microsoft.Blur(pixelradius=3)";
 		}else{
 			var sides=['tl','tr','br','bl','l','r','t','b','c'];
 			var sideEls={};
 			sides.each(function(side){
-				el=new Element('div', {'class': 'mif-shadow-'+side})
+				el=new Element('div', {'class': 'mif-shadow-'+side}).setStyle('opacity', this.options.opacity);
 				sideEls[side]=el;
 				this.shadow.adopt(el);
 			}, this);
