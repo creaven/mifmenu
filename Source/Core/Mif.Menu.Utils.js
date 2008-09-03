@@ -15,3 +15,16 @@ Element.implement({
 	}
 	
 });
+
+if(Browser.Engine.presto){
+
+	Element.Events.extend({
+
+		contextmenu: {
+			base: 'click',
+			condition: function(event){ return event.alt;}
+		}
+		
+	});
+	
+}

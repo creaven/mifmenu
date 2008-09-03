@@ -70,6 +70,12 @@ color:#fff;
 background:url('../images/gradient.png') #3976ac;
 }
 
+.mif-menu-selected-disabled{
+cursor:default;
+background:#3976ac;
+background:url('../images/gradient.png') #3976ac;
+}
+
 .mif-menu-selected *{
 cursor:inherit;
 }

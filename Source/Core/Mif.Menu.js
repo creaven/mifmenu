@@ -88,7 +88,7 @@ Mif.Menu=new Class({
 	},
 	
 	escape: function(event){
-		if(!event.key=='esc') return;
+		if(event.key!='esc') return;
 		this.hideList();
 	},
 	

@@ -78,33 +78,17 @@ Mif.Menu.Item=new Class({
 		this.container.addClass('mif-childList');
 		var options=$merge(this.options.list, {styles: {'z-index': this.list.options.styles['z-index']+1}});
 		this.childList=new this.menu.List(options, {parentItem: this, menu: this.menu});
-		var timer;
-		var show=function(item){
-			timer=function(){
-				item.childList.show();
-				this.list.openChildList=item.childList;
-				timer=null;
-			}.delay(300, this);
-		}.bind(this);
-		this.addEvent('select', show);
-		var hide=function(item){
-			if(timer){
-				$clear(timer); 
-				return;
-			}
-			item.childList.hide();
-			this.list.openChildList=null;
-		}
-		this.addEvent('unSelect',hide.bind(this));
 	},
 	
 	select: function(){
-		this.container.addClass('mif-menu-selected');
+		var cls=this.disabled ? 'mif-menu-selected-disabled' : 'mif-menu-selected';
+		this.container.addClass(cls);
 		this.fireEvent('select',[this]);
 	},
 	
 	unselect: function(){
-		this.container.removeClass('mif-menu-selected');
+		var cls=this.disabled ? 'mif-menu-selected-disabled' : 'mif-menu-selected';
+		this.container.removeClass(cls);
 		this.fireEvent('unSelect',[this]);
 	},
 	

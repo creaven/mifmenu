@@ -80,6 +80,11 @@ color:#fff;
 background:#3976ac;
 }
 
+.mif-menu-selected-disabled{
+cursor:default;
+background:#3976ac;
+}
+
 .mif-menu-checked{
 background:url('../images/checked.gif') 0 0 no-repeat;
 }

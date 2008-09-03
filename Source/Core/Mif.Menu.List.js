@@ -46,14 +46,14 @@ Mif.Menu.List=function(type){
 		initMenu: function(){
 			this.options.items.each(function(options){
 				var item=new Mif.Menu.Item(options, {menu: this.menu, list: this});
-				this.items.push(item);
+				this.list.adopt(item.container);
+				if(!['description','separator'].contains(item.type)){
+					this.items.push(item);
+				}
 			}, this);
 		},
 		
 		drawMenu: function(){
-			this.items.each(function(item){
-				this.list.adopt(item.container);
-			}, this);
 			this.setContent(this.list).draw();
 		},
 		
@@ -128,26 +128,36 @@ Mif.Menu.List=function(type){
 		
 		initSelect: function(event){
 			var target=event.target;
-			if(!target||this.menu.closing>0) return this;
+			if(!target||this.menu.closing) return this;
 			if(target && Browser.Engine.trident){
 				if(target.scopeName=='v') return this;
 			}
 			target=$(target);
 			var item=target.getAncestorOrSelf('.mif-menu-item');
+			
 			if(!item){
 				if(this.openChildList) return this;
 				return this.unselect();
+			};
+			item=item.retrieve('item');
+			if(!this.select(item)) return;
+			if(item.childList){
+				item.timer=function(){
+					item.childList.show();
+					item.list.openChildList=item.childList;
+					item.timer=null;
+				}.delay(300);
 			}
-			this.select(item.retrieve('item'));
 		},
 		
 		select: function(item){
-			if(!item || item==this.selected || item.disabled || this.menu.closing) return;
+			if(!item || item==this.selected || this.menu.closing) return false;
 			this.unselect();
 			item.select();
 			this.show();
 			this.selectParents(item);
 			this.selected=item;
+			this.menu.selected=item;
 			return this;
 		},
 		
@@ -158,10 +168,19 @@ Mif.Menu.List=function(type){
 		},
 		
 		unselect: function(){
-			if(!this.selected) return;
-			this.selected.unselect();
+			var selected=this.selected;
+			if(!selected) return;
+			selected.unselect();
+			if(selected.timer){
+				$clear(selected.timer);
+				selected.timer=null;
+				return;
+			}
+			if(this.openChildList) this.openChildList.hide();
+			this.openChildList=null;
 			this.unselectChildren();
 			this.selected=null;
+			this.menu.selected=null;
 		},
 		
 		unselectChildren: function(){
