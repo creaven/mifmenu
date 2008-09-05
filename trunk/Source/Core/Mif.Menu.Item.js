@@ -51,16 +51,11 @@ Mif.Menu.Item=new Class({
 	},
 	
 	initClick: function(){
-		this.container.addEvent('click',this.onAction.bind(this));
 		this.container.addEvent('click',function(){
-			if(this.disabled) return;
-			if(this.menu.closing>0) return;
+			if(this.disabled||this.menu.closing) return;
 			this.menu.hide();
+			if(!this.disabled) this.fireEvent('action', [this]);
 		}.bind(this));
-	},
-	
-	onAction: function(){
-		if(!this.disabled) this.fireEvent('action', [this]);
 	},
 	
 	disable: function(){
@@ -83,13 +78,13 @@ Mif.Menu.Item=new Class({
 	select: function(){
 		var cls=this.disabled ? 'mif-menu-selected-disabled' : 'mif-menu-selected';
 		this.container.addClass(cls);
-		this.fireEvent('select',[this]);
+		this.fireEvent('select');
 	},
 	
 	unselect: function(){
 		var cls=this.disabled ? 'mif-menu-selected-disabled' : 'mif-menu-selected';
 		this.container.removeClass(cls);
-		this.fireEvent('unSelect',[this]);
+		this.fireEvent('unSelect');
 	},
 	
 	initCheckbox: function(){

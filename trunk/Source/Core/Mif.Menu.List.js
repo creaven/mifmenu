@@ -73,12 +73,20 @@ Mif.Menu.List=function(type){
 		
 		initEvents: function(){
 			this.container.addEvents({
-				'click': $lambda(false),
+				'click': this.action.bind(this),
 				'mousedown': $lambda(false),
 				'selectstart': $lambda(false),
-				'mouseover': this.initSelect.bindWithEvent(this),
-				'mouseout': this.initSelect.bindWithEvent(this)
+				'mouseover': this.initSelect.bind(this),
+				'mouseout': this.initSelect.bind(this)
 			});
+		},
+		
+		action: function(){
+			var current=this.selected;
+			if(!current||current.disabled||current.menu.closing) return false;
+			this.menu.hide();
+			current.fireEvent('action');
+			return false;
 		},
 		
 		hide: function(parents){
