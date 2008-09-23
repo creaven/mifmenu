@@ -1,17 +1,9 @@
 /*
-Mif.Container.js
-*/
-/*
-shadow imitation using box:{
-	background-color: #777;
-	box blur: 3px;
-	opacity: 0.5
-}
-
-idea - Ext.Shadow http://extjs.com
+Mif.Menu.Container
 */
 
-Mif.Container=new Class({
+
+Mif.Menu.Container=new Class({
 
 	Implements: Options,
 	
@@ -60,8 +52,8 @@ Mif.Container=new Class({
 		this.container.adopt(this.shadow, this.wrapper);
 	},
 	
-	setStyle: function(style){
-		this.container.setStyle(style);
+	setStyle: function(style, value){
+		this.container.setStyle(style, value);
 		return this;
 	},
 	

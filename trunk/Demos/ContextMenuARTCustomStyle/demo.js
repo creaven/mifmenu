@@ -1,11 +1,11 @@
 ﻿window.addEvent('domready', function(){
 	new Mif.Menu({
 		contextmenu: true,
-		type: 'art',
+		skin: 'art',
 		target: $('menu-target'),
 		list: {
-			onRadioCheck: function(item){
-				alert(item.name+' selected');
+			onRadioCheck: function(item, state){
+				if(state) alert(item.name+' selected');
 			},
 			items: [
 				{
@@ -135,7 +135,7 @@
 	}, {
 		container: ART.Container,
 		options: {
-			className: 'mif-menu', 
+			className: 'mif-menu-art', 
 			offsets:{x:-2, y:-5},
 			theme: new ART.Theme({
 				normal: {

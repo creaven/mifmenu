@@ -2,9 +2,13 @@
 	mmenu=new Mif.Menu({
 		contextmenu: true,
 		target: $('menu-target'),
+		offsets: {x:0, y:0},
+		initialize: function(){
+			new Mif.Menu.KeyNav(this);
+		},
 		list: {
-			onRadioCheck: function(item){
-				alert(item.name+' selected');
+			onRadioCheck: function(item, state){
+				if(state) alert(item.name+' selected');
 			},
 			items: [
 				{

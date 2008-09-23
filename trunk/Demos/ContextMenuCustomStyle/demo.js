@@ -3,8 +3,8 @@
 		contextmenu: true,
 		target: $('menu-target'),
 		list: {
-			onRadioCheck: function(item){
-				alert(item.name+' selected');
+			onRadioCheck: function(item, state){
+				if(state) alert(item.name+' selected');
 			},
 			items: [
 				{
@@ -132,10 +132,10 @@
 			]
 		}
 	},{
-		container: Mif.Container,
+		container: Mif.Menu.Container,
 		options:{
 			opacity:0.2,
-			className: 'mif-menu', 
+			className: 'mif-menu-default', 
 			offsets:{
 				x:-2, 
 				y:0,

@@ -16,7 +16,7 @@
 			"deps": [],
 			"desc": "util functionality for menu"
 		},
-		"Mif.Container":{
+		"Mif.Menu.Container":{
 			"deps": [],
 			"desc": "container with shadow"
 		}

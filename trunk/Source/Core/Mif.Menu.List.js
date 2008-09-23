@@ -1,25 +1,29 @@
-Mif.Menu.List=function(type){
-	var types=arguments.callee.types;
+/*
+Mif.Menu.List
+*/
+
+Mif.Menu.List=function(skin){
+	var skins=arguments.callee.skins;
 	var lists=arguments.callee.lists;
-	if(!types) {
-		types=[]; 
+	if(!skins) {
+		skins=[]; 
 		lists=[];
 	};
-	var index=types.indexOf(type);
+	var index=skins.indexOf(skin);
 	if(index!=-1) return lists[index];
 	
 	var List=new Class({
 
 		Implements: [Events, Options],
 		
-		Extends: type.container,
+		Extends: skin.container,
 		
 		options: $merge({
 			styles: {
 				'z-index': 1,
 				position: 'absolute'
 			}
-		}, type.options),
+		}, skin.options),
 
 		initialize: function(options, structure){
 			this.setOptions(options);
@@ -45,9 +49,9 @@ Mif.Menu.List=function(type){
 		
 		initMenu: function(){
 			this.options.items.each(function(options){
-				var item=new Mif.Menu.Item(options, {menu: this.menu, list: this});
+				var item=new Mif.Menu.Item(options, {list: this});
 				this.list.adopt(item.container);
-				if(!['description','separator'].contains(item.type)){
+				if(!['separator', 'description'].contains(item.type)){
 					this.items.push(item);
 				}
 			}, this);
@@ -68,7 +72,8 @@ Mif.Menu.List=function(type){
 		},
 		
 		append: function(index, item){
-			item.container.injectAfter(this.items[index].container);
+			item.container.inject(this.items[index].container, 'after');
+			this.items.inject(item, this.items[index], 'after');
 		},
 		
 		initEvents: function(){
@@ -116,7 +121,7 @@ Mif.Menu.List=function(type){
 			this.openChildList=null;
 		},
 		
-		show: function(event){
+		show: function(coords){
 			if(this.menu.showed.contains(this) && !this.hiding) return;
 			this.menu.showed.push(this);
 			this.menu.visible.push(this);
@@ -124,7 +129,7 @@ Mif.Menu.List=function(type){
 			this.setWidth();
 			this.hiding=false;
 			this.visible=true;
-			this.position(event);
+			this.position(coords);
 			this.morpher.start({opacity:1});
 			this.showParents();
 		},
@@ -149,7 +154,7 @@ Mif.Menu.List=function(type){
 			};
 			item=item.retrieve('item');
 			if(!this.select(item)) return;
-			if(item.childList){
+			if(!item.disabled && item.childList){
 				item.timer=function(){
 					item.childList.show();
 					item.list.openChildList=item.childList;
@@ -198,26 +203,11 @@ Mif.Menu.List=function(type){
 			child.hide();
 		},
 		
-		position: function(event, coords){
-			if(coords){
-				this.setPosition(coords);
-				return;
-			}
-			if(!this.parentItem){
-				if(!event) return;
-				var size = window.getSize(), scroll = window.getScroll();
-				var menu = {x: this.container.offsetWidth, y: this.container.offsetHeight};
-				var props = {x: 'left', y: 'top'};
-				var coords={};
-				for (var z in props){
-					var pos = event.page[z] + this.options.offsets[z];
-					if ((pos + menu[z] - scroll[z]) > size[z]) pos = event.page[z] - this.options.offsets[z] - menu[z];
-					coords[z]=pos;
-				}
-				this.setPosition(coords);
-			}else{
+		position: function(coords){
+			if(!coords){
+			
 				var parent=this.parentItem.container;
-				var position=parent.getPosition();
+				position=parent.getPosition();
 				
 				var size = window.getSize(), scroll = window.getScroll();
 				var menu = {x: this.wrapper.offsetWidth, y: this.container.offsetHeight};
@@ -230,13 +220,27 @@ Mif.Menu.List=function(type){
 					if ((pos + menu[z] - scroll[z]) > size[z]) pos = position[z]-menu[z]-this.options.offsets[z];
 					coords[z]=pos;
 				}
-				this.setPosition(coords);
+				
+			}else if(coords.event){
+			
+				var size = window.getSize(), scroll = window.getScroll(), event=coords;
+				var menu = {x: this.container.offsetWidth, y: this.container.offsetHeight};
+				var props = {x: 'left', y: 'top'};
+				var coords={};
+				for (var z in props){
+					var pos = event.page[z] + this.options.offsets[z];
+					if ((pos + menu[z] - scroll[z]) > size[z]) pos = event.page[z] - this.options.offsets[z] - menu[z];
+					coords[z]=pos;
+				}
+				
 			}
+			
+			return this.setPosition(coords);
 		}
 
 	});
 	
-	types.push(type);
+	skins.push(skin);
 	lists.push(List);
 
 	return  List;
