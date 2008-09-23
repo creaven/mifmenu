@@ -142,4 +142,4 @@ Mif.Menu=new Class({
 	
 });
 
-Mif.Menu.version='1.0dev';
+Mif.Menu.version='1.0';
