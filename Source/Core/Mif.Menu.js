@@ -1,3 +1,7 @@
+/*
+Mif.Menu
+*/
+
 if(!window.Mif) var Mif={};
 
 Mif.Menu=new Class({
@@ -5,23 +9,22 @@ Mif.Menu=new Class({
 	Implements: [Events, Options],
 	
 	options: {
-		type: 'default'
-		//target
+		skin: 'default'
 	},
 
-	initialize: function(options, type){
+	initialize: function(options, skin){
 		this.setOptions(options);
 		this.target=this.options.target ? $(this.options.target) : document;
 		this.showed=[];
 		this.visible=[];
 		this.hidden=true;
-		if(!type){
-			switch(this.options.type){
+		if(!skin){
+			switch(this.options.skin){
 				case 'ART':
-				case 'art': type={
+				case 'art': skin={
 					container: ART.Container, 
 					options: {
-						className: 'mif-menu', 
+						className: 'mif-menu-art', 
 						offsets:{x:-2, y:-3},
 						theme: new ART.Theme({
 							normal: {
@@ -39,38 +42,46 @@ Mif.Menu=new Class({
 					}
 				}; break;
 				case 'default': 
-				default: type={container: Mif.Container, options: {className: 'mif-menu', offsets:{x:-2, y:0}}};
+				default: skin={container: Mif.Menu.Container, options: {className: 'mif-menu-default', offsets:{x:-2, y:0}}};
 			};
 		};
-		if(Browser.Engine.trident && type.container==ART.Container){
-			type.options.morph={duration:0};//because vml opacity with filter opacity bug
+		if(Browser.Engine.trident && skin.container==ART.Container){
+			skin.options.morph={duration:0};//because vml opacity with filter opacity=bug
 		};
-		this.List=Mif.Menu.List(type);
+		this.List=Mif.Menu.List(skin);
+		
+		if(this.options.offsets){
+			$extend(this.options.list, this.options.offsets);
+		}
 		this.list=new this.List(this.options.list, {menu: this});
 		
 		
 		this.bound={
-			escape: this.escape.bind(this)
+			escape: this.escape.bind(this),
+			close: this.close.bind(this)
 		};		
 		this.addEvent('hide', function(){
 			this.closing=false;
 			this.hidden=true;
 			document.removeEvent('keyup', this.bound.escape);
+			document.removeEvent('mousedown', this.bound.close);
 		}, true);
 		this.addEvent('show', function(){
 			this.hidden=false;
 			document.addEvent('keyup', this.bound.escape);
+			document.addEvent('mousedown', this.bound.close);
 		}, true);
 		
 		this.initEvents();
 	},
 	
+	close: function(event){
+		if(event.rightClick||this.$attaching) return;
+		if(this.list.visible) this.hide();
+	},
+	
 	initEvents: function(){
 		var list=this.list;
-		document.addEvent('click',function(event){
-			if(event.rightClick) return;
-			if(list.visible) this.hide();
-		}.bind(this));
 		if(this.options.contextmenu){
 			this.target.addEvent('contextmenu', function(event){
 				if(!this.hidden){
@@ -87,12 +98,13 @@ Mif.Menu=new Class({
 		};
 	},
 	
-	escape: function(event){
-		if(event.key!='esc') return;
-		this.hideList();
+	show: function(coords){
+		this.list.show(coords);
+		return this.fireEvent('show');
 	},
 	
-	hideList: function(){
+	escape: function(event){
+		if(event.key!='esc') return;
 		var list=this.showed.getLast();
 		if(list) list.hide();
 	},
@@ -100,6 +112,32 @@ Mif.Menu=new Class({
 	hide: function(){
 		this.closing=true;
 		this.list.hide();
+	},
+	
+	isVisible: function(){
+		return !this.hidden;
+	},
+	
+	attachTo: function(el){
+		el=$(el);
+		el.addEvents({
+		
+			'mousedown': function(event){
+				if(!this.isVisible()){
+					this.$attaching=true;
+					var coords=el.getCoordinates();
+					this.show({x: coords.left, y: coords.bottom});
+				}else{
+					this.hide();
+				}
+			}.bind(this),
+			
+			'mouseup': function(event){
+				this.$attaching=false;
+			}.bind(this)
+			
+		});
+		return this;
 	}
 	
 });

@@ -6,8 +6,8 @@
 		contextmenu: true,
 		target: $('menu-target'),
 		list: {
-			onRadioCheck: function(item){
-				alert(item.name+' selected');
+			onRadioCheck: function(item, state){
+				if(state) alert(item.name+' selected');
 			},
 			items: [
 				{

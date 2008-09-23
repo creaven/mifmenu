@@ -1,4 +1,4 @@
-.mif-menu{
+.mif-menu-default{
 margin:0;
 /*border:solid 1px black;*/
 overflow:hidden;
@@ -9,21 +9,21 @@ white-space:nowrap;
 cursor:default;
 }
 
-.mif-menu-wrapper{
+.mif-menu-default .mif-menu-wrapper{
 background:#fff;
 border:solid 1px #bbb;
 }
 
-.mif-menu-list{
+.mif-menu-default .mif-menu-list{
 padding:2px;
 }
 
-.mif-menu-disabled{
+.mif-menu-default .mif-menu-disabled{
 color:#9b9b9b;
 cursor:default;
 }
 
-.mif-menu .mif-menu-separator{
+.mif-menu-default .mif-menu-separator{
 background:url('../images/menu-separator.gif');
 margin:3px auto 3px auto;
 cursor:default;
@@ -33,32 +33,32 @@ line-height:0px;
 height:1px;
 }
 
-.mif-menu .mif-menu-item{
+.mif-menu-default .mif-menu-item{
 zoom:1;
 }
 
-.mif-menu .mif-menu-name{
+.mif-menu-default .mif-menu-name{
 padding-right:50px;
 }
 
-.mif-menu .mif-menu-description{
+.mif-menu-default .mif-menu-description{
 cursor: default;
 padding-left:18px;
 }
 
-.mif-menu .mif-menu-item-wrapper{
+.mif-menu-default .mif-menu-item-wrapper{
 color:#282828;
 text-decoration:none;
 line-height:18px;
 padding:2px 0px 2px 1px;
 }
 
-.mif-menu-disabled .mif-menu-item-wrapper{
+.mif-menu-default .mif-menu-disabled .mif-menu-item-wrapper{
 color:#a7a7a7;
 cursor:default;
 }
 
-.mif-menu-icon{
+.mif-menu-default .mif-menu-icon{
 display:inline;
 height:18px;
 line-height:18px;
@@ -69,39 +69,39 @@ padding-top:2px;
 padding-bottom:2px;
 }
 
-.mif-menu-selected .mif-menu-item-wrapper{
+.mif-menu-default .mif-menu-selected .mif-menu-item-wrapper{
 color:#fff;
 }
 
-.mif-menu-selected{
+.mif-menu-default .mif-menu-selected{
 /*cursor:pointer;*/
 cursor:default;
 color:#fff;
 background:#3976ac;
 }
 
-.mif-menu-selected-disabled{
+.mif-menu-default .mif-menu-selected-disabled{
 cursor:default;
 background:#3976ac;
 }
 
-.mif-menu-checked{
+.mif-menu-default .mif-menu-checked{
 background:url('../images/checked.gif') 0 0 no-repeat;
 }
 
-.mif-menu-unchecked{
+.mif-menu-default .mif-menu-unchecked{
 background:none;
 }
 
-.mif-menu-radio-checked{
+.mif-menu-default .mif-menu-radio-checked{
 background:url('../images/radio-checked.gif') 3px 3px no-repeat;
 }
 
-.mif-menu-radio-unchecked{
+.mif-menu-default .mif-menu-radio-unchecked{
 background:none;
 }
 
-.mif-childList .mif-menu-item-wrapper{
+.mif-menu-default .mif-childList .mif-menu-item-wrapper{
 background:url('../images/submenu-arrow.gif') no-repeat right center;
 }
 

@@ -3,6 +3,9 @@
 		"ContextMenu":{
 			"title": "Context menu demo"
 		},
+		"SimpleMenu":{
+			"title": "simple menu demo"
+		},
 		"ContextMenuART":{
 			"title": "ART style context menu"
 		},
@@ -12,11 +15,11 @@
 		"ContextMenuCustomStyle":{
 			"title": "another style context menu"
 		},
-		"Menu":{
-			"title": "Menu example"
+		"MenuButton":{
+			"title": "Menu attached to button"
 		},
-		"MenuART":{
-			"title": "ART style menu example"
+		"AddItem":{
+			"title": "How to add item, example"
 		}
 	},
 	"Plugins":{

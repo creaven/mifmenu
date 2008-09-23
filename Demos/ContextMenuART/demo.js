@@ -1,11 +1,11 @@
 ﻿window.addEvent('domready', function(){
 	new Mif.Menu({
 		contextmenu: true,
-		type: 'art',
+		skin: 'art',
 		target: $('menu-target'),
 		list: {
-			onRadioCheck: function(item){
-				alert(item.name+' selected');
+			onRadioCheck: function(item, state){
+				if(state) alert(item.name+' selected');
 			},
 			items: [
 				{
@@ -79,6 +79,7 @@
 							},
 							{
 								name: 'latin',
+								disabled: true,
 								list: {
 									items: [
 										{

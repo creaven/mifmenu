@@ -25,13 +25,13 @@ var Builder = {
 
 	scripts: {
 		source: {
-			'Core'      : ['Mif.Menu.Utils', 'Mif.Container', 'Mif.Menu', 'Mif.Menu.List', 'Mif.Menu.Item', 'Mif.Menu.Styles'],
+			'Core'      : ['Mif.Menu.Utils', 'Mif.Menu', 'Mif.Menu.List', 'Mif.Menu.Item', 'Mif.Menu.Container'],
 			'Plugins'   : ['Mif.Menu.KeyNav']
 		},
 
 		docs: {
-			'Core'      : ['Mif.Menu'],
-			'Plugins'   : []
+			'Core'      : ['Mif.Menu', 'Mif.Menu.List', 'Mif.Menu.Item', 'Mif.Menu.Container', 'Mif.Menu.Utils'],
+			'Plugins'   : ['Mif.Menu.KeyNav']
 		}
 	},
 

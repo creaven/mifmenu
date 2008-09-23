@@ -1,24 +1,40 @@
+/*
+Mif.Menu.Item
+*/
+
 Mif.Menu.Item=new Class({
 
 	Implements: [Events, Options],
+	
+	options: {
+		type: 'default',
+		checked: false,
+		disabled: false,
+		name: ''
+	},
 
 	initialize: function(options, structure){
-		this.setOptions(options);
 		if(typeof options == 'string'){
-			this.type='separator';
+			options={type: 'separator'};
 		}
-		this.type=this.type||this.options.type||'default';
-		this.name=this.options.name;
-		this.group=this.options.group;
-		this.checked=this.options.checked;
-		this.disabled=this.options.disabled;
-		$extend(this, structure);
+		this.setOptions(options);
+		
+		$extend(this, this.options);
+		
+		this.list=structure.list;
+		this.menu=this.list.menu;
+		
 		this.draw();
+		
 		if(['description', 'separator'].contains(this.type)) return;
-		if(this.disabled) this.disable();
+		
+		if(this.disabled) {
+			this.disabled=false;
+			this.disable();
+		}
 		
 		if(this.options.list) this.initChildList();
-		this.initClick();
+		
 		if(this.type=='checkbox'){
 			this.initCheckbox();
 		}
@@ -38,35 +54,32 @@ Mif.Menu.Item=new Class({
 			case 'default':
 			case 'radio':
 			case 'checkbox':
-				this.domWrapper=new Element('div', {'class': 'mif-menu-item-wrapper'});
-				this.domIcon=new Element('span',{'class':'mif-menu-icon '+$pick(this.options.icon,''), html: Mif.Utils.zeroSpace});
-				this.domName=new Element('span',{'class':'mif-menu-name', html: this.options.name});
-				this.container=new Element('li',{'class': 'mif-menu-item'})
-				.adopt(
-					this.domWrapper.adopt(this.domIcon, this.domName)
+				this.dom={
+					wrapper: new Element('div', {'class': 'mif-menu-item-wrapper'}),
+					icon: new Element('span',{'class':'mif-menu-icon '+$pick(this.options.icon,''), html: Mif.Utils.zeroSpace}),
+					name: new Element('span',{'class':'mif-menu-name', html: this.options.name})
+				};
+				this.container=new Element('li',{'class': 'mif-menu-item'}).adopt(
+					this.dom.wrapper.adopt(this.dom.icon, this.dom.name)
 				);
 				this.container.store('item', this);
 		}
-		
 	},
 	
-	initClick: function(){
-		this.container.addEvent('click',function(){
-			if(this.disabled||this.menu.closing) return;
-			this.menu.hide();
-			if(!this.disabled) this.fireEvent('action', [this]);
-		}.bind(this));
+	setState: function(state){
+		if(this.disabled!=state){
+			this.container[(state ? 'add' : 'remove') + 'Class']('mif-menu-disabled');
+			this.disabled=state;
+		}
+		return this;
 	},
 	
 	disable: function(){
-		this.container.addClass('mif-menu-disabled');
-		this.disabled=true;
+		return this.setState(true);
 	},
 	
 	enable: function(){
-		if(!this.disabled) return this;
-		this.container.removeClass('mif-menu-disabled');
-		this.disabled=false;
+		return this.setState(false);
 	},
 	
 	initChildList: function(){
@@ -78,51 +91,59 @@ Mif.Menu.Item=new Class({
 	select: function(){
 		var cls=this.disabled ? 'mif-menu-selected-disabled' : 'mif-menu-selected';
 		this.container.addClass(cls);
-		this.fireEvent('select');
+		return this.fireEvent('select');
 	},
 	
 	unselect: function(){
 		var cls=this.disabled ? 'mif-menu-selected-disabled' : 'mif-menu-selected';
 		this.container.removeClass(cls);
-		this.fireEvent('unSelect');
+		return this.fireEvent('unSelect');
+	},
+	
+	check: function(state){
+		if(this.type=='checkbox'){
+			if($defined(state)){
+				if(this.checked==state) return this;
+				this.checked=state;
+			}else{
+				this.checked=!this.checked;
+			}
+			if(this.checked){
+				this.dom.icon.removeClass('mif-menu-unchecked').addClass('mif-menu-checked');
+			}else{
+				this.dom.icon.removeClass('mif-menu-checked').addClass('mif-menu-unchecked');
+			}
+			this.list.fireEvent('check', [this, this.checked]);
+		}
+		if(this.type=='radio'){
+			var checked=$defined(state) ? state : true;
+			if(this.checked==checked) return this;
+			this.checked=checked;
+			this.list.groups[this.group].each(function(item){
+				if(item==this && this.checked){
+					item.checked=true;
+					item.dom.icon.addClass('mif-menu-radio-checked').removeClass('mif-menu-radio-unchecked');
+					item.list.fireEvent('radioCheck', [this, true]);
+					return;
+				}else{
+					item.checked=false;
+					item.dom.icon.addClass('mif-menu-radio-unchecked').removeClass('mif-menu-radio-checked');
+					item.list.fireEvent('radioCheck', [this, false]);
+				}
+			}, this);
+		}
+		return this;
 	},
 	
 	initCheckbox: function(){
-		this.domIcon.addClass('mif-menu-'+(this.checked ? 'checked' : 'unchecked'));
-		this.addEvent('action',function(){
-			this.checked=!this.checked;
-			var states=this.checked ? ['checked', 'unchecked'] : ['unchecked', 'checked'];
-			this.domIcon.removeClass('mif-menu-'+states[1]).addClass('mif-menu-'+states[0]);
-			this.list.fireEvent('check',[this, this.checked]);
-		}.bind(this));
+		this.dom.icon.addClass('mif-menu-'+(this.checked ? 'checked' : 'unchecked'));
+		this.addEvent('action',this.check.bind(this));
 	},
 	
 	initRadio: function(){
-		this.group=this.options.group;
-		if(!this.list.groups[this.group]) this.list.groups[this.group]=[];
-		var group=this.list.groups[this.group];
-		group.push(this);
-		if(this.checked){
-			this.domIcon.addClass('mif-menu-radio-checked').removeClass('mif-menu-radio-unchecked');
-		}else{
-			this.domIcon.addClass('mif-menu-radio-unchecked').removeClass('mif-menu-radio-checked');
-		}
-		this.addEvent('action',function(){
-			if(this.checked) return;
-			group.each(function(item){
-				if(item==this){
-					item.checked=true;
-					item.domIcon.addClass('mif-menu-radio-checked').removeClass('mif-menu-radio-unchecked');
-					item.list.fireEvent('radioCheck', [this, true]);
-					return;
-				}
-				if(item.checked){
-					item.checked=false;
-					item.domIcon.addClass('mif-menu-radio-unchecked').removeClass('mif-menu-radio-checked');
-					item.list.fireEvent('radioUnCheck', [this, false]);
-				}
-			}, this);
-		}.bind(this));
+		this.list.groups[this.group]=(this.list.groups[this.group]||[]).include(this);
+		this.dom.icon.addClass('mif-menu-radio-' + (this.checked ? 'checked' : 'unchecked'));
+		this.addEvent('action',this.check.bind(this));
 	}
 	
 });

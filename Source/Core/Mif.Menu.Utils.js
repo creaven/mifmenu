@@ -1,3 +1,7 @@
+/*
+Mif.Menu.Menu
+*/
+
 if(!window.Mif) var Mif={};
 if(!Mif.Utils) Mif.Utils={};
 
@@ -12,6 +16,19 @@ Element.implement({
 			parent=parent.getParent();
 		}
 		return false;
+	}
+	
+});
+
+Array.implement({
+	
+	inject: function(added, current, where){//inject added after or before current;
+		var pos=this.indexOf(current)+(where=='before' ? 0 : 1);
+		for(var i=this.length-1;i>=pos;i--){
+			this[i+1]=this[i];
+		}
+		this[pos]=added;
+		return this;
 	}
 	
 });
