@@ -1,7 +1,7 @@
 {
 	"Core":{
 		"Mif.Menu":{
-			"deps": ["Mif.Menu.Utils"],
+			"deps": ["Mif.Menu.Utils", "Mif.Menu.List", "Mif.Menu.Item"],
 			"desc": "Mif.Menu control"
 		},
 		"Mif.Menu.List":{
@@ -19,6 +19,10 @@
 		"Mif.Menu.Container":{
 			"deps": [],
 			"desc": "container with shadow"
+		},
+		"ART":{
+			"deps": [],
+			"desc": "art container with canvas based graphic"
 		}
 	},
 	"Plugins":{
