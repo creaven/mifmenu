@@ -81,18 +81,17 @@ Mif.Menu=new Class({
 	},
 	
 	initEvents: function(){
-		var list=this.list;
 		if(this.options.contextmenu){
 			this.target.addEvent('contextmenu', function(event){
-				list.show(event);
-				this.fireEvent('show');
+				this.show(event);
 				return false;
 			}.bind(this));
 		};
 	},
 	
-	show: function(coords){
-		this.list.show(coords);
+	show: function(obj){
+		this.closing=false;
+		this.list.show(obj);
 		return this.fireEvent('show');
 	},
 	
