@@ -76,7 +76,7 @@ Mif.Menu=new Class({
 	},
 	
 	close: function(event){
-		if(event.rightClick||this.$attaching) return;
+		if(this.$attaching) return;
 		if(this.list.visible) this.hide();
 	},
 	
@@ -84,15 +84,8 @@ Mif.Menu=new Class({
 		var list=this.list;
 		if(this.options.contextmenu){
 			this.target.addEvent('contextmenu', function(event){
-				if(!this.hidden){
-					this.showed.each(function(list, i){
-						if(i!=0) event=null;
-						list.position(event);
-					});
-				}else{
-					list.show(event);
-					this.fireEvent('show');
-				}
+				list.show(event);
+				this.fireEvent('show');
 				return false;
 			}.bind(this));
 		};

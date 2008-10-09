@@ -136,4 +136,28 @@
 			]
 		}
 	});
+	
+	
+	
+	
+	
+	mmenu2=new Mif.Menu({
+		contextmenu: true,
+		target: $('menu-target2'),
+		offsets: {x:0, y:0},
+		initialize: function(){
+			new Mif.Menu.KeyNav(this);
+		},
+		list: {
+			items: [
+				{
+					name: 'item1'
+				},
+				{
+					name: 'item2',
+				}
+			]
+		}
+	});
+	
 });
