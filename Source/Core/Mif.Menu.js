@@ -45,7 +45,7 @@ Mif.Menu=new Class({
 				default: skin={container: Mif.Menu.Container, options: {className: 'mif-menu-default', offsets:{x:-2, y:0}}};
 			};
 		};
-		if(ART && Browser.Engine.trident && skin.container==ART.Container){
+		if(window.ART && Browser.Engine.trident && skin.container==ART.Container){
 			skin.options.morph={duration:0};//because vml opacity with filter opacity=bug
 		};
 		this.List=Mif.Menu.List(skin);
