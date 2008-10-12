@@ -16,6 +16,10 @@ Element.implement({
 			parent=parent.getParent();
 		}
 		return false;
+	},
+	
+	setContent: function(content){
+		return (typeof content == 'string') ? this.set('html', content) : this.adopt(content);
 	}
 	
 });
