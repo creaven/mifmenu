@@ -120,6 +120,7 @@ Mif.Menu=new Class({
 					this.$attaching=true;
 					var coords=el.getCoordinates();
 					this.show({x: coords.left, y: coords.bottom});
+					this.el=el;
 				}else{
 					this.hide();
 				}
