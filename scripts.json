@@ -23,6 +23,10 @@
 		"ART":{
 			"deps": [],
 			"desc": "art container with canvas based graphic"
+		},
+		"Mif.Menu.CanvasContainer":{
+			"deps": [],
+			"desc": "container canvas graphic"
 		}
 	},
 	"Plugins":{
