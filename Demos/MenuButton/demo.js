@@ -1,5 +1,8 @@
 ﻿window.addEvent('domready', function(){
 
+	document.addEvent('contextmenu', function(event){
+		event.preventDefault();
+	});
 
 	var list={
 		items: [

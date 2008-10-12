@@ -45,7 +45,7 @@ Mif.Menu=new Class({
 				default: skin={container: Mif.Menu.Container, options: {className: 'mif-menu-default', offsets:{x:-2, y:0}}};
 			};
 		};
-		if(Browser.Engine.trident && skin.container==ART.Container){
+		if(ART && Browser.Engine.trident && skin.container==ART.Container){
 			skin.options.morph={duration:0};//because vml opacity with filter opacity=bug
 		};
 		this.List=Mif.Menu.List(skin);
@@ -115,6 +115,7 @@ Mif.Menu=new Class({
 		el.addEvents({
 		
 			'mousedown': function(event){
+				if(event.rightClick) return;
 				if(!this.isVisible()){
 					this.$attaching=true;
 					var coords=el.getCoordinates();
