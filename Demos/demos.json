@@ -20,6 +20,9 @@
 		},
 		"AddItem":{
 			"title": "How to add item, example"
+		},
+		"ContextMenuCanvas":{
+			"title": "Menu with canvas graphic"
 		}
 	},
 	"Plugins":{

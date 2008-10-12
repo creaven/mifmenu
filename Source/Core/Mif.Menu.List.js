@@ -218,7 +218,7 @@ Mif.Menu.List=function(skin){
 				for (var z in props){
 					var pos=position[z]+item[z]+this.options.offsets[z];
 					if ((pos + menu[z] - scroll[z]) > size[z]) pos = position[z]-menu[z]-this.options.offsets[z];
-					coords[z]=pos;
+					coords[z]=Math.max(0, pos);
 				}
 				
 			}else if(coords.event){
@@ -230,7 +230,7 @@ Mif.Menu.List=function(skin){
 				for (var z in props){
 					var pos = event.page[z] + this.options.offsets[z];
 					if ((pos + menu[z] - scroll[z]) > size[z]) pos = event.page[z] - this.options.offsets[z] - menu[z];
-					coords[z]=pos;
+					coords[z]=Math.max(0, pos);
 				}
 				
 			}
