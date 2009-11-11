@@ -13,10 +13,10 @@ Mif.Menu.List=function(skin){
 	if(index!=-1) return lists[index];
 	
 	var List=new Class({
-
-		Implements: [Events, Options],
 		
 		Extends: skin.container,
+
+		Implements: [Events, Options],
 		
 		options: $merge({
 			styles: {
