@@ -73,6 +73,7 @@ Mif.Menu=new Class({
 		}, true);
 		
 		this.initEvents();
+		if (MooTools.version>='1.2.2' && this.options.initialize) this.options.initialize.call(this);
 	},
 	
 	close: function(event){
@@ -136,4 +137,4 @@ Mif.Menu=new Class({
 	
 });
 
-Mif.Menu.version='1.0';
+Mif.Menu.version='1.1';
