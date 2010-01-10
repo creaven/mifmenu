@@ -1,5 +1,8 @@
 document.addEvent('domready', function(){
 	var testMenu = new Mif.Menu().load([
+		onClick: function(item){
+			console.log('clicked', item);
+		},
 	    {
 	        name: 'open',
 	        action: function(){
@@ -21,6 +24,7 @@ document.addEvent('domready', function(){
 	    },
 	    {
 	        name: 'exit',
+			disabled: true,
 	        icon: '.someCls'
 	    }
 	]);

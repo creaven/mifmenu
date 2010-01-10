@@ -4,66 +4,31 @@ Mif.Menu.Item
 
 Mif.Menu.Item=new Class({
 
-	Implements: [Events, Options],
+	Implements: [Events],
 	
-	options: {
+	defaults: {
 		type: 'default',
 		checked: false,
 		disabled: false,
 		name: ''
 	},
 
-	initialize: function(options, structure){
+	initialize: function(structure, property){
 		if(typeof options == 'string'){
 			options={type: 'separator'};
 		}
-		this.setOptions(options);
-		
-		$extend(this, this.options);
-		
-		this.list=structure.list;
-		this.menu=this.list.menu;
-		
-		this.draw();
-		
-		if(['description', 'separator'].contains(this.type)) return;
-		
-		if(this.disabled) {
-			this.disabled=false;
-			this.disable();
-		}
-		
-		if(this.options.list) this.initChildList();
-		
-		if(this.type=='checkbox'){
-			this.initCheckbox();
-		}
-		if(this.type=='radio'){
-			this.initRadio();
-		}
-	},
-	
-	draw: function(){
-		switch(this.type){
-			case 'description': 
-				this.container=new Element('li', {'class':'mif-menu-description mif-menu-name', html: this.options.name});
-				break;
-			case 'separator':
-				this.container = new Element('li', {'class': 'mif-menu-separator mif-menu-name'});
-				break;
-			case 'default':
-			case 'radio':
-			case 'checkbox':
-				this.dom={
-					wrapper: new Element('div', {'class': 'mif-menu-item-wrapper'}),
-					icon: new Element('span',{'class':'mif-menu-icon '+$pick(this.options.icon,''), html: Mif.Utils.zeroSpace}),
-					name: new Element('span',{'class':'mif-menu-name', html: this.options.name})
-				};
-				this.container=new Element('li',{'class': 'mif-menu-item'}).adopt(
-					this.dom.wrapper.adopt(this.dom.icon, this.dom.name)
-				);
-				this.container.store('item', this);
-		}
+		this.property = {};
+		$extend(this.property, this.defaults);
+		$extend(this.property, property);
+		$extend(this, this.property);
+		$extend(this, structure);		
+		this.initCheckbox();
+		this.initRadio();
+		this.UID=++Mif.UID;
+		Mif.uids[this.UID]=this;
+		var id=this.get('id');
+		if(id!=null) Mif.ids[id]=this;
+		this.menu.fireEvent('itemCreate', [this]);
 	},
 	
 	setState: function(state){
@@ -82,12 +47,67 @@ Mif.Menu.Item=new Class({
 		return this.setState(false);
 	},
 	
+	set: function(obj){
+		if(arguments.length == 2){
+			var object = {};
+			object[arguments[0]] = arguments[1];
+			obj = object;
+		}
+		this.menu.fireEvent('beforeSet', [this, obj]);
+		var property=obj.property||obj||{};
+		for(var p in property){
+			var nv=property[p];
+			var cv=this[p];
+			this.updateProperty(p, cv, nv);
+			this[p]=this.property[p]=nv;
+		}
+		this.menu.fireEvent('set', [this, obj]);
+		return this;
+	},
+	
+	updateProperty: function(p, cv, nv){
+		if(nv==cv) return this;
+		if(p=='id'){
+			delete Mif.ids[cv];
+			if(nv) Mif.ids[nv]=this;
+			return this;
+		}
+		if(!Mif.Tree.Draw.isUpdatable(this)) return this;
+		switch(p){
+			case 'name':
+				this.getElement('name').set('html', nv);
+				return this;
+			case 'cls':
+				this.getElement().removeClass(cv).addClass(nv);
+				return this;
+			case 'icon':
+				var iconEl = this.getElement('icon');
+				var iconCls;
+				if(cv.indexOf('/') == -1 && cv[0] == '.'){
+					iconCls = cv.substring(1);
+					iconEl.removeClass(iconCls);
+				}else{
+					iconEl.setAttribute('src', Mif.TransparenImage);
+				};
+				if(nv.indexOf('/') == -1 && nv[0] == '.'){
+					iconCls = nv.substring(1);
+					iconEl.addClass(iconCls);
+				}else{
+					iconEl.setAttribute('src', nv);
+				};
+				return this;
+			case 'disabled':
+				this.getElement()[(nv ? 'add' : 'remove') + 'Class']('disabled');
+				return this;
+		}
+	},
+	/*
 	initChildList: function(){
 		this.container.addClass('mif-childList');
 		var options=$merge(this.options.list, {styles: {'z-index': this.list.options.styles['z-index']+1}});
 		this.childList=new this.menu.List(options, {parentItem: this, menu: this.menu});
 	},
-	
+	*/
 	select: function(){
 		var cls=this.disabled ? 'mif-menu-selected-disabled' : 'mif-menu-selected';
 		this.container.addClass(cls);
