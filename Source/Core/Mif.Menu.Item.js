@@ -144,6 +144,14 @@ Mif.Menu.Item=new Class({
 		this.list.groups[this.group]=(this.list.groups[this.group]||[]).include(this);
 		this.dom.icon.addClass('mif-menu-radio-' + (this.checked ? 'checked' : 'unchecked'));
 		this.addEvent('action',this.check.bind(this));
+	},
+	
+	addLoader: function(){
+		console.log('add loader', this);
+	},
+	
+	removeLoader: function(){
+		console.log('remove loader', this);
 	}
 	
 });

@@ -1,4 +1,10 @@
 {
+	"Mif":{
+		"Mif.Core":{
+			"deps": [],
+			"desc": "Mif Core"
+		}
+	},
 	"Core":{
 		"Mif.Menu":{
 			"deps": ["Mif.Menu.Utils", "Mif.Menu.List", "Mif.Menu.Item"],
