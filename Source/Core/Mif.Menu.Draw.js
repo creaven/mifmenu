@@ -15,13 +15,16 @@ Mif.Menu.implement({
 				if(icon.indexOf('/') == -1 && icon[0] == '.'){
 					iconCls = icon.substring(1)
 				}
+			}else{
+				icon = Mif.TransparentImage
 			}
-			html.push('<div class="mif-menu-item ' + item.disabled ? 'disabled' : '' + '">'+
-				iconCls ? '<div class="mif-menu-icon ' + iconCls + '"></div>' : '<img class="mif-menu-icon" src="' + icon + '"></img>'+
-				'<div class="menu-menu-name">' + icon.name + '</div>'+
+			html.push('<div class="mif-menu-item ' + (item.disabled ? 'disabled' : '') + '">'+
+				(iconCls ? '<div class="mif-menu-icon ' + iconCls + '"></div>' : '<img class="mif-menu-icon" src="' + icon + '"></img>')+
+				'<div class="menu-menu-name">' + item.name + '</div>'+
 			'</div>');
 		}
 		this.element.innerHTML = html.join('');
+		this.$draw = true;
 	}
 	
 });

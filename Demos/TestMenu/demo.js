@@ -1,7 +1,11 @@
 document.addEvent('domready', function(){
 	var testMenu = new Mif.Menu().load([
-		onClick: function(item){
-			console.log('clicked', item);
+		{
+			options: {
+				onClick: function(item){
+					console.log('clicked', item);
+				}
+			}
 		},
 	    {
 	        name: 'open',
@@ -28,4 +32,9 @@ document.addEvent('domready', function(){
 	        icon: '.someCls'
 	    }
 	]);
+	
+	$('toggle').addEvent('click', function(){
+		testMenu.hidden ? testMenu.show() : testMenu.hide();
+	});
+	
 });

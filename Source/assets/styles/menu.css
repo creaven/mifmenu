@@ -1,0 +1,7 @@
+.mif-menu{
+z-index:100;
+background:#EAEAEA;
+border:solid 1px #DBDBDB;
+position:absolute;
+min-width:300px;
+}

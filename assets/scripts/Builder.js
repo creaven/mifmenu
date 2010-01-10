@@ -25,7 +25,7 @@ var Builder = {
 
 	scripts: {
 		source: {
-			'Mif':      : ['Mif.Core']
+			'Mif'       : ['Mif.Core'],
 			'Core'      : ['Mif.Menu', 'Mif.Menu.Item', 'Mif.Menu.Load', 'Mif.Menu.Draw'],
 			'Plugins'   : ['Mif.Menu.KeyNav']
 		},

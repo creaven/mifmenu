@@ -47,6 +47,10 @@ Mif.Menu.Item=new Class({
 		return this.setState(false);
 	},
 	
+	get: function(prop){
+		return this[prop];
+	},
+	
 	set: function(obj){
 		if(arguments.length == 2){
 			var object = {};
@@ -156,11 +160,13 @@ Mif.Menu.Item=new Class({
 	},
 	
 	initCheckbox: function(){
+		return;
 		this.dom.icon.addClass('mif-menu-'+(this.checked ? 'checked' : 'unchecked'));
 		this.addEvent('action',this.check.bind(this));
 	},
 	
 	initRadio: function(){
+		return;
 		this.list.groups[this.group]=(this.list.groups[this.group]||[]).include(this);
 		this.dom.icon.addClass('mif-menu-radio-' + (this.checked ? 'checked' : 'unchecked'));
 		this.addEvent('action',this.check.bind(this));

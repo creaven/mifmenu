@@ -12,6 +12,12 @@ var Demos = {
 	start: function() {
 		if (location.protocol == 'file:') Demos.local();
 		Demos.getList();
+		var hash=document.location.hash;
+		if(hash){
+			var demo=hash.replace('#','');
+			this.demo=demo;
+			Demos.load(demo)
+		}
 	},
 	
 	categories: function(json) {
@@ -28,7 +34,8 @@ var Demos = {
 					'text': value.title,
 					'events': {
 						'click': function(e) { 
-							e.stop();
+							e.preventDefault();
+							document.location.hash=key;
 							Demos.load(key);
 						}
 					}

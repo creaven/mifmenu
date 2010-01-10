@@ -3,25 +3,23 @@ Mif.Tree.Load
 */
 Mif.Menu.Load={
 		
-	children: function(children, parent, tree){
-		for( var i=children.length; i--; ){
-			var child=children[i];
-			var subChildren=child.children;
-			var node=new Mif.Tree.Node({
-				tree: tree,
-				parentNode: parent||undefined
-			}, child);
-			if( tree.forest || parent != undefined){
-				parent.children.unshift(node);
-			}else{
-				tree.root=node;
+	menu: function(items, parent, menu){
+		for( var i = items.length; i--; ){
+			var item = items[i];
+			if(item.options){
+				menu.setOptions(item.options);
+				continue;
 			}
-			if(subChildren && subChildren.length){
-				arguments.callee(subChildren, node, tree);
+			var submenu = item.submenu;
+			var item = new Mif.Menu.Item({
+				menu: menu,
+				parentItem: parent
+			}, item);
+			menu.items.unshift(item);
+			if(submenu && submenu.length){
+				arguments.callee(submenu, item, new Mif.Menu());
 			}
 		}
-		if(parent) parent.state.loaded=true;
-		tree.fireEvent('loadChildren', parent);
 	}
 	
 };
@@ -30,6 +28,13 @@ Mif.Menu.implement({
 
 	load: function(options){
 		var menu=this;
+		var type = $type(options);
+		if(type == 'array'){
+			options = {json: options}; 
+		};
+		if(type =='string'){
+			options = {url: options};
+		};
 		this.loadOptions=this.loadOptions||$lambda({});
 		function success(json){
 			Mif.Menu.Load.menu(json, null, menu);

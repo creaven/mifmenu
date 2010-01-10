@@ -16,7 +16,8 @@ Mif.Menu=new Class({
 	initialize: function(options){
 		this.setOptions(options);
 		this.element = new Element('div', {'class': 'mif-menu'});
-		
+		this.items = [];
+		this.hidden = true;
 		/*
 		this.target=this.options.target ? $(this.options.target) : document;
 		this.showed=[];
@@ -48,14 +49,16 @@ Mif.Menu=new Class({
 	},
 	
 	show: function(obj){
-		this.closing=false;
-		this.list.show(obj);
+		this.hidden = false;
+		if(!this.$draw) this.draw();
+		this.element.inject(document.body);
 		return this.fireEvent('show');
 	},
 	
 	hide: function(){
-		this.closing=true;
-		this.list.hide();
+		this.hidden = true;
+		this.element.dispose();
+		return this.fireEvent('hide');
 	},
 	
 	events: function(){
