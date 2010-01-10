@@ -1,5 +1,8 @@
 {
 	"Tree":{
+		"TestMenu": {
+			"title": "test menu"
+		},
 		"ContextMenu":{
 			"title": "Context menu demo"
 		},

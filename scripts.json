@@ -7,35 +7,23 @@
 	},
 	"Core":{
 		"Mif.Menu":{
-			"deps": ["Mif.Menu.Utils", "Mif.Menu.List", "Mif.Menu.Item"],
+			"deps": ["Mif.Menu.Load", "Mif.Menu.Draw", "Mif.Menu.Item"],
 			"desc": "Mif.Menu control"
-		},
-		"Mif.Menu.List":{
-			"deps": [],
-			"desc": "menu list Class"
 		},
 		"Mif.Menu.Item":{
 			"deps": [],
 			"desc": "menu item Class"
 		},
-		"Mif.Menu.Utils":{
+		"Mif.Menu.Draw":{
 			"deps": [],
-			"desc": "util functionality for menu"
+			"desc": "draw menu"
 		},
-		"Mif.Menu.Container":{
+		"Mif.Menu.Load":{
 			"deps": [],
-			"desc": "container with shadow"
-		},
-		"ART":{
-			"deps": [],
-			"desc": "art container with canvas based graphic"
-		},
-		"Mif.Menu.CanvasContainer":{
-			"deps": [],
-			"desc": "container canvas graphic"
+			"desc": "load menu"
 		}
 	},
-	"Plugins":{
+	"More":{
 		"Mif.Menu.KeyNav":{
 			"deps": ["Mif.Menu"],
 			"desc": "KeyNav implementation"

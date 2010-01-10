@@ -25,12 +25,13 @@ var Builder = {
 
 	scripts: {
 		source: {
-			'Core'      : ['Mif.Menu.Utils', 'Mif.Menu', 'Mif.Menu.List', 'Mif.Menu.Item', 'Mif.Menu.Container', 'Mif.Menu.CanvasContainer'],
+			'Mif':      : ['Mif.Core']
+			'Core'      : ['Mif.Menu', 'Mif.Menu.Item', 'Mif.Menu.Load', 'Mif.Menu.Draw'],
 			'Plugins'   : ['Mif.Menu.KeyNav']
 		},
 
 		docs: {
-			'Core'      : ['Mif.Menu', 'Mif.Menu.List', 'Mif.Menu.Item', 'Mif.Menu.Container', 'Mif.Menu.Utils'],
+			'Core'      : ['Mif.Menu', 'Mif.Menu.Item', 'Mif.Menu.Load', 'Mif.Menu.Draw'],
 			'Plugins'   : ['Mif.Menu.KeyNav']
 		}
 	},
