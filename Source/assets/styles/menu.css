@@ -1,7 +1,24 @@
 .mif-menu{
-z-index:100;
+z-index:1000;
 background:#EAEAEA;
 border:solid 1px #DBDBDB;
 position:absolute;
-min-width:300px;
+min-width:250px;
+}
+
+.mif-menu-item{
+height:20px;
+background:yellow;
+}
+
+.mif-menu-icon, .mif-menu-name{
+width:20px;
+height:20px;
+line-height:20px;
+vertical-align:middle;
+display:inline-block;
+}
+
+.mif-menu .hover{
+background:blue;
 }

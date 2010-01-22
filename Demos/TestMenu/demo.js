@@ -33,8 +33,8 @@ document.addEvent('domready', function(){
 	    }
 	]);
 	
-	$('toggle').addEvent('click', function(){
-		testMenu.hidden ? testMenu.show() : testMenu.hide();
+	$('toggle').addEvent('click', function(event){
+		testMenu.hidden ? testMenu.show(event) : testMenu.hide();
 	});
 	
 });

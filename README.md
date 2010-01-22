@@ -1,4 +1,4 @@
-version 1.0 - suxx, soon i'm rewrite this plugin. Release date - 1 february.
+!!!UNDER DEVELOPMENT!!!
 
 Description
 ===========
