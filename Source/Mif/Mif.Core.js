@@ -20,3 +20,11 @@ Element.implement({
 	}
 	
 });
+
+if(Browser.Engine.trident4){
+	window.addEvent('domready', function(){
+		document.id(document.body).addClass('ie6');
+	});
+}
+
+Mif.TransparentImage = '../Source/assets/images/transparent.gif';

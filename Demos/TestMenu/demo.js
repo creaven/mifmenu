@@ -1,4 +1,5 @@
 document.addEvent('domready', function(){
+	
 	var testMenu = new Mif.Menu().load([
 		{
 			options: {
@@ -16,7 +17,7 @@ document.addEvent('domready', function(){
 	    {
 	        name: 'close',
 	        id: 'close_id',
-	        icon: '/path/to/icon',
+	        icon: 'TestMenu/application-blue.png',
 	        submenu: [
 	            {
 	                name: 'moo',
@@ -27,10 +28,36 @@ document.addEvent('domready', function(){
 	        ]
 	    },
 	    {
+	        name: 'new window',
+			disabled: true,
+	        icon: '.someCls'
+	    },
+	    {
+	        name: 'new tab',
+			disabled: true,
+	        icon: '.someCls'
+	    },
+	    {
+	        name: 'paste',
+			disabled: true,
+	        icon: '.someCls'
+	    },
+	    {
+	        name: 'copy',
+			disabled: true,
+	        icon: '.someCls'
+	    },
+	    {
+	        name: 'remove',
+			disabled: true,
+	        icon: '.someCls'
+	    },
+	    {
 	        name: 'exit',
 			disabled: true,
 	        icon: '.someCls'
 	    }
+	
 	]);
 	
 	$('toggle').addEvent('click', function(event){

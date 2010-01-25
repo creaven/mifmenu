@@ -1,5 +1,7 @@
 !!!UNDER DEVELOPMENT!!!
 
+![Screenshot](http://github.com/creaven/mifmenu/raw/master/menu-shot.png)
+
 Description
 ===========
 

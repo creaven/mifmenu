@@ -1,14 +1,25 @@
 .mif-menu{
 z-index:1000;
-background:#EAEAEA;
-border:solid 1px #DBDBDB;
 position:absolute;
-min-width:250px;
+width:250px;
+height:200px;
+font-size:14px;
+color:#000;
+}
+
+.mif-menu-wrapper{
+position:relative;
+left:0;
+top:0;
+width:250px;
+padding:4px 0;
 }
 
 .mif-menu-item{
 height:20px;
-background:yellow;
+padding:0 20px;
+line-height:0;
+white-space:nowrap;
 }
 
 .mif-menu-icon, .mif-menu-name{
@@ -17,8 +28,141 @@ height:20px;
 line-height:20px;
 vertical-align:middle;
 display:inline-block;
+cursor:default;
+}
+
+.mif-menu-icon{
+width:16px;
+height:16px;
+}
+
+.mif-menu-name{
+margin-left:5px;
 }
 
 .mif-menu .hover{
-background:blue;
+background:#2D5FDD;
+color:#fff;
+}
+
+.mif-menu-bg{
+width: 100%;
+height: 100%;
+}
+
+.mif-menu-bg, .mif-menu-bg div{
+position: absolute;
+overflow:hidden;
+}
+.mif-menu-bg {
+left:-19px;
+top:-17px;
+padding-left:40px;
+padding-top:37px;
+}
+.mif-menu-bg .top{
+height: 43px;
+width: 100%;
+position: relative;
+top:-37px;
+padding-left:40px;
+padding-top:37px;
+left:-40px;
+}
+.mif-menu-bg .center{
+height: 100%;
+width: 100%;
+position: relative;
+top:-162px;
+padding-left:40px;
+padding-top:37px;
+left:-40px;
+}
+.mif-menu-bg .bottom{
+height: 44px;
+width:100%;
+top:-162px;
+position:relative;
+padding-left:40px;
+left:-40px;}
+.mif-menu-bg .tl{
+width: 46px;
+height: 43px;
+background:url("../images/bg-tl.png");
+left:0px;
+top:0px;
+}
+.mif-menu-bg .tr{
+width: 40px;
+height: 43px;
+float:right;
+position: relative;
+background:url("../images/bg-tr.png");
+top:-37px;
+}
+.mif-menu-bg .t{
+height: 43px;
+width:100%;
+left:-80px;
+top: 0;
+clip:rect(auto auto auto 126px);
+background:url("../images/bg-t.png");
+padding-left:40px;
+}
+.ie6 .mif-menu-bg .t{
+left:-40px;
+clip:rect(auto auto auto 86px);
+}
+.mif-menu-bg .bl{
+width: 46px;
+height: 44px;
+background:url("../images/bg-bl.png");
+left:0px
+}
+.mif-menu-bg .br{
+width: 40px;
+height: 44px;
+float: right;
+position: relative;
+background:url("../images/bg-br.png");
+}
+.mif-menu-bg .b{
+height: 44px;
+width:100%;
+left:-80px;
+clip:rect(auto auto auto 126px);
+background:url("../images/bg-b.png");
+padding-left:40px;
+}
+.ie6 .mif-menu-bg .b{
+left:-40px;
+clip:rect(auto auto auto 86px);
+}
+.mif-menu-bg .l{
+height:10000px;
+width:46px;
+left:0;
+top:87px;
+background:url("../images/bg-l.png");
+}
+.mif-menu-bg .r{
+height:10000px;
+width:40px;
+top:50px;
+float:right;
+position:relative;
+background:url("../images/bg-r.png");
+}
+.mif-menu-bg .c{
+height: 10000px;
+width:100%;
+left:-80px;
+top:87px;
+clip:rect(auto auto auto 126px);
+background:url("../images/bg-c.png");
+padding-left:40px;
+}
+.ie6 .mif-menu-bg .c{
+left:-40px;
+clip:rect(auto auto auto 86px);
 }

@@ -139,7 +139,7 @@ Mif.Menu=new Class({
 			this.hovered = null;
 			return;
 		};
-		item = Mif.uids[itemEl.getAttribute('uid')];
+		var item = Mif.uids[itemEl.getAttribute('uid')];
 		if(this.hovered == item) return;
 		if(this.hovered){
 			this.hovered.getElement().removeClass('hover');
