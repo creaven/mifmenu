@@ -90,6 +90,19 @@ Mif.Menu.implement({
 			}
 			return html;
 		}
+	},
+	
+	updateWidth: function(){
+		this.element.setStyle('width', Browser.Engine.trident4 ? 0 : 'auto');
+		var width = Math.max(this.element.offsetWidth, parseInt(this.options.minWidth));
+		this.element.setStyle('width', width);
+	},
+	
+	updateHeight: function(){
+		if(Browser.Engine.trident4){
+			this.element.setStyle('height', 0);
+			this.element.setStyle('height', this.element.getElement('.mif-menu-wrapper').offsetHeight).dispose().inject(document.body);
+		}
 	}
 	
 });

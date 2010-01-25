@@ -13,7 +13,8 @@ Mif.Menu=new Class({
 		offsets: {
 			x: 0,
 			y: 0
-		}
+		},
+		minWidth: 250
 	},
 
 	initialize: function(options){
@@ -56,6 +57,8 @@ Mif.Menu=new Class({
 		this.hidden = false;
 		if(!this.$draw) this.draw();
 		this.element.inject(document.body);
+		this.updateWidth();
+		this.updateHeight();
 		this.position(coords);
 		this.addHideOnExtraClick();
 		return this.fireEvent('show');
