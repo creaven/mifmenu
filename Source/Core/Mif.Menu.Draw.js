@@ -95,7 +95,7 @@ Mif.Menu.implement({
 	updateWidth: function(){
 		this.element.setStyle('width', Browser.Engine.trident4 ? 0 : 'auto');
 		var width = Math.max(this.element.offsetWidth, parseInt(this.options.minWidth));
-		this.element.setStyle('width', width);
+		this.element.setStyle('width', width).dispose().inject(document.body);
 	},
 	
 	updateHeight: function(){
