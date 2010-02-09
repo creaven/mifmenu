@@ -33,28 +33,8 @@ Mif.Menu=new Class({
 		if(this.options.id){
 			Mif.ids[this.options.id]=this;
 		}
-		/*
-		this.target=this.options.target ? $(this.options.target) : document;
-		this.showed=[];
-		this.visible=[];
-		this.hidden=true;
-		
-		if(this.options.offsets){
-			$extend(this.options.list, this.options.offsets);
-		}			
-		this.addEvent('hide', function(){
-			this.closing=false;
-			this.hidden=true;
-			document.removeEvent('keyup', this.bound.escape);
-			document.removeEvent('mousedown', this.bound.close);
-		}, true);
-		this.addEvent('show', function(){
-			this.hidden=false;
-			document.addEvent('keyup', this.bound.escape);
-			document.addEvent('mousedown', this.bound.close);
-		}, true);
-		*/
 		this.events();
+		if(Mif.Menu.KeyNav) new Mif.Menu.KeyNav(this);
 		if (MooTools.version>='1.2.2' && this.options.initialize) this.options.initialize.call(this);
 	},
 	
@@ -72,8 +52,14 @@ Mif.Menu=new Class({
 	hide: function(){
 		if(this.hidden) return;
 		this.hidden = true;
+		this.unselect();
 		this.element.dispose();
 		this.hideSubmenu();
+		if(this.parentItem){
+			var menu = this.parentItem.menu;
+			menu.openSubmenu = false;
+			menu.fireEvent('hideSubmenu', this);
+		}
 		return this.fireEvent('hide');
 	},
 	
@@ -124,7 +110,6 @@ Mif.Menu=new Class({
 	
 	events: function(){
 		this.bound={
-			escape: this.escape.bind(this),
 			close: this.close.bind(this),
 			hover: this.hover.bind(this),
 			hideOnExtraClick: this.hideOnExtraClick.bind(this)
@@ -141,19 +126,23 @@ Mif.Menu=new Class({
 	hover: function(event){
 		var target = $(event.target);
 		var itemEl = target.getAncestor('.mif-menu-item');
-		if(!itemEl)	return this.onMouseout();
+		if(!itemEl)	return this.unselect();
 		var item = Mif.uids[itemEl.getAttribute('uid')];
 		if(this.hovered == item) return;
-		this.onMouseout();
-		this.hovered = item;
-		this.hovered.getElement().addClass('hover');
-		this.fireEvent('hover', ['over', this.hovered]);
+		this.select(item);
 		if(!item.disabled && item.submenu){
 			this.showSubmenu(item);
 		}
 	},
 	
-	onMouseout: function(){
+	select: function(item){
+		this.unselect();
+		this.hovered = item;
+		this.hovered.getElement().addClass('hover');
+		this.fireEvent('hover', ['over', this.hovered]);
+	},
+	
+	unselect: function(){
 		if(!this.hovered) return;
 		var item = this.hovered;
 		$clear(item.timer);
@@ -163,32 +152,27 @@ Mif.Menu=new Class({
 		this.hovered = null;
 	},
 	
-	showSubmenu: function(item){
+	showSubmenu: function(item, delay){
 		item.timer = function(){
-			item.submenu.show();
-			item.menu.openSubmenu = item.submenu;
+			var submenu = item.submenu;
+			var menu = item.menu;
+			submenu.show();
+			menu.openSubmenu = submenu;
 			item.timer=null;
-		}.delay(this.options.submenuShowDelay);
+			menu.fireEvent('showSubmenu', submenu);
+		}.delay($pick(delay, this.options.submenuShowDelay));
 	},
 	
 	hideSubmenu: function(){
 		if(!this.openSubmenu) return;
-		this.openSubmenu.onMouseout();
 		var item = this.openSubmenu.parentItem;
 		$clear(item.timer);
 		item.submenu.hide();
-		this.openSubmenu = false;
 	},
 	
 	close: function(event){
 		if(this.$attaching) return;
 		if(this.list.visible) this.hide();
-	},
-	
-	escape: function(event){
-		if(event.key!='esc') return;
-		var list=this.showed.getLast();
-		if(list) list.hide();
 	},
 	
 	isVisible: function(){
@@ -198,7 +182,6 @@ Mif.Menu=new Class({
 	attachTo: function(el){
 		el=$(el);
 		el.addEvents({
-		
 			'mousedown': function(event){
 				if(event.rightClick) return;
 				if(!this.isVisible()){
@@ -210,11 +193,9 @@ Mif.Menu=new Class({
 					this.hide();
 				}
 			}.bind(this),
-			
 			'mouseup': function(event){
 				this.$attaching=false;
 			}.bind(this)
-			
 		});
 		return this;
 	}

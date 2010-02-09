@@ -110,7 +110,7 @@ Mif.Menu.implement({
 Mif.Menu.Item.implement({
 
 	getElement: function(type){
-		var item=document.id('mif-menu-item-'+this.UID);
+		var item = document.id('mif-menu-item-'+this.UID);
 		if(!type) return item;
 		return item.getElement('mif-menu-' + type);
 	}
