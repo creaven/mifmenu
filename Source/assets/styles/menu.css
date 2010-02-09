@@ -9,16 +9,37 @@ color:#000;
 position:relative;
 left:0;
 top:0;
-padding:4px 0;
+margin:4px 0;
 width:100%;
+overflow:hidden;
 }
 
-.mif-menu-item{
+.mif-menu-item, .mif-menu-scroll{
 height:20px;
 padding:0 20px;
 line-height:0;
 white-space:nowrap;
 position:relative;
+}
+
+.mif-menu-scroll{
+height:13px;
+width:100%;
+padding:0;
+margin:0;
+display:none;
+position:absolute;
+z-index:1;
+}
+
+.mif-menu-scroll-top{
+top:4px;
+background: url('../images/top.png') center center no-repeat #fff;
+}
+
+.mif-menu-scroll-bottom{
+bottom:4px;
+background: url('../images/bottom.png') center center no-repeat #fff;
 }
 
 .mif-menu-icon, .mif-menu-name{
@@ -41,6 +62,15 @@ margin-left:5px;
 .mif-menu .hover{
 background:#2D5FDD;
 color:#fff;
+}
+
+.mif-menu .disabled{
+color:#D7D7D7;
+}
+
+.mif-menu .disabled.hover{
+background:none;
+color:#D7D7D7;
 }
 
 .mif-menu-submenu{

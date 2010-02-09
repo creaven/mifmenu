@@ -7,28 +7,32 @@ Mif.Menu.implement({
 	draw: function(){
 		var html = [];
 		html.push(this.drawBackground());
+		html.push('<div class="mif-menu-scroll mif-menu-scroll-top"></div>');
 		html.push('<div class="mif-menu-wrapper">');
-		for(var i = 0, l = this.items.length; i < l; i++){
-			var item = this.items[i];
-			var icon = item.icon;
-			var iconCls = '';
-			if(icon){
-				if(icon.indexOf('/') == -1 && icon[0] == '.'){
-					iconCls = icon.substring(1);
-					icon = Mif.TransparentImage;
+			for(var i = 0, l = this.items.length; i < l; i++){
+				var item = this.items[i];
+				var icon = item.icon;
+				var iconCls = '';
+				if(icon){
+					if(icon.indexOf('/') == -1 && icon[0] == '.'){
+						iconCls = icon.substring(1);
+						icon = Mif.TransparentImage;
+					}
+				}else{
+					icon = Mif.TransparentImage
 				}
-			}else{
-				icon = Mif.TransparentImage
+				html.push('<div class="mif-menu-item ' + (item.disabled ? 'disabled' : '') + '" uid="' + item.UID + '" id="mif-menu-item-' + item.UID + '">'+
+					'<img class="mif-menu-icon ' + iconCls + '" src="' + icon + '"></img>'+
+					'<span class="mif-menu-name">' + item.name + '</span>'+
+					(item.submenu ? '<span class="mif-menu-submenu"></span>' : '')+
+				'</div>');
 			}
-			html.push('<div class="mif-menu-item ' + (item.disabled ? 'disabled' : '') + '" uid="' + item.UID + '" id="mif-menu-item-' + item.UID + '">'+
-				'<img class="mif-menu-icon ' + iconCls + '" src="' + icon + '"></img>'+
-				'<span class="mif-menu-name">' + item.name + '</span>'+
-				(item.submenu ? '<span class="mif-menu-submenu"></span>' : '')+
-			'</div>');
-		}
-		html.push('</div>'); //close mif-menu-wrapper
+		html.push('</div>');
+		html.push('<div class="mif-menu-scroll mif-menu-scroll-bottom"></div>');
 		this.element.innerHTML = html.join('');
 		this.$draw = true;
+		this.initScroll();
+		this.fireEvent('draw');
 	},
 	
 	drawBackground: function(){

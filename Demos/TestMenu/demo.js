@@ -8,93 +8,138 @@ document.addEvent('domready', function(){
 				}
 			}
 		},
-	    {
-	        name: 'open',
-	        action: function(){
-	            alert('open');
-	        }
-	    },
-	    {
-	        name: 'close',
-	        id: 'close_id',
-	        icon: 'TestMenu/application-blue.png',
-	        submenu: [
-	            {
-	                name: 'Prototype',
-	                action: function(){
-	                    alert('prototype.js')
-	                }
-	            },
+		{
+			name: 'open',
+			action: function(){
+				alert('open');
+			}
+		},
+		{
+			name: 'close',
+			id: 'close_id',
+			icon: 'TestMenu/application-blue.png',
+			submenu: [
 				{
-	                name: 'dojo',
-	                action: function(){
-	                    alert('dojo.js')
-	                }
-	            },
+					name: 'Prototype',
+					action: function(){
+						alert('prototype.js')
+					}
+				},
 				{
-	                name: 'MooTools',
-	                action: function(){
-	                    alert('mootools-core.js')
-	                }
-	            },
+					name: 'dojo',
+					action: function(){
+						alert('dojo.js')
+					}
+				},
 				{
-	                name: 'underscore',
-	                action: function(){
-	                    alert('underscore.js')
-	                },
+					name: 'MooTools',
+					action: function(){
+						alert('mootools-core.js')
+					}
+				},
+				{
+					name: 'underscore',
+					action: function(){
+						alert('underscore.js')
+					},
 					submenu: [
 						{
-			                name: 'Prototype',
-			                action: function(){
-			                    alert('prototype.js')
-			                }
-			            },
-						{
-			                name: 'dojo',
-			                action: function(){
-			                    alert('dojo.js')
-			                }
-			            },
-						{
-			                name: 'MooTools',
-			                action: function(){
-			                    alert('mootools-core.js')
-			                }
-			            }
+							name: 'Mif',
+							action: function(){
+								alert('Mif.js')
+							}
+						}
 					]
-	            }
-	        ]
-	    },
-	    {
-	        name: 'new window',
+				}
+			]
+		},
+		{
+			name: 'new window',
 			disabled: true,
-	        icon: '.someCls'
-	    },
-	    {
-	        name: 'new tab',
+			icon: '.someCls'
+		},
+		{
+			name: 'new tab',
 			disabled: true,
-	        icon: '.someCls'
-	    },
-	    {
-	        name: 'paste',
+			icon: '.someCls'
+		},
+		{
+			name: 'paste',
+			icon: '.someCls'
+		},
+		{
+			name: 'new window',
 			disabled: true,
-	        icon: '.someCls'
-	    },
-	    {
-	        name: 'copy',
+			icon: '.someCls'
+		},
+		{
+			name: 'new tab',
 			disabled: true,
-	        icon: '.someCls'
-	    },
-	    {
-	        name: 'remove',
+			icon: '.someCls'
+		},
+		{
+			name: 'paste',
+			icon: '.someCls'
+		},
+		{
+			name: 'new window',
 			disabled: true,
-	        icon: '.someCls'
-	    },
-	    {
-	        name: 'exit',
+			icon: '.someCls'
+		},
+		{
+			name: 'new tab',
 			disabled: true,
-	        icon: '.someCls'
-	    }
+			icon: '.someCls'
+		},
+		{
+			name: 'paste',
+			icon: '.someCls'
+		},
+		{
+			name: 'copy',
+			icon: '.someCls',
+			submenu: [
+				{
+					name: 'Prototype',
+					action: function(){
+						alert('prototype.js')
+					}
+				},
+				{
+					name: 'dojo',
+					action: function(){
+						alert('dojo.js')
+					}
+				},
+				{
+					name: 'MooTools',
+					action: function(){
+						alert('mootools-core.js')
+					}
+				},
+				{
+					name: 'underscore',
+					action: function(){
+						alert('underscore.js')
+					}
+				},
+				{
+					name: 'node',
+					action: function(){
+						alert('node.js')
+					}
+				}
+			]
+		},
+		{
+			name: 'remove',
+			disabled: true,
+			icon: '.someCls'
+		},
+		{
+			name: 'exit',
+			icon: '.someCls'
+		}
 	
 	]);
 	
