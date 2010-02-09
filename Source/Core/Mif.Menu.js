@@ -305,6 +305,14 @@ Mif.Menu=new Class({
 				var limit = self.options.limits.bottom;
 				var bottom = window.getSize().y - (startTop + wrapper.offsetHeight + delta - window.getScroll().y);
 				if(bottom < limit){
+					var height = window.getSize().y - window.getScroll().y - self.element.offsetTop - limit;
+					if(height > wrapper.scrollHeight){
+						wrapper.setStyle('height', 'auto');
+						$clear(self.scrollTimer);
+						self.scrollTimer = null;
+					}else{
+						wrapper.setStyle('height', height);
+					}
 					if(!scrollingTime) scrollingTime = $time();
 					wrapper.scrollTop = startScrollTop - ($time() - scrollingTime)/50*10;
 					if(wrapper.scrollTop == 0){

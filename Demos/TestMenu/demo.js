@@ -69,12 +69,10 @@ document.addEvent('domready', function(){
 		},
 		{
 			name: 'new window',
-			disabled: true,
 			icon: '.someCls'
 		},
 		{
 			name: 'new tab',
-			disabled: true,
 			icon: '.someCls'
 		},
 		{
@@ -83,12 +81,10 @@ document.addEvent('domready', function(){
 		},
 		{
 			name: 'new window',
-			disabled: true,
 			icon: '.someCls'
 		},
 		{
 			name: 'new tab',
-			disabled: true,
 			icon: '.someCls'
 		},
 		{
