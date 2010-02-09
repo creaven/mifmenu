@@ -14,7 +14,7 @@ Mif.Menu=new Class({
 			x: 0,
 			y: 0
 		},
-		minWidth: 250
+		minWidth: 200
 	},
 
 	initialize: function(options){

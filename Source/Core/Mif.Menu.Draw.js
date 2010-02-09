@@ -23,6 +23,7 @@ Mif.Menu.implement({
 			html.push('<div class="mif-menu-item ' + (item.disabled ? 'disabled' : '') + '" uid="' + item.UID + '" id="mif-menu-item-' + item.UID + '">'+
 				'<img class="mif-menu-icon ' + iconCls + '" src="' + icon + '"></img>'+
 				'<span class="mif-menu-name">' + item.name + '</span>'+
+				(item.submenu ? '<span class="mif-menu-submenu"></span>' : '')+
 			'</div>');
 		}
 		html.push('</div>'); //close mif-menu-wrapper
@@ -82,7 +83,6 @@ Mif.Menu.implement({
 					var fill=div.getElementsByTagName('fill')[0];
 					rect.fillcolor="none";
 					rect.style.visibility="visible";
-					//fill.opacity=0.8;
 					fill.src=src;
 				});
 				html = div.outerHTML;

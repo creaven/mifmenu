@@ -11,13 +11,14 @@ Mif.Menu.Load={
 				continue;
 			}
 			var submenu = item.submenu;
+			var Submenu = submenu && submenu.length ? new Mif.Menu() : null;
 			var item = new Mif.Menu.Item({
 				menu: menu,
 				parentItem: parent
 			}, item);
 			menu.items.unshift(item);
-			if(submenu && submenu.length){
-				arguments.callee(submenu, item, new Mif.Menu());
+			if(Submenu){
+				arguments.callee(submenu, item, Submenu);
 			}
 		}
 	}
