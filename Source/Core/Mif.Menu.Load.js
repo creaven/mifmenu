@@ -4,6 +4,7 @@ Mif.Tree.Load
 Mif.Menu.Load={
 		
 	menu: function(items, parent, menu){
+		menu.parentItem = parent;
 		for( var i = items.length; i--; ){
 			var item = items[i];
 			if(item.options){
@@ -14,7 +15,7 @@ Mif.Menu.Load={
 			var Submenu = submenu && submenu.length ? new Mif.Menu() : null;
 			var item = new Mif.Menu.Item({
 				menu: menu,
-				parentItem: parent
+				submenu: Submenu
 			}, item);
 			menu.items.unshift(item);
 			if(Submenu){

@@ -14,7 +14,12 @@ Mif.Menu=new Class({
 			x: 0,
 			y: 0
 		},
-		minWidth: 200
+		minWidth: 200,
+		submenuShowDelay: 300,
+		submenuOffsets: {
+			x: 0,
+			y: -4
+		}
 	},
 
 	initialize: function(options){
@@ -65,8 +70,10 @@ Mif.Menu=new Class({
 	},
 	
 	hide: function(){
+		if(this.hidden) return;
 		this.hidden = true;
 		this.element.dispose();
+		this.hideSubmenu();
 		return this.fireEvent('hide');
 	},
 	
@@ -76,14 +83,14 @@ Mif.Menu=new Class({
 			position=parent.getPosition();
 			
 			var size = window.getSize(), scroll = window.getScroll();
-			var menu = {x: this.wrapper.offsetWidth, y: this.container.offsetHeight};
+			var menu = {x: this.element.offsetWidth, y: this.element.offsetHeight};
 			var item = {x: parent.offsetWidth, y: 0};
 			var props = {x: 'left', y: 'top'};
 			var coords={};
 			
 			for (var z in props){
-				var pos=position[z]+item[z]+this.options.offsets[z];
-				if ((pos + menu[z] - scroll[z]) > size[z]) pos = position[z]-menu[z]-this.options.offsets[z];
+				var pos=position[z]+item[z]+this.options.submenuOffsets[z];
+				if ((pos + menu[z] - scroll[z]) > size[z]) pos = position[z]-menu[z]-this.options.submenuOffsets[z];
 				coords[z]=Math.max(0, pos);
 			}
 			
@@ -134,30 +141,43 @@ Mif.Menu=new Class({
 	hover: function(event){
 		var target = $(event.target);
 		var itemEl = target.getAncestor('.mif-menu-item');
-		if(!itemEl){
-			if(this.hovered){
-				this.hovered.getElement().removeClass('hover');
-				//
-			}
-			this.hovered = null;
-			return;
-		};
+		if(!itemEl)	return this.onMouseout();
 		var item = Mif.uids[itemEl.getAttribute('uid')];
 		if(this.hovered == item) return;
-		if(this.hovered){
-			this.hovered.getElement().removeClass('hover');
-			//
-		}
+		this.onMouseout();
 		this.hovered = item;
 		this.hovered.getElement().addClass('hover');
-		return;
-		if(!item.disabled && item.childList){
-			item.timer=function(){
-				item.childList.show();
-				item.list.openChildList=item.childList;
-				item.timer=null;
-			}.delay(300);
+		this.fireEvent('hover', ['over', this.hovered]);
+		if(!item.disabled && item.submenu){
+			this.showSubmenu(item);
 		}
+	},
+	
+	onMouseout: function(){
+		if(!this.hovered) return;
+		var item = this.hovered;
+		$clear(item.timer);
+		this.hovered.getElement().removeClass('hover');
+		this.fireEvent('hover', ['out', this.hovered]);
+		this.hideSubmenu();
+		this.hovered = null;
+	},
+	
+	showSubmenu: function(item){
+		item.timer = function(){
+			item.submenu.show();
+			item.menu.openSubmenu = item.submenu;
+			item.timer=null;
+		}.delay(this.options.submenuShowDelay);
+	},
+	
+	hideSubmenu: function(){
+		if(!this.openSubmenu) return;
+		this.openSubmenu.onMouseout();
+		var item = this.openSubmenu.parentItem;
+		$clear(item.timer);
+		item.submenu.hide();
+		this.openSubmenu = false;
 	},
 	
 	close: function(event){

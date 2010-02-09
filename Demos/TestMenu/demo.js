@@ -20,10 +20,48 @@ document.addEvent('domready', function(){
 	        icon: 'TestMenu/application-blue.png',
 	        submenu: [
 	            {
-	                name: 'moo',
+	                name: 'Prototype',
 	                action: function(){
-	                    alert('moooooooooo')
+	                    alert('prototype.js')
 	                }
+	            },
+				{
+	                name: 'dojo',
+	                action: function(){
+	                    alert('dojo.js')
+	                }
+	            },
+				{
+	                name: 'MooTools',
+	                action: function(){
+	                    alert('mootools-core.js')
+	                }
+	            },
+				{
+	                name: 'underscore',
+	                action: function(){
+	                    alert('underscore.js')
+	                },
+					submenu: [
+						{
+			                name: 'Prototype',
+			                action: function(){
+			                    alert('prototype.js')
+			                }
+			            },
+						{
+			                name: 'dojo',
+			                action: function(){
+			                    alert('dojo.js')
+			                }
+			            },
+						{
+			                name: 'MooTools',
+			                action: function(){
+			                    alert('mootools-core.js')
+			                }
+			            }
+					]
 	            }
 	        ]
 	    },
