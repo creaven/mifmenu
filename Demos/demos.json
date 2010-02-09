@@ -1,36 +1,16 @@
 {
-	"Tree":{
+	"Menu":{
 		"TestMenu": {
 			"title": "test menu"
 		},
 		"ContextMenu":{
 			"title": "Context menu demo"
 		},
-		"SimpleMenu":{
-			"title": "simple menu demo"
-		},
-		"ContextMenuART":{
-			"title": "ART style context menu"
-		},
-		"ContextMenuARTCustomStyle":{
-			"title": "another ART style context menu"
-		},
-		"ContextMenuCustomStyle":{
-			"title": "another style context menu"
-		},
 		"MenuButton":{
 			"title": "Menu attached to button"
 		},
 		"AddItem":{
 			"title": "How to add item, example"
-		},
-		"ContextMenuCanvas":{
-			"title": "Menu with canvas graphic"
-		}
-	},
-	"Plugins":{
-		"MenuKeyNav":{
-			"title": "KeyNav implementation demo"
 		}
 	}
 }
