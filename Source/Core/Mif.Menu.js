@@ -141,6 +141,8 @@ Mif.Menu=new Class({
 		var target = document.id(event.target);
 		var wrapper = this.element.getElement('.mif-menu-wrapper');
 		if(wrapper.hasChild(target) || wrapper == target) return;
+		var menu = target.getAncestor('.mif-menu');
+		if(menu && menu != this.element) return;
 		this.hide();
 		document.removeEvent('mousedown', this.bound.hideOnExtraClick); 
 	},
