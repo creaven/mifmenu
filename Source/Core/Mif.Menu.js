@@ -139,7 +139,8 @@ Mif.Menu=new Class({
 	
 	hideOnExtraClick: function(event){//todo add submenu support
 		var target = document.id(event.target);
-		if(this.element.hasChild(target) || this.element == target) return;
+		var wrapper = this.element.getElement('.mif-menu-wrapper');
+		if(wrapper.hasChild(target) || wrapper == target) return;
 		this.hide();
 		document.removeEvent('mousedown', this.bound.hideOnExtraClick); 
 	},
