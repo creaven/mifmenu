@@ -1,7 +1,7 @@
 .mif-menu{
 z-index:1000;
 position:absolute;
-font-size:14px;
+font-size:11px;
 color:#000;
 }
 
@@ -15,12 +15,11 @@ overflow:hidden;
 }
 
 .mif-menu-item, .mif-menu-scroll{
-height:19px;
+height:16px;
 padding:0 20px;
 line-height:0;
 white-space:nowrap;
 position:relative;
-vertical-align:middle;
 }
 
 .mif-menu-scroll{
@@ -44,8 +43,8 @@ background: url('../images/bottom.png') center center no-repeat #fff;
 }
 
 .mif-menu-icon, .mif-menu-name{
-height:20px;
-line-height:20px;
+height:16px;
+line-height:16px;
 vertical-align:middle;
 display:inline-block;
 cursor:default;
