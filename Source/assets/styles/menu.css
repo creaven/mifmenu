@@ -1,7 +1,7 @@
 .mif-menu{
 z-index:1000;
 position:absolute;
-font-size:11px;
+font-size:14px;
 color:#000;
 }
 
@@ -15,7 +15,7 @@ overflow:hidden;
 }
 
 .mif-menu-item, .mif-menu-scroll{
-height:16px;
+height:19px;
 padding:0 20px;
 line-height:0;
 white-space:nowrap;
@@ -43,11 +43,12 @@ background: url('../images/bottom.png') center center no-repeat #fff;
 }
 
 .mif-menu-icon, .mif-menu-name{
-height:16px;
-line-height:16px;
+height:19px;
+line-height:19px;
 vertical-align:middle;
 display:inline-block;
 cursor:default;
+overflow:hidden;
 }
 
 .mif-menu-icon{
@@ -65,11 +66,6 @@ color:#fff;
 }
 
 .mif-menu .disabled{
-color:#D7D7D7;
-}
-
-.mif-menu .disabled.hover{
-background:none;
 color:#D7D7D7;
 }
 

@@ -5,7 +5,7 @@ Mif.Menu
 
 Mif.Menu=new Class({
 	
-	version: '1.2',
+	version: '1.2dev',
 
 	Implements: [Events, Options],
 	
@@ -60,6 +60,9 @@ Mif.Menu=new Class({
 		if(this.hidden) return;
 		this.hidden = true;
 		this.unselect();
+		this.element.getElement('.mif-menu-wrapper').setStyle('height', 'auto');
+		this.top.setStyle('display', 'none');
+		this.bottom.setStyle('display', 'none');
 		this.element.dispose();
 		this.hideSubmenu();
 		if(this.parentItem){
@@ -79,10 +82,25 @@ Mif.Menu=new Class({
 			var item = {x: parent.offsetWidth, y: 0};
 			var props = {x: 'left', y: 'top'};
 			var coords = {};
-			for (var z in props){
-				var pos = position[z] + item[z] + this.options.submenuOffsets[z];
-				if ((pos + menu[z] - scroll[z]) > size[z]) pos = position[z] - menu[z] - this.options.submenuOffsets[z];
-				coords[z] = Math.max(0, pos);
+			//x
+			var pos = position.x + item.x + this.options.submenuOffsets.x;
+			if ((pos + menu.x - scroll.x) > size.x) pos = position.x - menu.x - this.options.submenuOffsets.x;
+			coords.x = Math.max(0, pos);
+			//y
+			var pos = position.y + item.y + this.options.submenuOffsets.y;
+			var delta = (pos + menu.y - scroll.y) - (size.y - this.options.limits.bottom);
+			if (delta > 0){
+				if(this.element.scrollHeight - delta > this.items[0].getElement().offsetHeight*2){
+					this.setHeight(this.element.scrollHeight - delta);
+				}else{
+					pos = position.y - this.options.submenuOffsets.y - menu.y + parent.offsetHeight;
+				}
+			};
+			coords.y = Math.max(this.options.limits.top, pos);
+			var delta = coords.y + this.element.offsetHeight - y;
+			if(coords.y < y && delta > 0){
+				var wrapper = this.element.getElement('.mif-menu-wrapper');
+				this.setHeight(y - coords.y - wrapper.getStyle('margin-top').toInt() - wrapper.getStyle('margin-bottom').toInt());
 			}
 		}else{
 			if(coords.event) coords = coords.page;
@@ -90,16 +108,16 @@ Mif.Menu=new Class({
 			var size = window.getSize(), scroll = window.getScroll();
 			var menu = {x: this.element.offsetWidth, y: this.element.offsetHeight};
 			var props = {x: 'left', y: 'top'};
-			
+			//x
 			var pos = coords.x + this.options.offsets.x;
 			if ((pos + menu.x - scroll.x) > size.x) pos = coords.x - this.options.offsets.x - menu.x;
 			coords.x = Math.max(0, pos);
-			
+			//y
 			var pos = coords.y + this.options.offsets.y;
 			var delta = (pos + menu.y - scroll.y) - (size.y - this.options.limits.bottom);
 			if (delta > 0){
 				if(this.element.scrollHeight - delta > this.items[0].getElement().offsetHeight*2){
-					this.setHeight(this.element.scrollHeight - delta).scrollTo(this.items[0], true);
+					this.setHeight(this.element.scrollHeight - delta);
 				}else{
 					pos = coords.y - this.options.offsets.y - menu.y;
 				}
@@ -107,6 +125,7 @@ Mif.Menu=new Class({
 			coords.y = Math.max(this.options.limits.top, pos);
 			var delta = coords.y + this.element.offsetHeight - y;
 			if(coords.y < y && delta > 0){
+				var wrapper = this.element.getElement('.mif-menu-wrapper');
 				this.setHeight(y - coords.y);
 			}
 		}
@@ -129,11 +148,7 @@ Mif.Menu=new Class({
 		this.bound={
 			close: this.close.bind(this),
 			hover: this.hover.bind(this),
-			hideOnExtraClick: this.hideOnExtraClick.bind(this),
-			startScrollBottom: this.startScrollBottom.bind(this),
-			startScrollTop: this.startScrollTop.bind(this),
-			stopScrollBottom: this.stopScrollBottom.bind(this),
-			stopScrollTop: this.stopScrollTop.bind(this)
+			hideOnExtraClick: this.hideOnExtraClick.bind(this)
 		};
 		this.element.addEvent('mousemove', this.bound.hover).addEvent('mouseout', this.bound.hover).addEvent('mouseover', this.bound.hover).addEvent('mouseleave', this.bound.hover);
 		if(this.options.contextmenu){
@@ -149,6 +164,7 @@ Mif.Menu=new Class({
 		var itemEl = target.getAncestor('.mif-menu-item');
 		if(!itemEl)	return this.unselect();
 		var item = Mif.uids[itemEl.getAttribute('uid')];
+		if(item.get('disabled')) return this.unselect();
 		if(this.hovered == item) return;
 		this.select(item);
 		if(!item.disabled && item.submenu){
@@ -160,6 +176,7 @@ Mif.Menu=new Class({
 		this.unselect();
 		this.hovered = item;
 		this.hovered.getElement().addClass('hover');
+		this.makeVisible(item);
 		this.fireEvent('hover', ['over', this.hovered]);
 	},
 	
@@ -200,27 +217,6 @@ Mif.Menu=new Class({
 		return !this.hidden;
 	},
 	
-	attachTo: function(el){
-		el=$(el);
-		el.addEvents({
-			'mousedown': function(event){
-				if(event.rightClick) return;
-				if(!this.isVisible()){
-					this.$attaching=true;
-					var coords=el.getCoordinates();
-					this.show({x: coords.left, y: coords.bottom});
-					this.el=el;
-				}else{
-					this.hide();
-				}
-			}.bind(this),
-			'mouseup': function(event){
-				this.$attaching=false;
-			}.bind(this)
-		});
-		return this;
-	},
-	
 	setHeight: function(height){
 		var wrapper = this.element.getElement('.mif-menu-wrapper');
 		if(height > wrapper.scrollHeight) return this;
@@ -243,25 +239,26 @@ Mif.Menu=new Class({
 				bottom.setStyle('display', this.element.scrollTop == this.element.scrollHeight - this.element.clientHeight ? 'none' : 'block');
 			}
 		});
+		$extend(this.bound, {
+			startScrollBottom: this.startScrollBottom.bind(this),
+			startScrollTop: this.startScrollTop.bind(this),
+			stopScroll: this.stopScroll.bind(this)
+		});
 		bottom.addEvents({
 			mouseenter: this.bound.startScrollBottom,
-			mouseleave: this.bound.stopScrollBottom
+			mouseleave: this.bound.stopScroll
 		});
 		top.addEvents({
 			mouseenter: this.bound.startScrollTop,
-			mouseleave: this.bound.stopScrollTop
+			mouseleave: this.bound.stopScroll
 		});
 		this.bound.mousewheel = this.mousewheel.bind(this);
-		this.element.getElement('.mif-menu-wrapper').addEvent('mousewheel', this.bound.mousewheel);
+		this.element.addEvent('mousewheel', this.bound.mousewheel);
 	},
 	
 	mousewheel: function(event){
 		var delta = event.wheel;
 		this.doScroll(delta);
-	},
-	
-	startScrollBottom: function(){
-		this.startScroll('bottom');
 	},
 	
 	startScroll: function(side){
@@ -276,93 +273,60 @@ Mif.Menu=new Class({
 		this.scrollTimer = (function(){
 			if($time() - self.time < 2000) return;
 			if(!startTime) startTime = $time();
-			var delta = ($time() - startTime)/50*10
-			if(side == 'bottom'){
-				if(wrapper.scrollTop == wrapper.scrollHeight - wrapper.clientHeight) return;
-				var limit = self.options.limits.top;
-				var top = startTop - delta;
-				if(top < limit){
-					if(!scrollingTime) scrollingTime = $time();
-					wrapper.scrollTop = startScrollTop + ($time() - scrollingTime)/50*10;
-					if(wrapper.scrollTop >= wrapper.scrollHeight - wrapper.clientHeight){
-						$clear(self.scrollTimer);
-						self.srollTimer = null;
-					}
-				}else{
-					var height = startHeight + delta;
-					if(height > wrapper.scrollHeight){
-						wrapper.setStyle('height', 'auto');
-						$clear(self.scrollTimer);
-						self.scrollTimer = null;
-						self.element.setStyle('top', top + height - wrapper.scrollHeight);
-					}else{
-						wrapper.setStyle('height', height);
-						self.element.setStyle('top', top);
-					}
-				}
+			var delta = ($time() - startTime)/50*10;
+			if(!delta) return;
+			if(side == 'top') delta = -delta;
+			if(!self.scrollMove(delta)){
+				$clear(self.scrollTimer);
+				self.srollTimer = null;
 			}else{
-				if(wrapper.scrollTop == self.items[0].getElement().offsetTop) return;
-				var limit = self.options.limits.bottom;
-				var bottom = window.getSize().y - (startTop + wrapper.offsetHeight + delta - window.getScroll().y);
-				if(bottom < limit){
-					var height = window.getSize().y - window.getScroll().y - self.element.offsetTop - limit;
-					if(height > wrapper.scrollHeight){
-						wrapper.setStyle('height', 'auto');
-						$clear(self.scrollTimer);
-						self.scrollTimer = null;
-					}else{
-						wrapper.setStyle('height', height);
-					}
-					if(!scrollingTime) scrollingTime = $time();
-					wrapper.scrollTop = startScrollTop - ($time() - scrollingTime)/50*10;
-					if(wrapper.scrollTop == 0){
-						$clear(self.scrollTimer);
-						self.srollTimer = null;
-					}
-				}else{
-					var height = startHeight + delta;
-					wrapper.scrollTop = startScrollTop - delta;
-					if(height > wrapper.scrollHeight){
-						wrapper.setStyle('height', 'auto');
-						$clear(self.scrollTimer);
-						self.scrollTimer = null;
-					}else{
-						wrapper.setStyle('height', height);
-					}
-				}
+				startTime = $time();
 			}
-			self.top.setStyle('display', wrapper.scrollTop == self.items[0].getElement().offsetTop ? 'none' : 'block');
-			self.bottom.setStyle('display', wrapper.scrollTop == wrapper.scrollHeight - wrapper.clientHeight ? 'none' : 'block');
 		}).periodical(50);
 	},
 	
+	startScrollBottom: function(){
+		this.startScroll('bottom');
+	},
+	
+	startScrollTop: function(){
+		return this.startScroll('top');
+	},
+	
+	stopScroll: function(){
+		$clear(this.scrollTimer);
+		this.scrollTimer = null;
+	},
+	
 	doScroll: function(delta){
-		delta = -10*delta;
+		this.scrollMove(-10*delta);
+	},
+	
+	scrollMove: function(delta){
 		var side = delta < 0 ? 'top' : 'bottom';
 		var wrapper = this.element.getElement('.mif-menu-wrapper');
-		var startTop = this.element.offsetTop;
+		var offsetTop = this.element.offsetTop;
 		if(side == 'bottom'){
 			if(wrapper.scrollTop == wrapper.scrollHeight - wrapper.clientHeight) return;
 			var limit = this.options.limits.top;
-			var top = startTop - delta;
+			var top = offsetTop - delta;
 			if(top < limit){
 				this.element.setStyle('top', limit);
-				wrapper.setStyle('height', wrapper.offsetHeight + startTop - limit);
+				wrapper.setStyle('height', wrapper.offsetHeight + offsetTop - limit);
 				wrapper.scrollTop = wrapper.scrollTop + delta;
 			}else{
 				var height = wrapper.offsetHeight + delta;
 				if(height > wrapper.scrollHeight){
 					wrapper.setStyle('height', 'auto');
-					this.element.setStyle('top', startTop - delta + (height - wrapper.scrollHeight));
+					this.element.setStyle('top', offsetTop - delta + (height - wrapper.scrollHeight));
 				}else{
 					wrapper.setStyle('height', height);
-					this.element.setStyle('top', startTop - delta);
+					this.element.setStyle('top', offsetTop - delta);
 				}
-				
 			}
 		}else{
 			if(wrapper.scrollTop == this.items[0].getElement().offsetTop) return;
-			var bottom = window.getSize().y - (startTop + wrapper.offsetHeight - delta - window.getScroll().y);
+			var bottom = window.getSize().y - (offsetTop + wrapper.offsetHeight - delta - window.getScroll().y);
 			var limit = this.options.limits.bottom;
 			if(bottom < limit){
 				wrapper.scrollTop = wrapper.scrollTop + delta;
@@ -375,33 +339,58 @@ Mif.Menu=new Class({
 					wrapper.setStyle('height', height);
 				}
 			}
-		}
-		this.top.setStyle('display', wrapper.scrollTop == this.items[0].getElement().offsetTop ? 'none' : 'block');
-		this.bottom.setStyle('display', wrapper.scrollTop == wrapper.scrollHeight - wrapper.clientHeight ? 'none' : 'block');
-	},
-	
-	stopScrollBottom: function(){
-		$clear(this.scrollTimer);
-		this.scrollTimer = null;
-	},
-	
-	startScrollTop: function(){
-		return this.startScroll('top');
-	},
-	
-	stopScrollTop: function(){
-		$clear(this.scrollTimer);
-		this.scrollTimer = null;
-	},
-	
-	scrollTo: function(item, noanim){
-		var scrollTop = item.getElement().offsetTop;
-		if(noanim){
-			this.scroll.set(0, scrollTop);
-			this.scroll.fireEvent('complete');
+		};
+		var result = true;
+		if(wrapper.scrollTop == this.items[0].getElement().offsetTop){
+			this.top.setStyle('display', 'none');
+			if(side == 'top') result = false;
 		}else{
-			this.scroll.start(0, scrollTop);
+			this.top.setStyle('display', 'block');
+		};
+		if(wrapper.scrollTop == wrapper.scrollHeight - wrapper.clientHeight){
+			this.bottom.setStyle('display', 'none');
+			if(side == 'bottom') result = false;
+		}else{
+			this.bottom.setStyle('display', 'block');
 		}
+		return result;
+	},
+	
+	makeVisible: function(item){
+		var el = item.getElement();
+		var offsetTop = el.offsetTop;
+		var offsetBottom = offsetTop + el.offsetHeight;
+		var top = this.top.offsetHeight;
+		var bottom = this.bottom.offsetHeight;
+		var wrapper = this.element.getElement('.mif-menu-wrapper');
+		var wrapperTop = wrapper.scrollTop + top;
+		var wrapperBottom = wrapperTop + wrapper.offsetHeight - bottom;
+		if(offsetTop < wrapperTop){
+			this.scrollMove(offsetTop - wrapperTop);
+		}else if(offsetBottom > wrapperBottom){
+			this.scrollMove(offsetBottom - wrapperBottom + top);
+		}
+	},
+	
+	attachTo: function(el){
+		el=$(el);
+		el.addEvents({
+			'mousedown': function(event){
+				if(event.rightClick) return;
+				if(!this.isVisible()){
+					this.$attaching=true;
+					var coords=el.getCoordinates();
+					this.show({x: coords.left, y: coords.bottom});
+					this.el=el;
+				}else{
+					this.hide();
+				}
+			}.bind(this),
+			'mouseup': function(event){
+				this.$attaching=false;
+			}.bind(this)
+		});
+		return this;
 	}
 	
 });
