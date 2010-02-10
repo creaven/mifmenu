@@ -73,11 +73,15 @@ color:#D7D7D7;
 width:17px;
 height:100%;
 display:inline-block;
-background:url('../images/submenu-arrow.gif') no-repeat center center;
+background:url('../images/left.png') no-repeat center center;
 vertical-align:middle;
 position:absolute;
-right:0;
+right:8px;
 top:0;
+}
+
+.hover .mif-menu-submenu{
+background-image:url('../images/left-white.png') 
 }
 
 
