@@ -15,11 +15,12 @@ overflow:hidden;
 }
 
 .mif-menu-item, .mif-menu-scroll{
-height:20px;
+height:19px;
 padding:0 20px;
 line-height:0;
 white-space:nowrap;
 position:relative;
+vertical-align:middle;
 }
 
 .mif-menu-scroll{
@@ -60,7 +61,7 @@ margin-left:5px;
 }
 
 .mif-menu .hover{
-background:#2D5FDD;
+background:url(../images/selected.png);
 color:#fff;
 }
 
@@ -99,97 +100,97 @@ overflow:hidden;
 left:-19px;
 top:-17px;
 padding-left:40px;
-padding-top:37px;
+padding-top:47px;
 }
 .mif-menu-bg .top{
-height: 43px;
+height: 35px;
 width: 100%;
 position: relative;
-top:-37px;
+top:-47px;
 padding-left:40px;
-padding-top:37px;
+padding-top:47px;
 left:-40px;
 }
 .mif-menu-bg .center{
 height: 100%;
 width: 100%;
 position: relative;
-top:-162px;
+top:-164px;
 padding-left:40px;
-padding-top:37px;
+padding-top:47px;
 left:-40px;
 }
 .mif-menu-bg .bottom{
-height: 44px;
+height: 35px;
 width:100%;
-top:-162px;
+top:-164px;
 position:relative;
 padding-left:40px;
 left:-40px;}
 .mif-menu-bg .tl{
-width: 46px;
-height: 43px;
+width: 45px;
+height: 35px;
 background:url("../images/bg-tl.png");
 left:0px;
 top:0px;
 }
 .mif-menu-bg .tr{
-width: 40px;
-height: 43px;
+width: 45px;
+height: 35px;
 float:right;
 position: relative;
 background:url("../images/bg-tr.png");
-top:-37px;
+top:-47px;
 }
 .mif-menu-bg .t{
-height: 43px;
+height: 35px;
 width:100%;
-left:-80px;
+left:-85px;
 top: 0;
-clip:rect(auto auto auto 126px);
+clip:rect(auto auto auto 130px);
 background:url("../images/bg-t.png");
 padding-left:40px;
 }
 .ie6 .mif-menu-bg .t{
-left:-40px;
-clip:rect(auto auto auto 86px);
+left:-45px;
+clip:rect(auto auto auto 90px);
 }
 .mif-menu-bg .bl{
-width: 46px;
-height: 44px;
+width: 45px;
+height: 35px;
 background:url("../images/bg-bl.png");
 left:0px
 }
 .mif-menu-bg .br{
-width: 40px;
-height: 44px;
+width: 45px;
+height: 35px;
 float: right;
 position: relative;
 background:url("../images/bg-br.png");
 }
 .mif-menu-bg .b{
-height: 44px;
+height: 35px;
 width:100%;
-left:-80px;
-clip:rect(auto auto auto 126px);
+left:-85px;
+clip:rect(auto auto auto 130px);
 background:url("../images/bg-b.png");
 padding-left:40px;
 }
 .ie6 .mif-menu-bg .b{
-left:-40px;
-clip:rect(auto auto auto 86px);
+left:-45px;
+clip:rect(auto auto auto 90px);
 }
 .mif-menu-bg .l{
 height:10000px;
-width:46px;
+width:45px;
 left:0;
-top:87px;
+top:70px;
 background:url("../images/bg-l.png");
 }
 .mif-menu-bg .r{
 height:10000px;
-width:40px;
-top:50px;
+width:45px;
+top:23px;
 float:right;
 position:relative;
 background:url("../images/bg-r.png");
@@ -197,13 +198,13 @@ background:url("../images/bg-r.png");
 .mif-menu-bg .c{
 height: 10000px;
 width:100%;
-left:-80px;
-top:87px;
-clip:rect(auto auto auto 126px);
+left:-85px;
+top:70px;
+clip:rect(auto auto auto 130px);
 background:url("../images/bg-c.png");
 padding-left:40px;
 }
 .ie6 .mif-menu-bg .c{
-left:-40px;
-clip:rect(auto auto auto 86px);
+left:-45px;
+clip:rect(auto auto auto 90px);
 }

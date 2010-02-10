@@ -23,7 +23,7 @@ Mif.Menu=new Class({
 		minWidth: 200,
 		submenuShowDelay: 300,
 		submenuOffsets: {
-			x: 0,
+			x: -2,
 			y: -4
 		}
 	},

@@ -64,26 +64,6 @@ document.addEvent('domready', function(){
 			icon: '.someCls'
 		},
 		{
-			name: 'paste',
-			icon: '.someCls'
-		},
-		{
-			name: 'new window',
-			icon: '.someCls'
-		},
-		{
-			name: 'new tab',
-			icon: '.someCls'
-		},
-		{
-			name: 'paste',
-			icon: '.someCls'
-		},
-		{
-			name: 'new window',
-			icon: '.someCls'
-		},
-		{
 			name: 'new tab',
 			icon: '.someCls'
 		},
