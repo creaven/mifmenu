@@ -14,13 +14,13 @@ Mif.Menu.implement({
 				var icon = item.icon;
 				var iconCls = '';
 				if(icon){
-					if(icon.indexOf('/') == -1 && icon[0] == '.'){
+					if(icon.indexOf('/') == -1 && icon.substring(0, 1) == '.'){
 						iconCls = icon.substring(1);
 					}
 				}
 				html.push('<div class="mif-menu-item ' + (item.disabled ? 'disabled' : '') + '" uid="' + item.UID + '" id="mif-menu-item-' + item.UID + '">'+
 					(icon ? 
-						(iconCls ? '<div class="mif-menu-icon ' + iconCls + '"></div>' : 
+						(iconCls ? '<span class="mif-menu-icon ' + iconCls + '"></span>' : 
 							'<img class="mif-menu-icon" src="' + icon + '"></img>'
 						) 
 					: '') +
@@ -37,68 +37,27 @@ Mif.Menu.implement({
 	},
 	
 	drawBackground: function(){
-		if(!Browser.Engine.trident4){
-			return '<div class="mif-menu-bg">\
-						<div class="top">\
-							<div class="tl"></div>\
-							<div class="t"></div>\
-							<div class="tr"></div>\
-						</div>\
-						<div class="center">\
-							<div class="l"></div>\
-							<div class="c"></div>\
-							<div class="r"></div>\
-						</div>\
-						<div class="bottom">\
-							<div class="bl"></div>\
-							<div class="b"></div>\
-							<div class="br"></div>\
-						</div>\
-					</div>';
-		}else{
-			if(!document.namespaces.v){
-				document.namespaces.add("v", "urn:schemas-microsoft-com:vml");
-				document.createStyleSheet().cssText = "v\\:*{behavior:url(#default#VML);display:inline-block}";
-			}
-			var vml = '<v:rect style="width:4000px; height:4000px; position:absolute; visibility:hidden; left:-1px; top:-1px;" coordsize="21600,21600" fillcolor="none" stroked="f"><v:fill src="" type="tile"  position="0.00025, 0.00025" style="left:-1px; top:-1px"></v:fill></v:rect>';
-			var html = '<div class="top">'+
-				'<div class="tl">' + vml + '</div>'+
-				'<div class="t">' + vml + '</div>'+
-				'<div class="tr">' + vml + '</div>'+
-			'</div>'+
-			'<div class="center">'+
-				'<div class="l">' + vml + '</div>'+
-				'<div class="c">' + vml + '</div>'+
-				'<div class="r">' + vml + '</div>'+
-			'</div>'+
-			'<div class="bottom">'+
-				'<div class="bl">' + vml + '</div>'+
-				'<div class="b">' + vml + '</div>'+
-				'<div class="br">' + vml + '</div>'+
-			'</div>';
-			for(var i = 0; i < 1; i++){
-				var div = new Element('div', {'class': 'mif-menu-bg'}).inject(document.body);
-				div.set('html', html);
-				div.getElements('div div').each(function(div){
-					var src=div.getStyle('backgroundImage').replace(/url\(['"]?(.*?)['"]?\)/, function(full, match){
-						return match;
-					});
-					div.style.background='none';
-					var rect=div.getElementsByTagName('rect')[0];
-					var fill=div.getElementsByTagName('fill')[0];
-					rect.fillcolor="none";
-					rect.style.visibility="visible";
-					fill.src=src;
-				});
-				html = div.outerHTML;
-				div.dispose();
-			}
-			return html;
-		}
+		return '<div class="mif-menu-bg">\
+					<div class="top">\
+						<div class="tl"></div>\
+						<div class="t"></div>\
+						<div class="tr"></div>\
+					</div>\
+					<div class="center">\
+						<div class="l"></div>\
+						<div class="c"></div>\
+						<div class="r"></div>\
+					</div>\
+					<div class="bottom">\
+						<div class="bl"></div>\
+						<div class="b"></div>\
+						<div class="br"></div>\
+					</div>\
+				</div>';
 	},
 	
 	updateWidth: function(){
-		this.element.setStyle('width', Browser.Engine.trident4 ? 0 : 'auto');
+		this.element.setStyle('width', 'auto');
 		var width = Math.max(this.element.offsetWidth, parseInt(this.options.minWidth));
 		this.element.setStyle('width', width).dispose().inject(document.body);
 	},

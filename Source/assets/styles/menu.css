@@ -3,13 +3,13 @@ z-index:1000;
 position:absolute;
 font-size:14px;
 color:#000;
+padding:4px 0;
 }
 
 .mif-menu-wrapper{
 position:relative;
 left:0;
 top:0;
-margin:4px 0;
 width:100%;
 overflow:hidden;
 }
@@ -20,6 +20,7 @@ padding:0 20px;
 line-height:0;
 white-space:nowrap;
 position:relative;
+overflow:hidden;
 }
 
 .mif-menu-scroll{
@@ -72,8 +73,8 @@ color:#D7D7D7;
 
 .mif-menu .disabled .mif-menu-icon{
 opacity:0.5;
-filter: alpha(opacity=50);
 -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+filter: alpha(opacity=50);
 }
 
 .mif-menu-submenu{

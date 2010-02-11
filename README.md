@@ -2,6 +2,8 @@
 
 ![Screenshot](http://github.com/creaven/mifmenu/raw/master/menu-shot.png)
 
+Supported browsers: ie7+, opera 10.10+, firefox 3.5+, safari4+, chrome4+
+
 Description
 ===========
 

@@ -48,8 +48,9 @@ Mif.Menu=new Class({
 		this.hidden = false;
 		if(!this.$draw) this.draw();
 		this.element.inject(document.body);
-		this.updateWidth();
 		this.updateHeight();
+		this.updateWidth();
+		this.updateWidth();
 		this.position(coords);
 		this.addHideOnExtraClick();
 		this.time = $time();
@@ -78,6 +79,7 @@ Mif.Menu=new Class({
 		if(!coords){
 			var parent = this.parentItem.getElement();
 			position = parent.getPosition();
+			var y = position.y + this.options.submenuOffsets.y;
 			var size = window.getSize(), scroll = window.getScroll();
 			var menu = {x: this.element.offsetWidth, y: this.element.offsetHeight};
 			var item = {x: parent.offsetWidth, y: 0};
@@ -96,8 +98,8 @@ Mif.Menu=new Class({
 			var pos = position.y + item.y + this.options.submenuOffsets.y;
 			var delta = (pos + menu.y - scroll.y) - (size.y - this.options.limits.bottom);
 			if (delta > 0){
-				if(this.element.scrollHeight - delta > this.items[0].getElement().offsetHeight*2){
-					this.setHeight(this.element.scrollHeight - delta);
+				if(this.element.offsetHeight - delta > this.items[0].getElement().offsetHeight*2){
+					this.setHeight(this.element.offsetHeight - delta);
 				}else{
 					pos = position.y - this.options.submenuOffsets.y - menu.y + parent.offsetHeight;
 				}
@@ -106,7 +108,7 @@ Mif.Menu=new Class({
 			var delta = coords.y + this.element.offsetHeight - y;
 			if(coords.y < y && delta > 0){
 				var wrapper = this.element.getElement('.mif-menu-wrapper');
-				this.setHeight(y - coords.y - wrapper.getStyle('margin-top').toInt() - wrapper.getStyle('margin-bottom').toInt());
+				this.setHeight(y - coords.y + parent.offsetHeight);
 			}
 		}else{
 			if(coords.event) coords = coords.page;
@@ -122,8 +124,8 @@ Mif.Menu=new Class({
 			var pos = coords.y + this.options.offsets.y;
 			var delta = (pos + menu.y - scroll.y) - (size.y - this.options.limits.bottom);
 			if (delta > 0){
-				if(this.element.scrollHeight - delta > this.items[0].getElement().offsetHeight*2){
-					this.setHeight(this.element.scrollHeight - delta);
+				if(this.element.offsetHeight - delta > this.items[0].getElement().offsetHeight*2){
+					this.setHeight(this.element.offsetHeight - delta);
 				}else{
 					pos = coords.y - this.options.offsets.y - menu.y;
 				}
@@ -321,7 +323,7 @@ Mif.Menu=new Class({
 			var top = offsetTop - delta;
 			if(top < limit){
 				this.element.setStyle('top', limit);
-				wrapper.setStyle('height', wrapper.offsetHeight + offsetTop - limit);
+				wrapper.setStyle('height', Math.min(wrapper.scrollHeight, wrapper.offsetHeight + offsetTop - limit));
 				wrapper.scrollTop = wrapper.scrollTop + delta;
 			}else{
 				var height = wrapper.offsetHeight + delta;
@@ -356,7 +358,7 @@ Mif.Menu=new Class({
 		}else{
 			this.top.setStyle('display', 'block');
 		};
-		if(wrapper.scrollTop == wrapper.scrollHeight - wrapper.clientHeight){
+		if(wrapper.scrollTop == wrapper.scrollHeight - wrapper.offsetHeight){
 			this.bottom.setStyle('display', 'none');
 			if(side == 'bottom') result = false;
 		}else{
