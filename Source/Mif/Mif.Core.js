@@ -26,5 +26,3 @@ if(Browser.Engine.trident4){
 		document.id(document.body).addClass('ie6');
 	});
 }
-
-Mif.TransparentImage = '../Source/assets/images/transparent.gif';

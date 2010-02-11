@@ -16,11 +16,14 @@ Mif.Menu.implement({
 				if(icon){
 					if(icon.indexOf('/') == -1 && icon[0] == '.'){
 						iconCls = icon.substring(1);
-						icon = Mif.TransparentImage;
 					}
 				}
 				html.push('<div class="mif-menu-item ' + (item.disabled ? 'disabled' : '') + '" uid="' + item.UID + '" id="mif-menu-item-' + item.UID + '">'+
-					(icon ? '<img class="mif-menu-icon ' + iconCls + '" src="' + icon + '"></img>' : '') +
+					(icon ? 
+						(iconCls ? '<div class="mif-menu-icon ' + iconCls + '"></div>' : 
+							'<img class="mif-menu-icon" src="' + icon + '"></img>'
+						) 
+					: '') +
 					'<span class="mif-menu-name">' + item.name + '</span>'+
 					(item.submenu ? '<span class="mif-menu-submenu"></span>' : '')+
 				'</div>');
