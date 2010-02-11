@@ -60,6 +60,7 @@ Mif.Menu=new Class({
 		if(this.hidden) return;
 		this.hidden = true;
 		this.unselect();
+		this.element.removeClass('left').removeClass('right');
 		this.element.getElement('.mif-menu-wrapper').setStyle('height', 'auto');
 		this.top.setStyle('display', 'none');
 		this.bottom.setStyle('display', 'none');
@@ -83,9 +84,14 @@ Mif.Menu=new Class({
 			var props = {x: 'left', y: 'top'};
 			var coords = {};
 			//x
+			var side = 'right';
 			var pos = position.x + item.x + this.options.submenuOffsets.x;
-			if ((pos + menu.x - scroll.x) > size.x) pos = position.x - menu.x - this.options.submenuOffsets.x;
+			if ((pos + menu.x - scroll.x) > size.x){
+				side = 'left';
+				pos = position.x - menu.x - this.options.submenuOffsets.x;
+			}
 			coords.x = Math.max(0, pos);
+			this.element.addClass(side);
 			//y
 			var pos = position.y + item.y + this.options.submenuOffsets.y;
 			var delta = (pos + menu.y - scroll.y) - (size.y - this.options.limits.bottom);

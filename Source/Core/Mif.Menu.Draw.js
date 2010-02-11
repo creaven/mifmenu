@@ -18,11 +18,9 @@ Mif.Menu.implement({
 						iconCls = icon.substring(1);
 						icon = Mif.TransparentImage;
 					}
-				}else{
-					icon = Mif.TransparentImage
 				}
 				html.push('<div class="mif-menu-item ' + (item.disabled ? 'disabled' : '') + '" uid="' + item.UID + '" id="mif-menu-item-' + item.UID + '">'+
-					'<img class="mif-menu-icon ' + iconCls + '" src="' + icon + '"></img>'+
+					(icon ? '<img class="mif-menu-icon ' + iconCls + '" src="' + icon + '"></img>' : '') +
 					'<span class="mif-menu-name">' + item.name + '</span>'+
 					(item.submenu ? '<span class="mif-menu-submenu"></span>' : '')+
 				'</div>');

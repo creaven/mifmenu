@@ -110,24 +110,20 @@ document.addEvent('domready', function(){
 		{
 			name: 'new window',
 			disabled: true,
-			icon: '.someCls'
+			icon: '.form'
 		},
 		{
 			name: 'new tab',
-			disabled: true,
-			icon: '.someCls'
+			disabled: true
 		},
 		{
-			name: 'new tab',
-			icon: '.someCls'
+			name: 'new tab'
 		},
 		{
-			name: 'paste',
-			icon: '.someCls'
+			name: 'paste'
 		},
 		{
 			name: 'copy',
-			icon: '.someCls',
 			submenu: [
 				{
 					name: 'Prototype',
@@ -163,12 +159,10 @@ document.addEvent('domready', function(){
 		},
 		{
 			name: 'remove',
-			disabled: true,
-			icon: '.someCls'
+			disabled: true
 		},
 		{
-			name: 'exit',
-			icon: '.someCls'
+			name: 'exit'
 		}
 	
 	]);

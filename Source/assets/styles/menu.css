@@ -54,10 +54,11 @@ overflow:hidden;
 .mif-menu-icon{
 width:16px;
 height:16px;
+margin-right:5px;
 }
 
 .mif-menu-name{
-margin-left:5px;
+
 }
 
 .mif-menu .hover{
@@ -67,6 +68,12 @@ color:#fff;
 
 .mif-menu .disabled{
 color:#D7D7D7;
+}
+
+.mif-menu .disabled .mif-menu-icon{
+opacity:0.5;
+filter: alpha(opacity=50);
+-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 }
 
 .mif-menu-submenu{
@@ -206,4 +213,12 @@ padding-left:40px;
 .ie6 .mif-menu-bg .c{
 left:-45px;
 clip:rect(auto auto auto 90px);
+}
+
+
+.right .mif-menu-bg .tl{
+background-image:url('../images/bg-rect-tl.png');
+}
+.left .mif-menu-bg .tr{
+background-image:url('../images/bg-rect-tr.png');
 }

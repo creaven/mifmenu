@@ -1,2 +1,6 @@
 
 @import url(../../Source/assets/styles/menu.css);
+
+.form{
+background:url('application-form.png') no-repeat center center;
+}
