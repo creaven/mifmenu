@@ -46,6 +46,7 @@ Mif.Menu=new Class({
 	
 	show: function(coords){
 		this.hidden = false;
+		if(!this.items.length) return this;
 		if(!this.$draw) this.draw();
 		this.element.setStyle('margin-left', 0);
 		this.updateHeight();
@@ -58,7 +59,7 @@ Mif.Menu=new Class({
 	},
 	
 	hide: function(){
-		if(this.hidden) return;
+		if(this.hidden || !this.$draw) return;
 		this.hidden = true;
 		this.unselect();
 		this.element.removeClass('left').removeClass('right');
@@ -282,7 +283,7 @@ Mif.Menu=new Class({
 		var startScrollTop = wrapper.scrollTop;
 		var scrollingTime = 0;
 		this.scrollTimer = (function(){
-			if($time() - self.time < 2000) return;
+			if($time() - self.time < 1500) return;
 			if(!startTime) startTime = $time();
 			var delta = ($time() - startTime)/50*10;
 			if(!delta) return;

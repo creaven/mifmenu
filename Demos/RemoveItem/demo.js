@@ -19,7 +19,13 @@ document.addEvent('domready', function(){
 		},
 		{
 			name: 'exit',
-			id: 'exit'
+			id: 'exit',
+			submenu: [
+				{
+					name: 'sub1',
+					id: 'sub1'
+				}
+			]
 		}
 	]);
 	
@@ -28,5 +34,7 @@ document.addEvent('domready', function(){
 	});
 	
 	testMenu.items[1].remove();
-	
+	(function(){
+		Mif.id('sub1').remove();
+	}).delay(3000);
 });

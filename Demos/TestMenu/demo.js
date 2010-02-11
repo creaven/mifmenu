@@ -92,12 +92,7 @@ document.addEvent('domready', function(){
 					submenu: [
 						{
 							name: 'Mif',
-							action: function(){
-								alert('Mif.js')
-							}
-						},
-						{
-							name: 'Mif',
+							id: 'Mif',
 							action: function(){
 								alert('Mif.js')
 							}
@@ -169,5 +164,6 @@ document.addEvent('domready', function(){
 	$('toggle').addEvent('click', function(event){
 		testMenu.hidden ? testMenu.show(event) : testMenu.hide();
 	});
+	
 	
 });

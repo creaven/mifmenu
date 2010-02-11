@@ -23,7 +23,9 @@ Mif.Menu.implement({
 	},
 	
 	drawItem: function(item){
-		return new Element('div').set('html', this.getHTML(item).join('')).getFirst();
+		var el = new Element('div').set('html', this.getHTML(item).join('')).getFirst();
+		item.element = el;
+		return el;
 	},
 	
 	getHTML: function(item, html){
@@ -42,7 +44,7 @@ Mif.Menu.implement({
 				) 
 			: '') +
 			'<span class="mif-menu-name">' + item.name + '</span>'+
-			(item.submenu ? '<span class="mif-menu-submenu"></span>' : '')+
+			(item.submenu && item.submenu.items.length ? '<span class="mif-menu-submenu"></span>' : '')+
 		'</div>');
 		return html;
 	},
@@ -102,7 +104,7 @@ Mif.Menu.implement({
 Mif.Menu.Item.implement({
 
 	getElement: function(type){
-		var item = document.id('mif-menu-item-'+this.UID);
+		var item = this.element || document.id('mif-menu-item-'+this.UID);
 		if(!type) return item;
 		if(!item) return null;
 		return item.getElement('.mif-menu-' + type);

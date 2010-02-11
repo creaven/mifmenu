@@ -8,6 +8,22 @@ Mif.Menu.Item.implement({
 		where = where || 'after';
 		this.menu.items.erase(this);
 		current.menu.items.inject(this, current, where);
+		if(!this.menu.items.length){
+			this.menu.hide();
+			if(this.menu.parentItem){
+				var submenuEl = this.menu.parentItem.getElement('submenu');
+				if(submenuEl) submenuEl.dispose();
+			}
+		}
+		if(current.menu.items.length == 1){
+			var item = current.menu.parentItem;
+			if(item){
+				var el = item.getElement();
+				if(el){
+					new Element('span', {'class': 'mif-menu-submenu'}).inject(el);
+				}
+			}
+		}
 		this.menu = current.menu;
 		current.menu.updateInject(this);
 		return this;
@@ -26,6 +42,13 @@ Mif.Menu.Item.implement({
 		this.menu.items.erase(this);
 		var element = this.getElement();
 		if(element) element.dispose();
+		if(!this.menu.items.length){
+			this.menu.hide();
+			if(this.menu.parentItem){
+				var submenuEl = this.menu.parentItem.getElement('submenu');
+				if(submenuEl) submenuEl.dispose();
+			}
+		}
 		this.menu.fireEvent('remove', [this]);
 	}
 	
@@ -61,7 +84,21 @@ Mif.Menu.implement({
 			item = new Mif.Menu.Item({menu: this}, item);
 		}
 		if($type(current) == 'number') current = this.items[current];
-		item.inject(current, where);
+		if(current) {
+			item.inject(current, where);
+		}else{
+			this.items[where == 'top' ? 'unshift' : 'push'](item);
+			var el = item.getElement();
+			if(el && this.$draw){
+				el.inject(this.element, where);
+			}
+			if(this.parentItem){
+				el = this.parentItem.getElement();
+				if(el){
+					new Element('span', {'class': 'mif-menu-submenu'}).inject(el);
+				}
+			}
+		};
 		this.fireEvent('add', [item, current, where]);
 		return this;
 	},
