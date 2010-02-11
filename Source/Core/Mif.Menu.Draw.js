@@ -75,7 +75,6 @@ Mif.Menu.implement({
 		if(!this.$draw) return;
 		element = element || item.getElement() || this.drawItem(item);
 		var index = this.items.indexOf(item);
-		console.log(element, index)
 		var previous = index > 0 ? this.items[index - 1].getElement() : null;
 		if(previous){
 			element.inject(previous, 'after');
@@ -105,7 +104,8 @@ Mif.Menu.Item.implement({
 	getElement: function(type){
 		var item = document.id('mif-menu-item-'+this.UID);
 		if(!type) return item;
-		return item.getElement('mif-menu-' + type);
+		if(!item) return null;
+		return item.getElement('.mif-menu-' + type);
 	}
 	
 });

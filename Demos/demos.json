@@ -20,6 +20,9 @@
 		},
 		"RemoveItem":{
 			"title": "remove item demo"
+		},
+		"Connect":{
+			"title": "connect submenu demo"
 		}
 	}
 }

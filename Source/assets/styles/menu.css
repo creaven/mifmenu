@@ -16,7 +16,7 @@ overflow:hidden;
 
 .mif-menu-item, .mif-menu-scroll{
 height:19px;
-padding:0 20px;
+padding:0 25px 0px 20px;
 line-height:0;
 white-space:nowrap;
 position:relative;

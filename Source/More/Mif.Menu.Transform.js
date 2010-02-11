@@ -64,6 +64,29 @@ Mif.Menu.implement({
 		item.inject(current, where);
 		this.fireEvent('add', [item, current, where]);
 		return this;
+	},
+	
+	connect: function(item){
+		this.disconnect(item);
+		this.parentItem = item;
+		item.submenu = this;
+		var el = item.getElement();
+		if(el){
+			new Element('span', {'class': 'mif-menu-submenu'}).inject(el);
+		}
+		this.fireEvent('connect', [item]);
+		return this;
+	},
+	
+	disconnect: function(){
+		var parentItem = this.parentItem;
+		if(!parentItem) return this;
+		parentItem.submenu.hide();
+		parentItem.submenu = null;
+		var submenuEl = parentItem.getElement('submenu');
+		if(submenuEl) submenuEl.dispose();
+		this.fireEvent('disconnect', [parentItem]);
+		return this;
 	}
 	
 });

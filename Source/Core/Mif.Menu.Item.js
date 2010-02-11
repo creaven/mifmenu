@@ -80,6 +80,7 @@ Mif.Menu.Item=new Class({
 		switch(p){
 			case 'name':
 				this.getElement('name').set('html', nv);
+				this.menu.updateWidth();
 				return this;
 			case 'cls':
 				this.getElement().removeClass(cv).addClass(nv);
