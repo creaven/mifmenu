@@ -4,22 +4,25 @@ Mif.Tree.Load
 Mif.Menu.Load={
 		
 	menu: function(items, parent, menu){
+		if(!(menu instanceof Mif.Menu)){
+			var options = {};
+			if(items[0].options){
+				options = items[0].options;
+				items.erase(items[0]);
+			}
+			menu = new Mif.Menu(options);
+			parent.submenu = menu;
+		}
 		menu.parentItem = parent;
 		for( var i = items.length; i--; ){
 			var item = items[i];
-			if(item.options){
-				menu.setOptions(item.options);
-				continue;
-			}
 			var submenu = item.submenu;
-			var Submenu = submenu && submenu.length ? new Mif.Menu() : null;
 			var item = new Mif.Menu.Item({
-				menu: menu,
-				submenu: Submenu
+				menu: menu
 			}, item);
 			menu.items.unshift(item);
-			if(Submenu){
-				arguments.callee(submenu, item, Submenu);
+			if(submenu && submenu.length){
+				arguments.callee(submenu, item, submenu);
 			}
 		}
 	}
@@ -40,7 +43,6 @@ Mif.Menu.implement({
 		this.loadOptions=this.loadOptions||$lambda({});
 		function success(json){
 			Mif.Menu.Load.menu(json, null, menu);
-			menu.draw();
 			menu.fireEvent('load');
 			return menu;
 		}

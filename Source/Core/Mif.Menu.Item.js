@@ -58,25 +58,25 @@ Mif.Menu.Item=new Class({
 			obj = object;
 		}
 		this.menu.fireEvent('beforeSet', [this, obj]);
-		var property=obj.property||obj||{};
+		var property = obj || {};
 		for(var p in property){
-			var nv=property[p];
-			var cv=this[p];
+			var nv = property[p];
+			var cv = this[p];
 			this.updateProperty(p, cv, nv);
-			this[p]=this.property[p]=nv;
+			this[p] = this.property[p]=nv;
 		}
 		this.menu.fireEvent('set', [this, obj]);
 		return this;
 	},
 	
 	updateProperty: function(p, cv, nv){
-		if(nv==cv) return this;
-		if(p=='id'){
+		if(nv == cv) return this;
+		if(p == 'id'){
 			delete Mif.ids[cv];
-			if(nv) Mif.ids[nv]=this;
+			if(nv) Mif.ids[nv] = this;
 			return this;
 		}
-		if(!Mif.Tree.Draw.isUpdatable(this)) return this;
+		if(!this.menu.isUpdatable(this)) return this;
 		switch(p){
 			case 'name':
 				this.getElement('name').set('html', nv);
@@ -105,13 +105,7 @@ Mif.Menu.Item=new Class({
 				return this;
 		}
 	},
-	/*
-	initChildList: function(){
-		this.container.addClass('mif-childList');
-		var options=$merge(this.options.list, {styles: {'z-index': this.list.options.styles['z-index']+1}});
-		this.childList=new this.menu.List(options, {parentItem: this, menu: this.menu});
-	},
-	*/
+
 	select: function(){
 		var cls=this.disabled ? 'mif-menu-selected-disabled' : 'mif-menu-selected';
 		this.container.addClass(cls);

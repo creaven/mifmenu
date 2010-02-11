@@ -27,12 +27,12 @@ var Builder = {
 		source: {
 			'Mif'       : ['Mif.Core'],
 			'Core'      : ['Mif.Menu', 'Mif.Menu.Item', 'Mif.Menu.Load', 'Mif.Menu.Draw'],
-			'More'   : ['Mif.Menu.KeyNav']
+			'More'   : ['Mif.Menu.KeyNav', 'Mif.Menu.Transform']
 		},
 
 		docs: {
 			'Core'      : ['Mif.Menu', 'Mif.Menu.Item', 'Mif.Menu.Load', 'Mif.Menu.Draw'],
-			'More'   : ['Mif.Menu.KeyNav']
+			'More'   : ['Mif.Menu.KeyNav', 'Mif.Menu.Transform']
 		}
 	},
 

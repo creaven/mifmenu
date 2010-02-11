@@ -1,13 +1,12 @@
 document.addEvent('domready', function(){
 	
-	var testMenu = new Mif.Menu().load([
-		{
-			options: {
-				onClick: function(item){
-					console.log('clicked', item);
-				}
+	var testMenu = new Mif.Menu({
+		options: {
+			onClick: function(item){
+				console.log('clicked', item);
 			}
-		},
+		}
+	}).load([
 		{
 			name: 'open',
 			action: function(){

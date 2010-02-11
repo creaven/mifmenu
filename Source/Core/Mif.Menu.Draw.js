@@ -11,29 +11,40 @@ Mif.Menu.implement({
 		html.push('<div class="mif-menu-wrapper">');
 			for(var i = 0, l = this.items.length; i < l; i++){
 				var item = this.items[i];
-				var icon = item.icon;
-				var iconCls = '';
-				if(icon){
-					if(icon.indexOf('/') == -1 && icon.substring(0, 1) == '.'){
-						iconCls = icon.substring(1);
-					}
-				}
-				html.push('<div class="mif-menu-item ' + (item.disabled ? 'disabled' : '') + '" uid="' + item.UID + '" id="mif-menu-item-' + item.UID + '">'+
-					(icon ? 
-						(iconCls ? '<span class="mif-menu-icon ' + iconCls + '"></span>' : 
-							'<img class="mif-menu-icon" src="' + icon + '"></img>'
-						) 
-					: '') +
-					'<span class="mif-menu-name">' + item.name + '</span>'+
-					(item.submenu ? '<span class="mif-menu-submenu"></span>' : '')+
-				'</div>');
+				this.getHTML(item, html);
 			}
 		html.push('</div>');
 		html.push('<div class="mif-menu-scroll mif-menu-scroll-bottom"></div>');
 		this.element.innerHTML = html.join('');
 		this.$draw = true;
+		this.wrapper = this.element.getElement('.mif-menu-wrapper');
 		this.initScroll();
 		this.fireEvent('draw');
+	},
+	
+	drawItem: function(item){
+		return new Element('div').set('html', this.getHTML(item).join('')).getFirst();
+	},
+	
+	getHTML: function(item, html){
+		html = html || [];
+		var icon = item.icon;
+		var iconCls = '';
+		if(icon){
+			if(icon.indexOf('/') == -1 && icon.substring(0, 1) == '.'){
+				iconCls = icon.substring(1);
+			}
+		}
+		html.push('<div class="mif-menu-item ' + (item.disabled ? 'disabled' : '') + '" uid="' + item.UID + '" id="mif-menu-item-' + item.UID + '">'+
+			(icon ? 
+				(iconCls ? '<span class="mif-menu-icon ' + iconCls + '"></span>' : 
+					'<img class="mif-menu-icon" src="' + icon + '"></img>'
+				) 
+			: '') +
+			'<span class="mif-menu-name">' + item.name + '</span>'+
+			(item.submenu ? '<span class="mif-menu-submenu"></span>' : '')+
+		'</div>');
+		return html;
 	},
 	
 	drawBackground: function(){
@@ -54,6 +65,24 @@ Mif.Menu.implement({
 						<div class="br"></div>\
 					</div>\
 				</div>';
+	},
+	
+	isUpdatable: function(item){
+		return !!item.getElement();
+	},
+	
+	updateInject: function(item, element){
+		if(!this.$draw) return;
+		element = element || item.getElement() || this.drawItem(item);
+		var index = this.items.indexOf(item);
+		console.log(element, index)
+		var previous = index > 0 ? this.items[index - 1].getElement() : null;
+		if(previous){
+			element.inject(previous, 'after');
+		}else{
+			element.inject(this.wrapper, 'top');
+		}
+		return this;
 	},
 	
 	updateWidth: function(){

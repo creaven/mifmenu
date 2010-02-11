@@ -30,7 +30,7 @@ Mif.Menu=new Class({
 
 	initialize: function(options){
 		this.setOptions(options);
-		this.element = new Element('div', {'class': 'mif-menu'});
+		this.element = new Element('div', {'class': 'mif-menu'}).inject(document.body).setStyle('margin-left', -5000);
 		this.items = [];
 		this.hidden = true;
 		this.UID=++Mif.UID;
@@ -47,7 +47,7 @@ Mif.Menu=new Class({
 	show: function(coords){
 		this.hidden = false;
 		if(!this.$draw) this.draw();
-		this.element.inject(document.body);
+		this.element.setStyle('margin-left', 0);
 		this.updateHeight();
 		this.updateWidth();
 		this.updateWidth();
@@ -65,7 +65,7 @@ Mif.Menu=new Class({
 		this.element.getElement('.mif-menu-wrapper').setStyle('height', 'auto');
 		this.top.setStyle('display', 'none');
 		this.bottom.setStyle('display', 'none');
-		this.element.dispose();
+		this.element.setStyle('margin-left', -5000);
 		this.hideSubmenu();
 		if(this.parentItem){
 			var menu = this.parentItem.menu;

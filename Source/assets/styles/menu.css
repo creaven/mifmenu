@@ -158,10 +158,6 @@ clip:rect(auto auto auto 130px);
 background:url("../images/bg-t.png");
 padding-left:40px;
 }
-.ie6 .mif-menu-bg .t{
-left:-45px;
-clip:rect(auto auto auto 90px);
-}
 .mif-menu-bg .bl{
 width: 45px;
 height: 35px;
@@ -182,10 +178,6 @@ left:-85px;
 clip:rect(auto auto auto 130px);
 background:url("../images/bg-b.png");
 padding-left:40px;
-}
-.ie6 .mif-menu-bg .b{
-left:-45px;
-clip:rect(auto auto auto 90px);
 }
 .mif-menu-bg .l{
 height:10000px;
@@ -210,10 +202,6 @@ top:70px;
 clip:rect(auto auto auto 130px);
 background:url("../images/bg-c.png");
 padding-left:40px;
-}
-.ie6 .mif-menu-bg .c{
-left:-45px;
-clip:rect(auto auto auto 90px);
 }
 
 

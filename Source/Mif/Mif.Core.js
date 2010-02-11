@@ -21,8 +21,15 @@ Element.implement({
 	
 });
 
-if(Browser.Engine.trident4){
-	window.addEvent('domready', function(){
-		document.id(document.body).addClass('ie6');
-	});
-}
+Array.implement({
+	
+	inject: function(added, current, where){//inject added after or before current;
+		var pos = this.indexOf(current) + (where == 'before' ? 0 : 1);
+		for(var i = this.length-1; i >= pos; i--){
+			this[i + 1] = this[i];
+		};
+		this[pos] = added;
+		return this;
+	}
+	
+});

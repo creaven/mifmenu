@@ -10,7 +10,16 @@
 			"title": "Menu attached to button"
 		},
 		"AddItem":{
-			"title": "How to add item, example"
+			"title": "add item demo"
+		},
+		"MoveItem":{
+			"title": "move item demo"
+		},
+		"CopyItem":{
+			"title": "copy item demo"
+		},
+		"RemoveItem":{
+			"title": "remove item demo"
 		}
 	}
 }

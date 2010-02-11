@@ -1,49 +1,39 @@
-﻿window.addEvent('domready', function(){
-	var myMenu=new Mif.Menu({
-		contextmenu: true,
-		target: $('menu-target'),
-		list: {
-			items: [
-				{
-					name: 'new',
-					onAction: function(){
-						alert('new');
-					}
-				},
-				{
-					name: 'open',
-					onAction: function(){
-						alert('open');
-					}
-				},
-				'-',
-				{
-					name: 'moro god?',
-					disabled: true
-				}
-			]
+﻿document.addEvent('domready', function(){
+	
+	var testMenu = new Mif.Menu({
+		options: {
+			onClick: function(item){
+				console.log('clicked', item);
+			}
 		}
+	}).load([
+		{
+			name: 'open',
+			action: function(){
+				alert('open');
+			}
+		},
+		{
+			name: 'remove',
+			disabled: true
+		},
+		{
+			name: 'exit',
+			id: 'exit'
+		}
+	]);
+	
+	$('toggle').addEvent('click', function(event){
+		testMenu.hidden ? testMenu.show(event) : testMenu.hide();
 	});
 	
-	var newItem=new Mif.Menu.Item({
-		name: 'new item'
-	}, {list: myMenu.list});
+	testMenu.add({
+		name: 'added after open'
+	}, 0);
 	
-	
-	myMenu.list.append(1, newItem);
-	
-	var newItem2=new Mif.Menu.Item({
-		name: 'another new item',
-		onAction: function(){alert("Hello :-)")}
-	}, {list: myMenu.list});
-	
-	myMenu.list.append(2, newItem2);
-	
-	var newItem3=new Mif.Menu.Item({
-		name: 'another new item3',
-		onAction: function(){alert("Hello :-)")}
-	}, {list: myMenu.list});
-	
-	myMenu.list.append(4, newItem3);
+	var newItem = new Mif.Menu.Item({menu: testMenu}, {
+		name: 'new item, before exit'
+	});
+	testMenu.add(newItem, Mif.id('exit'), 'before');
 	
 });
