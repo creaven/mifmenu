@@ -42,6 +42,7 @@ Mif.Menu.Item.implement({
 		this.menu.items.erase(this);
 		var element = this.getElement();
 		if(element) element.dispose();
+		if(this.submenu) this.submenu.hide();
 		if(!this.menu.items.length){
 			this.menu.hide();
 			if(this.menu.parentItem){

@@ -79,6 +79,7 @@ Mif.Menu=new Class({
 	position: function(coords){
 		if(!coords){
 			var parent = this.parentItem.getElement();
+			if(!parent) return this.hide();
 			position = parent.getPosition();
 			var y = position.y + this.options.submenuOffsets.y;
 			var size = window.getSize(), scroll = window.getScroll();
@@ -196,7 +197,8 @@ Mif.Menu=new Class({
 		if(!this.hovered) return;
 		var item = this.hovered;
 		$clear(item.timer);
-		this.hovered.getElement().removeClass('hover');
+		var el = this.hovered.getElement();
+		if(el) el.removeClass('hover');
 		this.fireEvent('hover', ['out', this.hovered]);
 		this.hideSubmenu();
 		this.hovered = null;

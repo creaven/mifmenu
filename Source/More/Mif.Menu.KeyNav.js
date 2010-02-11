@@ -59,6 +59,7 @@ Mif.Menu.KeyNav = new Class({
 			var index = items.indexOf(current);
 			if(index == items.length - 1) return;
 			current = items[index + 1];
+			if(!current) return;
 			if(!current.get('disabled')) break;
 		};
 		menu.select(current);
@@ -71,6 +72,7 @@ Mif.Menu.KeyNav = new Class({
 			var index = items.indexOf(current);
 			if(index == 0) return;
 			current = items[index - 1];
+			if(!current) return;
 			if(!current.get('disabled')) break;
 		};
 		menu.select(current);
