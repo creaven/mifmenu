@@ -12,6 +12,7 @@ left:0;
 top:0;
 width:100%;
 overflow:hidden;
+min-height:19px;
 }
 
 .mif-menu-item, .mif-menu-scroll, .mif-menu-separator{

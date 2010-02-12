@@ -32,24 +32,15 @@ Mif.Menu.KeyNav = new Class({
 				this.menu.hide();
 				return;
 			};
-			if(!this.menu.hovered){
-				if(event.key == 'down'){
-					this.menu.select(this.menu.items[0]);
-				};
-				if(event.key == 'up'){
-					this.menu.select(this.menu.items[this.menu.items.length - 1]);
-				};
-			}else{
-				var current = this.menu.hovered;
-				switch (event.key){
-					case 'down': this.goForward(current); break;  
-					case 'up': this.goBack(current); break;   
-					case 'left': this.goLeft(current); break;
-					case 'right': this.goRight(current); break;
-					case 'enter': this.action(current);
-				}
-				return false;
+			var current = this.menu.hovered;
+			switch (event.key){
+				case 'down': this.goForward(current); break;  
+				case 'up': this.goBack(current); break;   
+				case 'left': this.goLeft(current); break;
+				case 'right': this.goRight(current); break;
+				case 'enter': this.action(current);
 			}
+			return false;
 	},
 
 	goForward: function(current){
@@ -71,6 +62,7 @@ Mif.Menu.KeyNav = new Class({
 		while(1){
 			var index = items.indexOf(current);
 			if(index == 0) return;
+			if(index == -1) index = items.length;
 			current = items[index - 1];
 			if(!current) return;
 			if(!current.get('disabled') && !current.get('hidden') && current.get('type') != 'separator') break;

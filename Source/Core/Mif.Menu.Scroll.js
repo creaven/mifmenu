@@ -153,8 +153,11 @@ Mif.Menu.implement({
 	
 	setHeight: function(height){
 		var wrapper = this.wrapper;
-		if(height > wrapper.scrollHeight) return this;
-		wrapper.setStyle('height', height);
+		if(height >= wrapper.scrollHeight) {
+			wrapper.setStyle('height', 'auto');
+		}else{
+			wrapper.setStyle('height', height);
+		};
 		this.top.setStyle('display', wrapper.scrollTop == this.items[0].getElement().offsetTop ? 'none' : 'block');
 		this.bottom.setStyle('display', wrapper.scrollTop == wrapper.scrollHeight - wrapper.clientHeight ? 'none' : 'block');
 		return this;

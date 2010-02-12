@@ -30,7 +30,7 @@ Mif.Menu.implement({
 	
 	getHTML: function(item, html){
 		html = html || [];
-		var icon = item.icon;
+		var icon = item.get('icon');
 		var iconCls = '';
 		if(icon){
 			if(icon.indexOf('/') == -1 && icon.substring(0, 1) == '.'){
@@ -41,13 +41,13 @@ Mif.Menu.implement({
 			html.push('<div class="mif-menu-separator" uid="' + item.UID + '"></div>');
 			return html;
 		}
-		html.push('<div class="mif-menu-item ' + (item.disabled ? 'disabled' : '') + '" uid="' + item.UID + '" id="mif-menu-item-' + item.UID + '">'+
+		html.push('<div class="mif-menu-item ' + (item.get('disabled') ? 'disabled' : '') + '" uid="' + item.UID + '" id="mif-menu-item-' + item.UID + '"' + (item.get('hidden') ? ' style="display:none"' : '') + '>'+
 			(icon ? 
 				(iconCls ? '<span class="mif-menu-icon ' + iconCls + '"></span>' : 
 					'<img class="mif-menu-icon" src="' + icon + '"></img>'
 				) 
 			: '') +
-			'<span class="mif-menu-name">' + item.name + '</span>'+
+			'<span class="mif-menu-name">' + item.get('name') + '</span>'+
 			(item.submenu && item.submenu.items.length ? '<span class="mif-menu-submenu"></span>' : '')+
 		'</div>');
 		return html;

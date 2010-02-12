@@ -64,13 +64,11 @@ Mif.Menu.Item.implement({
 	load: function(options){
 		this.$loading=true;
 		options=options||{};
-		this.addLoader();
 		var self=this;
 		function success(json){
 			Mif.Tree.Load.menu(json, self, self.menu);
 			delete self.$loading;
 			self.state.loaded=true;
-			self.removeLoader();
 			menu.update(self);
 			self.fireEvent('load');
 			self.menu.fireEvent('loadNode', self);

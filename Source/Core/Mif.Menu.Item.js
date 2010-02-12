@@ -18,7 +18,6 @@ Mif.Menu.Item=new Class({
 		this.property = {};
 		$extend(this.property, this.defaults);
 		$extend(this.property, property);
-		$extend(this, this.property);
 		$extend(this, structure);		
 		this.initCheckbox();
 		this.initRadio();
@@ -30,7 +29,7 @@ Mif.Menu.Item=new Class({
 	},
 	
 	get: function(prop){
-		return this[prop];
+		return this.property[prop];
 	},
 	
 	set: function(obj){
@@ -45,7 +44,7 @@ Mif.Menu.Item=new Class({
 			var nv = property[p];
 			var cv = this[p];
 			this.updateProperty(p, cv, nv);
-			this[p] = this.property[p]=nv;
+			this.property[p] = nv;
 		};
 		this.menu.fireEvent('set', [this, obj]);
 		return this;
@@ -69,22 +68,29 @@ Mif.Menu.Item=new Class({
 				return this;
 			case 'icon':
 				var iconEl = this.getElement('icon');
-				var iconCls;
-				if(cv.indexOf('/') == -1 && cv[0] == '.'){
-					iconCls = cv.substring(1);
-					iconEl.removeClass(iconCls);
+				if(iconEl) iconEl.dispose();
+				if(!nv) return this;
+				if(nv.indexOf('/') == -1 && nv.substring(0, 1) == '.'){
+					iconEl = new Element('div').addClass(nv.substring(1));
 				}else{
-					iconEl.setAttribute('src', Mif.TransparenImage);
+					iconEl = new Element('img').setProperty('src', nv);
 				};
-				if(nv.indexOf('/') == -1 && nv[0] == '.'){
-					iconCls = nv.substring(1);
-					iconEl.addClass(iconCls);
-				}else{
-					iconEl.setAttribute('src', nv);
-				};
+				iconEl.addClass('mif-menu-icon').inject(this.getElement('name'), 'before');
 				return this;
 			case 'disabled':
 				this.getElement()[(nv ? 'add' : 'remove') + 'Class']('disabled');
+				if(nv && this.menu.hovered == this) this.menu.unselect();
+				return this;
+			case 'hidden':
+				var height = this.getElement().offsetHeight;
+				var offsetHeight = this.menu.wrapper.offsetHeight;
+				var scrollHeight = this.menu.wrapper.scrollHeight;
+				this.getElement().setStyle('display', nv ? 'none' : 'block');
+				if(scrollHeight - height < offsetHeight){
+					this.menu.setHeight(scrollHeight - height);
+				}else{
+					this.menu.setHeight(this.menu.wrapper.offsetHeight);
+				}
 				return this;
 		}
 	},
@@ -92,7 +98,7 @@ Mif.Menu.Item=new Class({
 	action: function(){
 		if(this.get('disabled')) return;
 		var action = this.property.action;
-		if(action) action();
+		if(action) action.call(null, this);
 		this.menu.fireEvent('action', [this]);
 	},
 	
@@ -142,14 +148,6 @@ Mif.Menu.Item=new Class({
 		this.list.groups[this.group]=(this.list.groups[this.group]||[]).include(this);
 		this.dom.icon.addClass('mif-menu-radio-' + (this.checked ? 'checked' : 'unchecked'));
 		this.addEvent('action',this.check.bind(this));
-	},
-	
-	addLoader: function(){
-		console.log('add loader', this);
-	},
-	
-	removeLoader: function(){
-		console.log('remove loader', this);
 	}
 	
 });
