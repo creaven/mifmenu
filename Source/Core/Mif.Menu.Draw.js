@@ -91,16 +91,10 @@ Mif.Menu.implement({
 	},
 	
 	updateWidth: function(){
-		this.element.setStyle('width', 'auto');
+		this.element.setStyle('width', 'auto').dispose().inject(document.body);
 		var width = Math.max(this.element.offsetWidth, parseInt(this.options.minWidth));
-		this.element.setStyle('width', width).dispose().inject(document.body);
-	},
-	
-	updateHeight: function(){
-		if(Browser.Engine.trident4){
-			this.element.setStyle('height', 0);
-			this.element.setStyle('height', this.wrapper.offsetHeight).dispose().inject(document.body);
-		}
+		this.element.setStyle('width', width);
+		return this;
 	}
 	
 });

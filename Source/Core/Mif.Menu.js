@@ -49,8 +49,6 @@ Mif.Menu=new Class({
 		if(!this.items.length) return this;
 		if(!this.$draw) this.draw();
 		this.element.setStyle('margin-left', 0);
-		this.updateHeight();
-		this.updateWidth();
 		this.updateWidth();
 		this.position(coords);
 		this.addHideOnExtraClick();
@@ -155,7 +153,7 @@ Mif.Menu=new Class({
 			hover: this.hover.bind(this),
 			hideOnExtraClick: this.hideOnExtraClick.bind(this)
 		};
-		['mousemove', 'mouseout', 'mouseover'].each(function(event){
+		['mouseover', 'mouseout'].each(function(event){
 			this.element.addEvent(event, this.bound.hover)
 		}, this);
 		this.element.addEvent('click', this.bound.close);
@@ -165,14 +163,13 @@ Mif.Menu=new Class({
 		if(this.hidden) return;
 		var target = $(event.target);
 		var itemEl = target.getAncestor('.mif-menu-item');
-		if(!itemEl)	return this.unselect();
+		if(!itemEl) return this.unselect();
 		var item = Mif.uids[itemEl.getAttribute('uid')];
+		if(event.type == 'mouseout' && event.relatedTarget && !$(event.relatedTarget).getAncestor('.mif-menu-item') && (item.submenu ? this.openSubmenu != item.submenu : true)) return this.unselect();
 		if(item.get('disabled')) return this.unselect();
 		if(this.hovered == item) return;
 		this.select(item);
-		if(!item.disabled && item.submenu){
-			this.showSubmenu(item);
-		}
+		if(item.submenu) this.showSubmenu(item);
 	},
 	
 	select: function(item){

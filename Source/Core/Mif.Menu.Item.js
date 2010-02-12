@@ -71,7 +71,7 @@ Mif.Menu.Item=new Class({
 				if(iconEl) iconEl.dispose();
 				if(!nv) return this;
 				if(nv.indexOf('/') == -1 && nv.substring(0, 1) == '.'){
-					iconEl = new Element('div').addClass(nv.substring(1));
+					iconEl = new Element('span').addClass(nv.substring(1));
 				}else{
 					iconEl = new Element('img').setProperty('src', nv);
 				};
