@@ -14,9 +14,7 @@ Mif.Menu.Item=new Class({
 	},
 
 	initialize: function(structure, property){
-		if(typeof options == 'string'){
-			options={type: 'separator'};
-		}
+		if(typeof property == 'string') property = {type: 'separator'};
 		this.property = {};
 		$extend(this.property, this.defaults);
 		$extend(this.property, property);
@@ -24,27 +22,11 @@ Mif.Menu.Item=new Class({
 		$extend(this, structure);		
 		this.initCheckbox();
 		this.initRadio();
-		this.UID=++Mif.UID;
-		Mif.uids[this.UID]=this;
-		var id=this.get('id');
-		if(id!=null) Mif.ids[id]=this;
+		this.UID = ++Mif.UID;
+		Mif.uids[this.UID] = this;
+		var id = this.get('id');
+		if(id != null) Mif.ids[id] = this;
 		this.menu.fireEvent('itemCreate', [this]);
-	},
-	
-	setState: function(state){
-		if(this.disabled!=state){
-			this.container[(state ? 'add' : 'remove') + 'Class']('mif-menu-disabled');
-			this.disabled=state;
-		}
-		return this;
-	},
-	
-	disable: function(){
-		return this.setState(true);
-	},
-	
-	enable: function(){
-		return this.setState(false);
 	},
 	
 	get: function(prop){
@@ -56,7 +38,7 @@ Mif.Menu.Item=new Class({
 			var object = {};
 			object[arguments[0]] = arguments[1];
 			obj = object;
-		}
+		};
 		this.menu.fireEvent('beforeSet', [this, obj]);
 		var property = obj || {};
 		for(var p in property){
@@ -64,7 +46,7 @@ Mif.Menu.Item=new Class({
 			var cv = this[p];
 			this.updateProperty(p, cv, nv);
 			this[p] = this.property[p]=nv;
-		}
+		};
 		this.menu.fireEvent('set', [this, obj]);
 		return this;
 	},
@@ -106,17 +88,12 @@ Mif.Menu.Item=new Class({
 				return this;
 		}
 	},
-
-	select: function(){
-		var cls=this.disabled ? 'mif-menu-selected-disabled' : 'mif-menu-selected';
-		this.container.addClass(cls);
-		return this.fireEvent('select');
-	},
 	
-	unselect: function(){
-		var cls=this.disabled ? 'mif-menu-selected-disabled' : 'mif-menu-selected';
-		this.container.removeClass(cls);
-		return this.fireEvent('unSelect');
+	action: function(){
+		if(this.get('disabled')) return;
+		var action = this.property.action;
+		if(action) action();
+		this.menu.fireEvent('action', [this]);
 	},
 	
 	check: function(state){

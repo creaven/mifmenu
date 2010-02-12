@@ -106,12 +106,13 @@ document.addEvent('domready', function(){
 			disabled: true,
 			icon: '.form'
 		},
+		'-',
+		{
+			name: 'new tab'
+		},
 		{
 			name: 'new tab',
 			disabled: true
-		},
-		{
-			name: 'new tab'
 		},
 		{
 			name: 'paste'

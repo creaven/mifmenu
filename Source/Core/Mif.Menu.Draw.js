@@ -37,6 +37,10 @@ Mif.Menu.implement({
 				iconCls = icon.substring(1);
 			}
 		}
+		if(item.get('type') == 'separator'){
+			html.push('<div class="mif-menu-separator" uid="' + item.UID + '"></div>');
+			return html;
+		}
 		html.push('<div class="mif-menu-item ' + (item.disabled ? 'disabled' : '') + '" uid="' + item.UID + '" id="mif-menu-item-' + item.UID + '">'+
 			(icon ? 
 				(iconCls ? '<span class="mif-menu-icon ' + iconCls + '"></span>' : 
@@ -95,7 +99,7 @@ Mif.Menu.implement({
 	updateHeight: function(){
 		if(Browser.Engine.trident4){
 			this.element.setStyle('height', 0);
-			this.element.setStyle('height', this.element.getElement('.mif-menu-wrapper').offsetHeight).dispose().inject(document.body);
+			this.element.setStyle('height', this.wrapper.offsetHeight).dispose().inject(document.body);
 		}
 	}
 	
