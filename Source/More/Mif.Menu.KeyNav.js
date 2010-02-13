@@ -1,5 +1,16 @@
 /*
-Mif.Menu.KeyNav
+---
+ 
+name: Mif.Menu.KeyNav
+description: keyboard navigation using up/left/up/down/esc/enter
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: 
+  - Mif.Menu
+provides: Mif.Menu.KeyNav
+ 
+...
 */
 
 Mif.Menu.KeyNav = new Class({
@@ -38,7 +49,7 @@ Mif.Menu.KeyNav = new Class({
 				case 'up': this.goBack(current); break;   
 				case 'left': this.goLeft(current); break;
 				case 'right': this.goRight(current); break;
-				case 'enter': this.action(current);
+				case 'enter': this.action(current, event);
 			}
 			return false;
 	},
@@ -85,7 +96,7 @@ Mif.Menu.KeyNav = new Class({
 	},
 	
 	action: function(current){
-		this.menu.action(current);
+		current.menu.close(current);
 	}
 	
 });

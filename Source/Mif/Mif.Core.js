@@ -1,3 +1,18 @@
+/*
+---
+ 
+name: Mif.Core
+description: define Mif object, utility
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: 
+  - core:1.2.4:*
+provides: Mif.Core
+ 
+...
+*/
+
 var Mif = {};
 
 Mif.ids={};

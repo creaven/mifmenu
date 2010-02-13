@@ -1,7 +1,17 @@
 /*
-Mif.Menu
+---
+ 
+name: Mif.Menu
+description: Mif.Menu base class
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: 
+  - Mif.Core
+provides: Mif.Menu
+ 
+...
 */
-
 
 Mif.Menu=new Class({
 	
@@ -228,10 +238,15 @@ Mif.Menu=new Class({
 	},
 	
 	close: function(event){
-		var target = document.id(event.target);
-		var itemEl = target.getAncestor('.mif-menu-item');
-		if(itemEl){
-			var item = Mif.uids[itemEl.getAttribute('uid')];
+		var item;
+		if(event.event){
+			var target = document.id(event.target);
+			var itemEl = target.getAncestor('.mif-menu-item');
+			if(itemEl) item = Mif.uids[itemEl.getAttribute('uid')];
+		}else{
+			item = event;
+		};
+		if(item){
 			item.action();
 			$clear(item.timer);
 			item.timer = null;

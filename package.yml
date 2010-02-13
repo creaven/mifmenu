@@ -1,0 +1,33 @@
+name: Mif.Menu
+ 
+web: [http://mifjs.net/menu/](http://mifjs.net/menu/)
+ 
+description: javascript menu for web applications
+ 
+authors: [Anton Samoylov](http://mifjs.net)
+ 
+license: MIT License
+ 
+copyright: &copy; [Anton Samoylov](http://mifjs.net)
+ 
+author: magmoro
+ 
+category: Interface
+ 
+tags: [menu, contextmenu, application]
+ 
+sources:
+  - "Source/Mif/Mif.Core.js"
+  - "Source/Core/Mif.Menu.js"
+  - "Source/Core/Mif.Menu.Item.js"
+  - "Source/Core/Mif.Menu.Load.js"
+  - "Source/Core/Mif.Menu.Draw.js"
+  - "Source/Core/Mif.Menu.Scroll.js"
+  - "Source/More/Mif.Menu.KeyNav.js"
+  - "Source/More/Mif.Menu.Transform.js"
+  
+
+demo: http://mifjs.net/menu/Demos/index.html
+docs: http://mifjs.net/menu/Docs/index.html
+
+current: 1.2

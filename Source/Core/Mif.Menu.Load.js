@@ -1,6 +1,18 @@
 /*
-Mif.Tree.Load
+---
+ 
+name: Mif.Menu.Load
+description: menu json loader
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: 
+  - Mif.Menu
+provides: Mif.Menu.Load
+ 
+...
 */
+
 Mif.Menu.Load={
 		
 	menu: function(items, parent, menu){

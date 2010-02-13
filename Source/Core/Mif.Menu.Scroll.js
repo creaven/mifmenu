@@ -1,5 +1,16 @@
 /*
-Mif.Menu.Scroll
+---
+ 
+name: Mif.Menu.Scroll
+description: scroll menu
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: 
+  - Mif.Menu
+provides: Mif.Menu.Scroll
+ 
+...
 */
 
 Mif.Menu.implement({

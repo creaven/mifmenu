@@ -1,5 +1,16 @@
 /*
-Mif.Menu.Item
+---
+ 
+name: Mif.Menu.Item
+description: menu item class
+license: MIT-Style License (http://mifjs.net/license.txt)
+copyright: Anton Samoylov (http://mifjs.net)
+authors: Anton Samoylov (http://mifjs.net)
+requires: 
+  - Mif.Menu
+provides: Mif.Menu.Item
+ 
+...
 */
 
 Mif.Menu.Item=new Class({
