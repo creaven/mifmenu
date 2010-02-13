@@ -14,16 +14,18 @@ overflow:hidden;
 min-height:19px;
 }
 
-.mif-menu-item, .mif-menu-scroll, .mif-menu-separator{
+.mif-menu-item, .mif-menu-scroll, .mif-menu-sep, .mif-menu-desc{
 height:19px;
-padding:0 25px 0px 20px;
-line-height:0;
+padding:0 25px 0px 25px;
+line-height:19px;
 white-space:nowrap;
 position:relative;
 overflow:hidden;
+vertical-align:top;
+cursor:default;
 }
 
-.mif-menu-separator{
+.mif-menu-sep{
 background:url('../images/sep.gif') center center repeat-x;
 }
 
@@ -50,9 +52,7 @@ background: url('../images/bottom.png') center center no-repeat #fff;
 .mif-menu-icon, .mif-menu-name{
 height:19px;
 line-height:19px;
-vertical-align:middle;
 display:inline-block;
-cursor:default;
 overflow:hidden;
 }
 
@@ -77,11 +77,11 @@ color:#D7D7D7;
 
 .mif-menu .disabled .mif-menu-icon{
 opacity:0.5;
--ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 filter: alpha(opacity=50);
+-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 }
 
-.mif-menu-submenu, .mif-menu-loader{
+.mif-menu-submenu, .mif-menu-loader, .mif-menu-check{
 width:17px;
 height:100%;
 display:inline-block;
@@ -100,6 +100,19 @@ background-image:url('../images/left-white.png')
 background-image:url('../images/loader.gif');
 }
 
+.mif-menu-check{
+right:auto;
+left:3px;
+background-image:none;
+}
+
+.mif-menu-checked{
+background-image:url('../images/checked.png');
+}
+
+.hover .mif-menu-checked{
+background-image:url('../images/checked-selected.png');
+}
 
 /*@background*/
 .mif-menu-bg{

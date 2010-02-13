@@ -7,20 +7,26 @@ Mif.Menu.Item=new Class({
 	Implements: [Events],
 	
 	defaults: {
-		type: 'default',
-		checked: false,
-		disabled: false,
 		name: ''
 	},
 
 	initialize: function(structure, property){
-		if(typeof property == 'string') property = {type: 'separator'};
+		if(typeof property == 'string') {
+			if(property == '-'){
+				property = {sep: true};
+			}else{
+				property = {desc: property};
+			}
+		};
 		this.property = {};
 		$extend(this.property, this.defaults);
 		$extend(this.property, property);
-		$extend(this, structure);		
-		this.initCheckbox();
-		this.initRadio();
+		$extend(this, structure);
+		var group = this.property.group
+		if(group){
+			this.menu.group[group] = this.menu.group[group] || [];
+			this.menu.group[group].push(this);
+		};
 		this.UID = ++Mif.UID;
 		Mif.uids[this.UID] = this;
 		var id = this.get('id');
@@ -96,9 +102,9 @@ Mif.Menu.Item=new Class({
 	},
 	
 	action: function(){
-		if(this.get('disabled')) return;
+		if(this.get('disabled')) return this;
 		var action = this.property.action;
-		if(action) {
+		if(action){
 			if(typeof action == 'string'){
 				action = eval('(' + action + ')');
 				this.property.action = action;
@@ -106,54 +112,32 @@ Mif.Menu.Item=new Class({
 			action.call(null, this);
 		};
 		this.menu.fireEvent('action', [this]);
-	},
-	
-	check: function(state){
-		if(this.type=='checkbox'){
-			if($defined(state)){
-				if(this.checked==state) return this;
-				this.checked=state;
-			}else{
-				this.checked=!this.checked;
-			}
-			if(this.checked){
-				this.dom.icon.removeClass('mif-menu-unchecked').addClass('mif-menu-checked');
-			}else{
-				this.dom.icon.removeClass('mif-menu-checked').addClass('mif-menu-unchecked');
-			}
-			this.list.fireEvent('check', [this, this.checked]);
-		}
-		if(this.type=='radio'){
-			var checked=$defined(state) ? state : true;
-			if(this.checked==checked) return this;
-			this.checked=checked;
-			this.list.groups[this.group].each(function(item){
-				if(item==this && this.checked){
-					item.checked=true;
-					item.dom.icon.addClass('mif-menu-radio-checked').removeClass('mif-menu-radio-unchecked');
-					item.list.fireEvent('radioCheck', [this, true]);
-					return;
-				}else{
-					item.checked=false;
-					item.dom.icon.addClass('mif-menu-radio-unchecked').removeClass('mif-menu-radio-checked');
-					item.list.fireEvent('radioCheck', [this, false]);
-				}
-			}, this);
-		}
+		if(this.get('checked') != undefined && (this.get('group') ? !this.property.checked : true)) this.check();
 		return this;
 	},
 	
-	initCheckbox: function(){
-		return;
-		this.dom.icon.addClass('mif-menu-'+(this.checked ? 'checked' : 'unchecked'));
-		this.addEvent('action',this.check.bind(this));
-	},
-	
-	initRadio: function(){
-		return;
-		this.list.groups[this.group]=(this.list.groups[this.group]||[]).include(this);
-		this.dom.icon.addClass('mif-menu-radio-' + (this.checked ? 'checked' : 'unchecked'));
-		this.addEvent('action',this.check.bind(this));
+	check: function(state){
+		if(this.property.checked == state) return this;
+		var group = this.get('group');
+		if(!this.property.checked && group){
+			this.menu.group[group].each(function(item){
+				item.check(false);
+			});
+		};
+		this.property.checked = !this.property.checked;
+		var el = this.getElement('check');
+		if(el) el[(this.property.checked ? 'add' : 'remove') + 'Class']('mif-menu-checked');
+		if(!(group && !this.property.checked)){
+			var check = this.property.check;
+			if(check){
+				if(typeof check == 'string'){
+					check = eval('(' + check + ')');
+					this.property.check = check;
+				};
+				check.call(null, this, this.property.checked);
+			};
+		};
+		this.menu.fireEvent('check', [this, this.property.checked]);
 	}
-	
+		
 });

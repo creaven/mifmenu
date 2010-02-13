@@ -36,12 +36,19 @@ Mif.Menu.implement({
 			if(icon.indexOf('/') == -1 && icon.substring(0, 1) == '.'){
 				iconCls = icon.substring(1);
 			}
-		}
-		if(item.get('type') == 'separator'){
-			html.push('<div class="mif-menu-separator" uid="' + item.UID + '"></div>');
+		};
+		if(item.get('sep')){
+			html.push('<div class="mif-menu-sep" uid="' + item.UID + '"></div>');
 			return html;
-		}
+		};
+		if(item.get('desc')){
+			html.push('<div class="mif-menu-desc" uid="' + item.UID + '">' + item.get('desc') + '</div>');
+			return html;
+		};
 		html.push('<div class="mif-menu-item ' + (item.get('disabled') ? 'disabled' : '') + '" uid="' + item.UID + '" id="mif-menu-item-' + item.UID + '"' + (item.get('hidden') ? ' style="display:none"' : '') + '>'+
+			(item.get('checked') != undefined ? 
+			'<span class="mif-menu-check' + (item.get('group') ? ' mif-menu-check-group' : '') + (item.get('checked') ? ' mif-menu-checked"' : '"') + '></span>' : 
+			'') +
 			(icon ? 
 				(iconCls ? '<span class="mif-menu-icon ' + iconCls + '"></span>' : 
 					'<img class="mif-menu-icon" src="' + icon + '"></img>'

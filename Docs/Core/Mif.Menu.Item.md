@@ -21,15 +21,13 @@ Mif.Menu.Item constructors. Create new item instance.
 
 ### Options:
 
-* type      - (*string*: defaults to 'default') item type. May be 'default', 'separator', 'description', 'radio', 'checkbox'.
 * checked   - (*boolean*: defaults to false) default check state for item with type checkbox or radio.
 * disabled  - (*boolean*: defaults to false) if true item will be disabled.
 * group     - (*boolean*: default to null) for items with type radio, this is group which contains this items.
-* list      - (*object*) menu list attached to this item.
 
 ### Events: 
 
-* action - (*function*) The function to execute when user click item.
+* action - (*function or string*) The function to execute when user click item. String will be converted to function using eval.
 
 ### Example:
 

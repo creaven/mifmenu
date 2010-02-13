@@ -33,6 +33,7 @@ Mif.Menu=new Class({
 		this.element = new Element('div', {'class': 'mif-menu'}).inject(document.body).setStyle('margin-left', -5000);
 		this.items = [];
 		this.hidden = true;
+		this.group = {};
 		this.UID=++Mif.UID;
 		Mif.uids[this.UID]=this;
 		this.element.setAttribute('uid', this.UID);

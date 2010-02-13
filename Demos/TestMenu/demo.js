@@ -101,6 +101,7 @@ document.addEvent('domready', function(){
 				}
 			]
 		},
+		'<b>some description</b>',
 		{
 			name: 'new window',
 			disabled: true,

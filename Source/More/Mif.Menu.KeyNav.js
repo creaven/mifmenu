@@ -51,7 +51,7 @@ Mif.Menu.KeyNav = new Class({
 			if(index == items.length - 1) return;
 			current = items[index + 1];
 			if(!current) return;
-			if(!current.get('disabled') && !current.get('hidden') && current.get('type') != 'separator') break;
+			if(!current.get('disabled') && !current.get('hidden') && !current.get('sep') && !current.get('desc')) break;
 		};
 		menu.select(current);
 	},
@@ -65,7 +65,7 @@ Mif.Menu.KeyNav = new Class({
 			if(index == -1) index = items.length;
 			current = items[index - 1];
 			if(!current) return;
-			if(!current.get('disabled') && !current.get('hidden') && current.get('type') != 'separator') break;
+			if(!current.get('disabled') && !current.get('hidden') && !current.get('sep') && !current.get('desc')) break;
 		};
 		menu.select(current);
 	},
