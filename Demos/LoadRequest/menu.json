@@ -1,0 +1,68 @@
+[
+	{
+		"name": "open",
+		"action": "function(){\n			alert('open');\n		}"
+	},
+	{
+		"name": "close",
+		"id": "close_id",
+		"icon": "TestMenu/application-blue.png",
+		"hasSubmenu": true,
+		"loadOptions": {
+			"url": "LoadRequest/submenu.json"
+		}
+	},
+	{
+		"name": "new window",
+		"disabled": true,
+		"icon": ".form"
+	},
+	"-",
+	{
+		"name": "new tab",
+		"hasSubmenu": true,
+		"loadOptions": {
+			"url": "LoadRequest/empty.json"
+		}
+	},
+	{
+		"name": "new tab",
+		"disabled": true
+	},
+	{
+		"name": "paste"
+	},
+	{
+		"name": "copy",
+		"submenu": [
+			{
+				"name": "Prototype",
+				"action": "function(){\n					alert('prototype.js')\n				}"
+			},
+			{
+				"name": "dojo",
+				"action": "function(){\n					alert('dojo.js')\n				}"
+			},
+			{
+				"name": "MooTools",
+				"action": "function(){\n					alert('mootools-core.js')\n				}"
+			},
+			{
+				"name": "underscore",
+				"action": "function(){\n					alert('underscore.js')\n				}"
+			},
+			{
+				"name": "node",
+				"action": "function(){\n					alert('node.js')\n				}"
+			}
+		]
+	},
+	{
+		"name": "remove",
+		"disabled": true
+	},
+	{
+		"name": "exit"
+	}
+
+]

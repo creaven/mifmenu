@@ -137,7 +137,7 @@ Mif.Menu=new Class({
 		document.addEvent('mousedown', this.bound.hideOnExtraClick);
 	},
 	
-	hideOnExtraClick: function(event){//todo add submenu support
+	hideOnExtraClick: function(event){
 		var target = document.id(event.target);
 		var wrapper = this.wrapper;
 		if(wrapper.hasChild(target) || wrapper == target) return;
@@ -153,10 +153,11 @@ Mif.Menu=new Class({
 			hover: this.hover.bind(this),
 			hideOnExtraClick: this.hideOnExtraClick.bind(this)
 		};
-		['mouseover', 'mouseout'].each(function(event){
-			this.element.addEvent(event, this.bound.hover)
-		}, this);
-		this.element.addEvent('click', this.bound.close);
+		this.element.addEvents({
+			mouseover: this.bound.hover,
+			mouseout: this.bound.hover,
+			click: this.bound.close
+		});
 	},
 	
 	hover: function(event){
@@ -169,7 +170,9 @@ Mif.Menu=new Class({
 		if(item.get('disabled')) return this.unselect();
 		if(this.hovered == item) return;
 		this.select(item);
-		if(item.submenu) this.showSubmenu(item);
+		if(item.submenu || item.get('hasSubmenu')){
+			this.showSubmenu(item);
+		}
 	},
 	
 	select: function(item){
@@ -192,7 +195,16 @@ Mif.Menu=new Class({
 	},
 	
 	showSubmenu: function(item, delay){
+		var self = this;
 		item.timer = function(){
+			if(!item.submenu){
+				item.addEvent('load', function(){
+					if(item == item.menu.hovered && !item.menu.hidden) self.showSubmenu(item, 0);
+					item.removeEvent('load', arguments.callee);
+				});
+				item.load();
+				return;
+			}
 			var submenu = item.submenu;
 			var menu = item.menu;
 			submenu.show();

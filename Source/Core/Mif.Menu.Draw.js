@@ -48,7 +48,7 @@ Mif.Menu.implement({
 				) 
 			: '') +
 			'<span class="mif-menu-name">' + item.get('name') + '</span>'+
-			(item.submenu && item.submenu.items.length ? '<span class="mif-menu-submenu"></span>' : '')+
+			( (item.submenu && item.submenu.items.length) || (!item.get('loaded') && item.get('hasSubmenu')) ? '<span class="mif-menu-submenu"></span>' : '')+
 		'</div>');
 		return html;
 	},
@@ -103,8 +103,7 @@ Mif.Menu.Item.implement({
 
 	getElement: function(type){
 		var item = this.element || document.id('mif-menu-item-'+this.UID);
-		if(!type) return item;
-		if(!item) return null;
+		if(!type || !item) return item;
 		return item.getElement('.mif-menu-' + type);
 	}
 	

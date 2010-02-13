@@ -26,6 +26,9 @@
 		},
 		"Set": {
 			"title": "set method"
+		},
+		"LoadRequest": {
+			"title": "load data"
 		}
 	}
 }

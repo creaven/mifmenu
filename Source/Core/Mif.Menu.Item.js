@@ -98,7 +98,13 @@ Mif.Menu.Item=new Class({
 	action: function(){
 		if(this.get('disabled')) return;
 		var action = this.property.action;
-		if(action) action.call(null, this);
+		if(action) {
+			if(typeof action == 'string'){
+				action = eval('(' + action + ')');
+				this.property.action = action;
+			} ;
+			action.call(null, this);
+		};
 		this.menu.fireEvent('action', [this]);
 	},
 	

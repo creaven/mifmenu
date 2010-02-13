@@ -1,0 +1,62 @@
+[
+	{
+		"options": {
+			"onAction": "function(item){\n						alert('clicked ' + item.get('name'));\n					}"
+		}
+	},
+	{
+		"name": "Prototype",
+		"action": "function(){\n					alert('prototype.js')\n				}"
+	},
+	{
+		"name": "dojo",
+		"action": "function(){\n					alert('dojo.js')\n				}"
+	},
+	{
+		"name": "MooTools",
+		"action": "function(){\n					alert('mootools-core.js')\n				}"
+	},
+	{
+		"name": "dojo2",
+		"action": "function(){\n					alert('dojo.js')\n				}"
+	},
+	{
+		"name": "MooTools2",
+		"action": "function(){\n					alert('mootools-core.js')\n				}"
+	},
+	{
+		"name": "dojo3",
+		"action": "function(){\n					alert('dojo.js')\n				}"
+	},
+	{
+		"name": "MooTools3",
+		"action": "function(){\n					alert('mootools-core.js')\n				}"
+	},
+	{
+		"name": "dojo4",
+		"action": "function(){\n					alert('dojo.js')\n				}"
+	},
+	{
+		"name": "MooTools4",
+		"action": "function(){\n					alert('mootools-core.js')\n				}"
+	},
+	{
+		"name": "dojo5",
+		"action": "function(){\n					alert('dojo.js')\n				}"
+	},
+	{
+		"name": "MooTools5",
+		"action": "function(){\n					alert('mootools-core.js')\n				}"
+	},
+	{
+		"name": "underscore",
+		"action": "function(){\n					alert('underscore.js')\n				}",
+		"submenu": [
+			{
+				"name": "Mif",
+				"id": "Mif",
+				"action": "function(){\n							alert('Mif.js')\n						}"
+			}
+		]
+	}
+]

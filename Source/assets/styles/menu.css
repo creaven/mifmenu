@@ -81,7 +81,7 @@ opacity:0.5;
 filter: alpha(opacity=50);
 }
 
-.mif-menu-submenu{
+.mif-menu-submenu, .mif-menu-loader{
 width:17px;
 height:100%;
 display:inline-block;
@@ -94,6 +94,10 @@ top:0;
 
 .hover .mif-menu-submenu{
 background-image:url('../images/left-white.png') 
+}
+
+.mif-menu-loader{
+background-image:url('../images/loader.gif');
 }
 
 
