@@ -3,12 +3,6 @@
 		"TestMenu": {
 			"title": "test menu"
 		},
-		"ContextMenu":{
-			"title": "Context menu demo"
-		},
-		"MenuButton":{
-			"title": "Menu attached to button"
-		},
 		"AddItem":{
 			"title": "add item demo"
 		},

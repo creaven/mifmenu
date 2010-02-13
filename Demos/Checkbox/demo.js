@@ -4,7 +4,10 @@ document.addEvent('domready', function(){
 		alert('checked ' + item.get('name'));
 	}
 	
-	var testMenu = new Mif.Menu().load([
+	var testMenu = new Mif.Menu({
+		target: 'menu-target',
+		contextmenu: true
+	}).load([
 		{
 			name: 'open',
 			checked: true,
@@ -115,10 +118,5 @@ document.addEvent('domready', function(){
 		}
 	
 	]);
-	
-	$('toggle').addEvent('click', function(event){
-		testMenu.hidden ? testMenu.show(event) : testMenu.hide();
-	});
-	
 	
 });

@@ -7,26 +7,34 @@
 	},
 	"Core":{
 		"Mif.Menu":{
-			"deps": ["Mif.Menu.Load", "Mif.Menu.Draw", "Mif.Menu.Item"],
+			"deps": ["Mif.Menu.Load", "Mif.Menu.Draw", "Mif.Menu.Item", "Mif.Menu.Scroll"],
 			"desc": "Mif.Menu control"
 		},
 		"Mif.Menu.Item":{
-			"deps": [],
+			"deps": ["Mif.Menu"],
 			"desc": "menu item Class"
 		},
 		"Mif.Menu.Draw":{
-			"deps": [],
+			"deps": ["Mif.Menu"],
 			"desc": "draw menu"
 		},
 		"Mif.Menu.Load":{
-			"deps": [],
+			"deps": ["Mif.Menu"],
 			"desc": "load menu"
+		},
+		"Mif.Menu.Scroll":{
+			"deps": ["Mif.Menu"],
+			"desc": "implement scroll"
 		}
 	},
 	"More":{
 		"Mif.Menu.KeyNav":{
 			"deps": ["Mif.Menu"],
 			"desc": "KeyNav implementation"
+		},
+		"Mif.Menu.Transform":{
+			"deps": ["Mif.Menu"],
+			"desc": "implements add/move/remove/copy/connect/disconnect"
 		}
 	}
 }

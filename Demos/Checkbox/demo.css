@@ -1,2 +1,23 @@
 
 @import url(../../Source/assets/styles/menu.css);
+
+#menu-target{
+width:200px;
+height:200px;
+background:#FFEAB3;
+}
+
+#log{
+background:#F6F6F6;
+margin:10px 0 0 0;
+width:300px;
+font-size:12px;
+line-height:24px;
+color:#000;
+min-height:50px;
+}
+
+#log li{
+list-style:none;
+border-bottom:solid 1px gray;
+}

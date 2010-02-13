@@ -46,6 +46,7 @@ Mif.Menu=new Class({
 	},
 	
 	show: function(coords){
+		if(coords && coords.event) coords.event.preventDefault();
 		this.hidden = false;
 		if(!this.items.length) return this;
 		if(!this.$draw) this.draw();
@@ -152,6 +153,7 @@ Mif.Menu=new Class({
 		this.bound={
 			close: this.close.bind(this),
 			hover: this.hover.bind(this),
+			show: this.show.bind(this),
 			hideOnExtraClick: this.hideOnExtraClick.bind(this)
 		};
 		this.element.addEvents({
@@ -159,6 +161,9 @@ Mif.Menu=new Class({
 			mouseout: this.bound.hover,
 			click: this.bound.close
 		});
+		if(this.options.contextmenu){
+			document.id(this.options.target).addEvent('contextmenu', this.bound.show);
+		}
 	},
 	
 	hover: function(event){
@@ -237,27 +242,6 @@ Mif.Menu=new Class({
 			parentItem.menu.hide();
 			parentItem = parentItem.menu.parentItem;
 		}
-		return this;
-	},
-	
-	attachTo: function(el){
-		el=$(el);
-		el.addEvents({
-			'mousedown': function(event){
-				if(event.rightClick) return;
-				if(!this.isVisible()){
-					this.$attaching=true;
-					var coords=el.getCoordinates();
-					this.show({x: coords.left, y: coords.bottom});
-					this.el=el;
-				}else{
-					this.hide();
-				}
-			}.bind(this),
-			'mouseup': function(event){
-				this.$attaching=false;
-			}.bind(this)
-		});
 		return this;
 	}
 	

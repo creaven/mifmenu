@@ -1,11 +1,8 @@
 document.addEvent('domready', function(){
 	
 	var testMenu = new Mif.Menu({
-		options: {
-			onClick: function(item){
-				console.log('clicked', item);
-			}
-		}
+		target: 'menu-target',
+		contextmenu: true
 	}).load([
 		{
 			name: 'open',
@@ -28,10 +25,7 @@ document.addEvent('domready', function(){
 			]
 		}
 	]);
-	
-	$('toggle').addEvent('click', function(event){
-		testMenu.hidden ? testMenu.show(event) : testMenu.hide();
-	});
+
 	
 	testMenu.items[1].remove();
 	(function(){

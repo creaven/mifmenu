@@ -4,3 +4,9 @@
 .form{
 background:url('application-form.png') no-repeat center center;
 }
+
+#menu-target{
+width:200px;
+height:200px;
+background:#FFEAB3;
+}

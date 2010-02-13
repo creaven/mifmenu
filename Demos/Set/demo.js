@@ -1,11 +1,8 @@
 document.addEvent('domready', function(){
 	
 	var testMenu = new Mif.Menu({
-		options: {
-			onClick: function(item){
-				console.log('clicked', item);
-			}
-		}
+		target: 'menu-target',
+		contextmenu: true
 	}).load([
 		{
 			name: 'open',
@@ -46,10 +43,6 @@ document.addEvent('domready', function(){
 			disabled: true
 		}
 	]);
-	
-	$('toggle').addEvent('click', function(event){
-		testMenu.hidden ? testMenu.show(event) : testMenu.hide();
-	});
 	
 	(function(){
 		Mif.id('open').set({name: 'new open name disabled'}).set('disabled', true);
