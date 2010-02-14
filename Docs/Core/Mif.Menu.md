@@ -157,7 +157,7 @@ blur menu
 
 Mif.Menu Method: attach {#Mif.Menu:attach}
 ----------------------------------------------
-attach context menu to this element
+attach context menu to this element. Opera use shift+left instead contextmenu event.
 	
 ### Syntax:
 
