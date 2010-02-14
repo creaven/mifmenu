@@ -50,7 +50,6 @@ Mif.Menu=new Class({
 		}
 		this.events();
 		if(Mif.Menu.KeyNav) new Mif.Menu.KeyNav(this);
-		if (MooTools.version>='1.2.2' && this.options.initialize) this.options.initialize.call(this);
 	},
 	
 	show: function(coords){
