@@ -54,7 +54,7 @@ Mif.Menu=new Class({
 	},
 	
 	show: function(coords){
-		if(coords && coords.event) coords.event.preventDefault();
+		if(coords && coords.event) coords.preventDefault();
 		this.hidden = false;
 		if(!this.items.length) return this;
 		if(!this.$draw) this.draw();

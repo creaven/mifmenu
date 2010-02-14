@@ -55,7 +55,7 @@ if(Browser.Engine.presto){
 
 		contextmenu: {
 			base: 'click',
-			condition: function(event){ return event.control;}
+			condition: function(event){ return event.shift;}
 		}
 		
 	});
