@@ -39,4 +39,4 @@ Usage:
 		}
 	]);
 
-	Mif.id('close_id').set(name, 'closing');
+	Mif.id('close_id').set('name', 'closing');
