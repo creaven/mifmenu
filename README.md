@@ -1,4 +1,6 @@
-!!!UNDER DEVELOPMENT!!!
+Mif.Menu
+========
+mac style context menu for web applications
 
 ![Screenshot](http://github.com/creaven/mifmenu/raw/master/menu-shot.png)
 
