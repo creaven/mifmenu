@@ -114,7 +114,7 @@ Mif.Menu.implement({
 				}
 			}
 		}else{
-			if(wrapper.scrollTop == this.items[0].getElement().offsetTop) return;
+			if(wrapper.scrollTop == 0) return;
 			var bottom = window.getSize().y - (offsetTop + wrapper.offsetHeight - delta - window.getScroll().y) - (this.element.offsetHeight - this.wrapper.offsetHeight);
 			var limit = this.options.limits.bottom;
 			if(bottom < limit){
@@ -131,7 +131,7 @@ Mif.Menu.implement({
 			}
 		};
 		var result = true;
-		if(wrapper.scrollTop == this.items[0].getElement().offsetTop){
+		if(wrapper.scrollTop == 0){
 			this.top.setStyle('display', 'none');
 			if(side == 'top') result = false;
 		}else{
@@ -169,7 +169,7 @@ Mif.Menu.implement({
 		}else{
 			wrapper.setStyle('height', height);
 		};
-		this.top.setStyle('display', wrapper.scrollTop == this.items[0].getElement().offsetTop ? 'none' : 'block');
+		this.top.setStyle('display', wrapper.scrollTop == 0 ? 'none' : 'block');
 		this.bottom.setStyle('display', wrapper.scrollTop == wrapper.scrollHeight - wrapper.clientHeight ? 'none' : 'block');
 		return this;
 	}

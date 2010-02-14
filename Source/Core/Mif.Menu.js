@@ -65,6 +65,7 @@ Mif.Menu=new Class({
 		this.position(coords);
 		this.addHideOnExtraClick();
 		this.time = $time();
+		this.focus();
 		return this.fireEvent('show');
 	},
 	
@@ -84,6 +85,18 @@ Mif.Menu=new Class({
 			menu.fireEvent('hideSubmenu', this);
 		}
 		return this.fireEvent('hide');
+	},
+	
+	focus: function(){
+		if(Mif.Focus && Mif.Focus == this) return this;
+		if(Mif.Focus) Mif.Focus.blur();
+		Mif.Focus = this;
+		return this.fireEvent('focus');
+	},
+	
+	blur: function(){
+		Mif.Focus = null;
+		return this.fireEvent('blur');
 	},
 	
 	position: function(coords){
@@ -129,7 +142,7 @@ Mif.Menu=new Class({
 			var pos = coords.y + this.options.offsets.y;
 			var delta = (pos + menu.y - scroll.y) - (size.y - this.options.limits.bottom);
 			if (delta > 0){
-				if(this.element.offsetHeight - delta > this.items[0].getElement().offsetHeight*3){
+				if(this.element.offsetHeight - delta > this.wrapper.getStyle('min-height').toInt()*3){
 					this.setHeight(this.element.offsetHeight - delta - (this.element.offsetHeight - this.wrapper.offsetHeight));
 				}else{
 					pos = coords.y - this.options.offsets.y - menu.y;
@@ -223,6 +236,7 @@ Mif.Menu=new Class({
 			}
 			var submenu = item.submenu;
 			var menu = item.menu;
+			menu.blur();
 			submenu.show();
 			menu.openSubmenu = submenu;
 			item.timer=null;
@@ -235,6 +249,7 @@ Mif.Menu=new Class({
 		var item = this.openSubmenu.parentItem;
 		$clear(item.timer);
 		item.submenu.hide();
+		item.menu.focus();
 	},
 	
 	close: function(event){

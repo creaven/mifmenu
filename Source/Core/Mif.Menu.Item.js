@@ -120,7 +120,7 @@ Mif.Menu.Item=new Class({
 				action = eval('(' + action + ')');
 				this.property.action = action;
 			} ;
-			action.call(null, this);
+			action.call(this.menu, this);
 		};
 		this.menu.fireEvent('action', [this]);
 		if(this.get('checked') != undefined && (this.get('group') ? !this.property.checked : true)) this.check();

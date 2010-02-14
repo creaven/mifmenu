@@ -17,16 +17,15 @@ Mif.Menu.KeyNav = new Class({
 	
 	initialize: function(menu){
 		this.menu = menu;
+		menu.keynav = this;
 		this.bound = {
 			attach: this.attach.bind(this),
 			detach: this.detach.bind(this),
 			keyaction: this.keyaction.bind(this)
 		};
 		this.keyevent = (Browser.Engine.presto || Browser.Engine.gecko) ? 'keypress' : 'keydown';
-		menu.addEvent('show', this.bound.attach);
-		menu.addEvent('hide', this.bound.detach);
-		menu.addEvent('showSubmenu', this.bound.detach);
-		menu.addEvent('hideSubmenu', this.bound.attach);
+		menu.addEvent('focus', this.bound.attach);
+		menu.addEvent('blur', this.bound.detach);
 	},
 	
 	attach: function(){
@@ -88,11 +87,12 @@ Mif.Menu.KeyNav = new Class({
 	},
 	
 	goRight: function(current){
+		if(!current) return;
 		var submenu = current.submenu;
 		if(!submenu) return;
 		var menu = this.menu;
 		menu.showSubmenu(current, 0);
-		submenu.select(submenu.items[0]);
+		submenu.keynav.goForward();
 	},
 	
 	action: function(current){

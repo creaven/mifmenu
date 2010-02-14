@@ -18,6 +18,7 @@ document.addEvent('domready', function(){
 			id: 'close_id',
 			icon: 'TestMenu/application-blue.png',
 			submenu: [
+				'<b>javascript frameworks</b>',
 				{
 					name: 'Prototype',
 					action: function(){
@@ -101,7 +102,6 @@ document.addEvent('domready', function(){
 				}
 			]
 		},
-		'<b>some description</b>',
 		{
 			name: 'new window',
 			disabled: true,

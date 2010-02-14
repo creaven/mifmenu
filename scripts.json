@@ -7,7 +7,7 @@
 	},
 	"Core":{
 		"Mif.Menu":{
-			"deps": ["Mif.Menu.Load", "Mif.Menu.Draw", "Mif.Menu.Item", "Mif.Menu.Scroll"],
+			"deps": ["Mif.Core", "Mif.Menu.Load", "Mif.Menu.Draw", "Mif.Menu.Item", "Mif.Menu.Scroll"],
 			"desc": "Mif.Menu control"
 		},
 		"Mif.Menu.Item":{
