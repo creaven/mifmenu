@@ -32,54 +32,6 @@ document.addEvent('domready', function(){
 					}
 				},
 				{
-					name: 'dojo2',
-					action: function(){
-						alert('dojo.js')
-					}
-				},
-				{
-					name: 'MooTools2',
-					action: function(){
-						alert('mootools-core.js')
-					}
-				},
-				{
-					name: 'dojo3',
-					action: function(){
-						alert('dojo.js')
-					}
-				},
-				{
-					name: 'MooTools3',
-					action: function(){
-						alert('mootools-core.js')
-					}
-				},
-				{
-					name: 'dojo4',
-					action: function(){
-						alert('dojo.js')
-					}
-				},
-				{
-					name: 'MooTools4',
-					action: function(){
-						alert('mootools-core.js')
-					}
-				},
-				{
-					name: 'dojo5',
-					action: function(){
-						alert('dojo.js')
-					}
-				},
-				{
-					name: 'MooTools5',
-					action: function(){
-						alert('mootools-core.js')
-					}
-				},
-				{
 					name: 'underscore',
 					action: function(){
 						alert('underscore.js')
