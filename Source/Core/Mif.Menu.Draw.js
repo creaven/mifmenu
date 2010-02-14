@@ -56,7 +56,7 @@ Mif.Menu.implement({
 			html.push('<div class="mif-menu-desc" uid="' + item.UID + '">' + item.get('desc') + '</div>');
 			return html;
 		};
-		html.push('<div class="mif-menu-item ' + (item.get('disabled') ? 'disabled' : '') + '" uid="' + item.UID + '" id="mif-menu-item-' + item.UID + '"' + (item.get('hidden') ? ' style="display:none"' : '') + '>'+
+		html.push('<div class="mif-menu-item ' + item.get('cls') + (item.get('disabled') ? ' disabled' : '') + '" uid="' + item.UID + '" id="mif-menu-item-' + item.UID + '"' + (item.get('hidden') ? ' style="display:none"' : '') + '>'+
 			(item.get('checked') != undefined ? 
 			'<span class="mif-menu-check' + (item.get('group') ? ' mif-menu-check-group' : '') + (item.get('checked') ? ' mif-menu-checked"' : '"') + '></span>' : 
 			'') +

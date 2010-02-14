@@ -1,12 +1,6 @@
 document.addEvent('domready', function(){
 	
-	var testMenu = new Mif.Menu({
-		target: 'menu-target',
-		contextmenu: true,
-		onClick: function(item){
-			console.log('clicked', item);
-		}
-	}).load([
+	var testMenu = new Mif.Menu().attach('menu-target').load([
 		{
 			name: 'open',
 			action: function(){

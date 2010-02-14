@@ -1,9 +1,6 @@
 document.addEvent('domready', function(){
 	
-	var testMenu = new Mif.Menu({
-		target: 'menu-target',
-		contextmenu: true
-	}).load([
+	var testMenu = new Mif.Menu().attach('menu-target').load([
 		{
 			name: 'item1'
 		},

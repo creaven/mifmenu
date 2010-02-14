@@ -4,10 +4,7 @@ document.addEvent('domready', function(){
 		alert('checked ' + item.get('name'));
 	}
 	
-	var testMenu = new Mif.Menu({
-		target: 'menu-target',
-		contextmenu: true
-	}).load([
+	var testMenu = new Mif.Menu().attach('menu-target').load([
 		{
 			name: 'open',
 			checked: true,

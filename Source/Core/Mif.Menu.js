@@ -25,9 +25,7 @@ Mif.Menu=new Class({
 			y: 0
 		},
 		limits: {
-			left: 0,
 			top: 10,
-			right: 0,
 			bottom: 20
 		},
 		minWidth: 200,
@@ -184,9 +182,6 @@ Mif.Menu=new Class({
 			mouseout: this.bound.hover,
 			click: this.bound.close
 		});
-		if(this.options.contextmenu){
-			document.id(this.options.target).addEvent('contextmenu', this.bound.show);
-		}
 	},
 	
 	hover: function(event){
@@ -272,6 +267,17 @@ Mif.Menu=new Class({
 			parentItem.menu.hide();
 			parentItem = parentItem.menu.parentItem;
 		}
+		return this;
+	},
+	
+	attach: function(target){
+		this.target = document.id(target);
+		this.target.addEvent('contextmenu', this.bound.show);
+		return this;
+	},
+	
+	detach: function(){
+		if(this.target) this.target.removeEvent('contextmenu', this.bound.show);
 		return this;
 	}
 	

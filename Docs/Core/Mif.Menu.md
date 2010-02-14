@@ -5,31 +5,37 @@ Create javascript Menu control.
 ### Implements:
 	Events, Options
 
-Mif.Menu Method: constructor {#Mif.Menu:constructor}
+Mif.Menu Method: initialize {#Mif.Menu:initialize}
 ----------------------------------------------------
 menu constructor
 	
 ### Syntax:
 
-	var myMenu = new Mif.Menu(options, skin);
+	var myMenu = new Mif.Menu(options);
 
 ### Arguments:
 
 1. options  - (*object*) Mif.Menu options
-2. skin     - (*object*) optional, menu skin. Object with 2 properties: container and options. Container may be Mif.Menu.Container or ART.Container. See also: Mif.Menu.Container.
 
 ### Options:
 
-* skin - (*string*: defaults to 'default') menu skin, may be 'default' or 'art'. Default use container with drop shadow Mif.Menu.Container and art use ART.Container with canvas based grafic.
-* list - (*object*) menu list options. See Mif.Menu.List for more info
-* contextmenu -  (*boolean*: defaults to false) show menu on contextmenu event
-* target - (*element*) contextmenu event area
-* offsets - (*object*) {x: offsetX, y:offsetY} first menu list offsets.
+* offsets          - (*object*) {x: offsetX, y:offsetY} menu offsets.
+* id               - (*string*) - menu id
+* minWidth         - (*number*) min menu width
+* submenuOffsets   - (*object*) submenu offsets
+* submenuShowDelay - (*number*) submenu show delay
+* limits           - (*object*) {top: top, bottom: bottom} menu will be showed inside [top, window.height - bottom]
+
 
 ### Events:
 
-* show - (*function*)  The function to execute when menu shown.
-* hide - (*function*)  The function to execute when menu hidden.
+* show  - (*function*)  The function to execute when menu shown.
+* hide  - (*function*)  The function to execute when menu hidden.
+* focus - (*function*) The function to execute when menu get focus.
+* blur  - (*function*) The function to execute when menu loses focus.
+
+### Property:
+* hidden - (*boolean*) true if menu hidden else false
 
 ### Example:
 
@@ -39,38 +45,70 @@ menu constructor
 
 ##### javascript
 
-	new Mif.Menu({
-		contextmenu: true,
-		target: $('menu-target'),
-		list: {
-			items: [
+	new Mif.Menu().attach('menu-target').load([
+		{
+			name: 'open',
+			action: function(){
+				alert('open');
+			}
+		},
+		{
+			name: 'close',
+			id: 'close_id',
+			icon: 'TestMenu/application-blue.png',
+			submenu: [
 				{
-					name: 'new',
-					onAction: function(){
-						alert('new');
+					options: {
+						onAction: function(item){
+							console.log(item.get('name'));
+						}
+					}
+				}
+				'<b>javascript frameworks</b>',
+				{
+					name: 'Prototype',
+					action: function(){
+						alert('prototype.js')
 					}
 				},
 				{
-					name: 'open',
-					onAction: function(){
-						alert('open');
+					name: 'dojo',
+					action: function(){
+						alert('dojo.js')
 					}
 				},
-				'-',
 				{
-					name: 'moro is god?',
-					disabled: true
+					name: 'MooTools',
+					action: function(){
+						alert('mootools-core.js')
+					}
 				}
 			]
+		},
+		{
+			name: 'new window',
+			disabled: true,
+			icon: '.form'
+		},
+		'-',
+		{
+			name: 'new tab'
+		},
+		{
+			name: 'paste'
+		},
+		{
+			name: 'remove',
+			disabled: true
 		}
-	});
+	]);
 	
-Creates context menu with 3 items. Third item disabled and separated from first and second. Menu is displayed inside div#menu-target element
+Creates context menu with submenu. Last item disabled. Last 3 items separated from first. Menu is displayed inside div#menu-target element
 
 
 Mif.Menu Method: show {#Mif.Menu:show}
 --------------------------------------
-show menu at some point or mouse
+show menu at some point or mouse or item
 	
 ### Syntax:
 
@@ -78,7 +116,7 @@ show menu at some point or mouse
 
 ### Arguments:
 
-1. coords  - (*object*) x/y coords or Event object.
+1. coords  - (*object on null*) x/y coords or Event object. If null, showed as submenu.
 
 
 Mif.Menu Method: hide {#Mif.Menu:hide}
@@ -89,27 +127,49 @@ hide menu
 
 	myMenu.hide();
 
-
-
-Mif.Menu Method: isVisible {#Mif.Menu:isVisible}
-------------------------------------------------
-return true if menu visible
 	
+Mif.Menu Method: close {#Mif.Menu:close}
+--------------------------------------
+hide menu and all parent menu.
+
 ### Syntax:
 
-	myMenu.isVisible();
+	myMenu.close();
+	
+	
+Mif.Menu Method: focus {#Mif.Menu:focus}
+--------------------------------------
+focus menu
+
+### Syntax:
+
+	myMenu.focus();
 
 
+Mif.Menu Method: blur {#Mif.Menu:blur}
+--------------------------------------
+blur menu
 
-Mif.Menu Method: attachTo {#Mif.Menu:attachTo}
+### Syntax:
+
+	myMenu.blur();
+		
+
+Mif.Menu Method: attach {#Mif.Menu:attach}
 ----------------------------------------------
-attach menu to this element
+attach context menu to this element
 	
 ### Syntax:
 
-	myMenu.attachTo(element);
+	myMenu.attach(element);
 	
-### Arguments:
+	
+Mif.Menu Method: detach {#Mif.Menu:detach}
+----------------------------------------------
+detach context menu
 
-1. element - (*element*) dom element to which attach menu
+### Syntax:
+
+	myMenu.detach();
+
 

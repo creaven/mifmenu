@@ -80,6 +80,13 @@ Mif.Menu.Item.implement({
 	
 	load: function(options){
 		this.$loading = true;
+		var type = $type(options);
+		if(type == 'array'){
+			options = {json: options}; 
+		};
+		if(type == 'string'){
+			options = {url: options};
+		};
 		options = options || {};
 		var self = this;
 		var el = this.getElement();
