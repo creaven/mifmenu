@@ -7,11 +7,15 @@ mac style context menu for web applications
 Supported browsers: ie7+, opera 10.10+, firefox 3.5+, safari4+, chrome4+
 
 Description
-===========
+-----------
 
 Mif.Menu - javascript menu plugin for web applications.
 
-Usage:
+How to use
+----------
+
+[demo](http://mifjs.net/menu/Demos/index.html)
+[docs](http://mifjs.net/menu/Docs/index.html)
 
 	#js
 	var appMenu = new Mif.Menu().attach(document.body).load([
