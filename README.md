@@ -13,6 +13,7 @@ Mif.Menu - javascript menu plugin for web applications.
 
 Usage:
 
+	#js
 	var appMenu = new Mif.Menu().attach(document.body).load([
 		{
 			name: 'open',
