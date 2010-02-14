@@ -42,11 +42,11 @@ Mif.Menu=new Class({
 		this.items = [];
 		this.hidden = true;
 		this.group = {};
-		this.UID=++Mif.UID;
-		Mif.uids[this.UID]=this;
+		this.UID = ++Mif.UID;
+		Mif.uids[this.UID] = this;
 		this.element.setAttribute('uid', this.UID);
 		if(this.options.id){
-			Mif.ids[this.options.id]=this;
+			Mif.ids[this.options.id] = this;
 		}
 		this.events();
 		if(Mif.Menu.KeyNav) new Mif.Menu.KeyNav(this);

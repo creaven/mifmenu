@@ -33,7 +33,7 @@ Mif.Menu.Item=new Class({
 		$extend(this.property, this.defaults);
 		$extend(this.property, property);
 		$extend(this, structure);
-		var group = this.property.group
+		var group = this.property.group;
 		if(group){
 			this.menu.group[group] = this.menu.group[group] || [];
 			this.menu.group[group].push(this);
@@ -145,7 +145,7 @@ Mif.Menu.Item=new Class({
 					check = eval('(' + check + ')');
 					this.property.check = check;
 				};
-				check.call(null, this, this.property.checked);
+				check.call(this.menu, this, this.property.checked);
 			};
 		};
 		this.menu.fireEvent('check', [this, this.property.checked]);
