@@ -27,6 +27,7 @@ cursor:default;
 
 .mif-menu-sep{
 background:url('../images/sep.gif') center center repeat-x;
+margin:0 1px;
 }
 
 .mif-menu-scroll{
