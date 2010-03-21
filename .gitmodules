@@ -1,0 +1,3 @@
+[submodule "libs/mif"]
+	path = libs/mif
+	url = git://github.com/creaven/mifcore.git
