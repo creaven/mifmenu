@@ -1,7 +1,7 @@
 /*
 ---
  
-name: Mif.Menu.Item
+name: Mif.Menu.Transform
 description: implement methods for change menu structure(add/move/remove..)
 license: MIT-Style License (http://mifjs.net/license.txt)
 copyright: Anton Samoylov (http://mifjs.net)

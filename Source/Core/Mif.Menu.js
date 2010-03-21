@@ -53,6 +53,7 @@ Mif.Menu=new Class({
 	},
 	
 	show: function(coords){
+		this.fireEvent('beforeShow', [coords]);
 		if(coords && coords.event) coords.preventDefault();
 		this.hidden = false;
 		if(!this.items.length) return this;
@@ -63,7 +64,7 @@ Mif.Menu=new Class({
 		this.addHideOnExtraClick();
 		this.time = $time();
 		this.focus();
-		return this.fireEvent('show');
+		return this.fireEvent('show', [coords]);
 	},
 	
 	hide: function(){

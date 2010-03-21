@@ -29,10 +29,11 @@ menu constructor
 
 ### Events:
 
-* show  - (*function*)  The function to execute when menu shown.
-* hide  - (*function*)  The function to execute when menu hidden.
-* focus - (*function*) The function to execute when menu get focus.
-* blur  - (*function*) The function to execute when menu loses focus.
+* beforeShow - (*function*) The function to execute before menu shown.
+* show       - (*function*) The function to execute when menu shown.
+* hide       - (*function*) The function to execute when menu hidden.
+* focus      - (*function*) The function to execute when menu get focus.
+* blur       - (*function*) The function to execute when menu loses focus.
 
 ### Property:
 * hidden - (*boolean*) true if menu hidden else false
