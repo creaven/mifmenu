@@ -15,7 +15,7 @@ provides: Mif.Menu
 
 Mif.Menu=new Class({
 	
-	version: '1.2',
+	version: '1.3',
 
 	Implements: [Events, Options],
 	
