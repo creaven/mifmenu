@@ -96,6 +96,7 @@ Mif.Menu.KeyNav = new Class({
 	},
 	
 	action: function(current){
+		if(!current) return;
 		current.menu.close(current);
 	}
 	
