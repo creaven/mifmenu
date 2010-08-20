@@ -16,32 +16,32 @@ document.addEvent('domready', function(){
 				{
 					name: 'Prototype',
 					action: function(){
-						alert('prototype.js')
+						alert('prototype.js');
 					}
 				},
 				{
 					name: 'dojo',
 					action: function(){
-						alert('dojo.js')
+						alert('dojo.js');
 					}
 				},
 				{
 					name: 'MooTools',
 					action: function(){
-						alert('mootools-core.js')
+						alert('mootools-core.js');
 					}
 				},
 				{
 					name: 'underscore',
 					action: function(){
-						alert('underscore.js')
+						alert('underscore.js');
 					},
 					submenu: [
 						{
 							name: 'Mif',
 							id: 'Mif',
 							action: function(){
-								alert('Mif.js')
+								alert('Mif.js');
 							}
 						}
 					]
@@ -70,31 +70,31 @@ document.addEvent('domready', function(){
 				{
 					name: 'Prototype',
 					action: function(){
-						alert('prototype.js')
+						alert('prototype.js');
 					}
 				},
 				{
 					name: 'dojo',
 					action: function(){
-						alert('dojo.js')
+						alert('dojo.js');
 					}
 				},
 				{
 					name: 'MooTools',
 					action: function(){
-						alert('mootools-core.js')
+						alert('mootools-core.js');
 					}
 				},
 				{
 					name: 'underscore',
 					action: function(){
-						alert('underscore.js')
+						alert('underscore.js');
 					}
 				},
 				{
 					name: 'node',
 					action: function(){
-						alert('node.js')
+						alert('node.js');
 					}
 				}
 			]

@@ -43,6 +43,7 @@ Mif.Menu.Item=new Class({
 		var id = this.get('id');
 		if(id != null) Mif.ids[id] = this;
 		this.menu.fireEvent('itemCreate', [this]);
+		if(property.submenu) this.load(property.submenu);
 	},
 	
 	get: function(prop){

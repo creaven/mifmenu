@@ -22,7 +22,12 @@
 	}, 0);
 	
 	var newItem = new Mif.Menu.Item({menu: testMenu}, {
-		name: 'new item, before exit'
+		name: 'new item, before exit',
+		submenu: [
+			{
+				name: 'submenu item'
+			}
+		]
 	});
 	testMenu.add(newItem, Mif.id('exit'), 'before');
 	
