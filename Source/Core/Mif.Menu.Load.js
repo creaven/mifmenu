@@ -32,15 +32,10 @@ Mif.Menu.Load={
 		}
 		menu.parentItem = parent;
 		for( var i = items.length; i--; ){
-			var item = items[i];
-			var submenu = item.submenu;
-			var item = new Mif.Menu.Item({
+			item = new Mif.Menu.Item({
 				menu: menu
-			}, item);
+			}, items[i]);
 			menu.items.unshift(item);
-			if(submenu && submenu.length){
-				arguments.callee(submenu, item, submenu);
-			}
 		}
 	}
 	
@@ -107,6 +102,7 @@ Mif.Menu.Item.implement({
 			self.menu.fireEvent('loadItem', self);
 			return self;
 		}
+		this.menu.loadOptions = this.menu.loadOptions || $lambda({});
 		options = $extend($extend($extend({
 			isSuccess: $lambda(true),
 			secure: true,
